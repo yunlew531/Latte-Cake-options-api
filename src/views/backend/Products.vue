@@ -47,7 +47,13 @@
               >
                 編輯
               </button>
-              <button type="button" class="btn btn-primary ms-2">刪除</button>
+              <button
+                type="button"
+                class="btn btn-primary ms-2"
+                @click="deleteProduct(product.id)"
+              >
+                刪除
+              </button>
             </td>
           </tr>
         </tbody>
@@ -58,7 +64,8 @@
 </template>
 
 <script>
-import { apiGetProducts } from '@/api';
+import { apiGetProducts, apiDeleteProduct } from '@/api';
+import { useToast } from '@/methods';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import Pagination from '@/components/Pagination.vue';
@@ -97,6 +104,19 @@ export default {
       this.$emit('handStatus', { status: '編輯', product });
       this.$router.push('/admin/addProduct');
     },
+    async deleteProduct(productId) {
+      this.isLoading = true;
+      try {
+        const { data } = await apiDeleteProduct(productId);
+        if (data.success) {
+          useToast('成功刪除!', 'success');
+          this.handPage();
+        } else useToast('發生錯誤!', 'danger');
+        this.isLoading = false;
+      } catch (err) {
+        console.dir(err);
+      }
+    },
   },
   created() {
     this.handPage();
@@ -108,14 +128,14 @@ export default {
 @import '~bootstrap/scss/mixins';
 @import '~@/assets/styleSheets/custom/variables';
 
-@include media-breakpoint-down(xxl) {
-  .table-panel {
-    overflow: scroll;
-  }
-  .table {
-    min-width: 1200px;
-  }
+.table-panel {
+  overflow: scroll;
+  padding-bottom: 30px;
 }
+.table {
+  min-width: 1200px;
+}
+
 tbody {
   th,
   td {

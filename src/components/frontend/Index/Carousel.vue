@@ -61,13 +61,19 @@ export default {
   height: 100vh;
   background: no-repeat center;
   background-size: cover;
-  animation: scaleBackground 8s 1s ease-out backwards;
+  filter: brightness(0);
+  animation: scaleBackground 9s 1s ease-out backwards;
 }
 @keyframes scaleBackground {
-  from {
+  0% {
+    filter: brightness(1);
     transform: scale(1.1);
   }
-  to {
+  80% {
+    filter: brightness(1);
+  }
+  100% {
+    filter: brightness(0);
     transform: scale(1);
   }
 }

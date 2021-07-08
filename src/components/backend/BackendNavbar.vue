@@ -29,7 +29,10 @@
           aria-label="Search"
           v-model="searchText"
         />
-        <button class="search-btn btn position-absolute end-0" type="button">
+        <button
+          class="search-btn btn position-absolute end-0 bottom-n1"
+          type="button"
+        >
           <span class="material-icons"> search </span>
         </button>
       </form>
@@ -70,8 +73,6 @@
 </template>
 
 <script>
-import { watch, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { apiLogOut } from '@/api';
 
 export default {
@@ -82,38 +83,33 @@ export default {
       default: () => ({ username: '無法取得用戶者資料' }),
     },
   },
-  setup() {
-    const router = useRouter();
-
-    const searchText = ref('');
-    const isSearchFocus = ref(false);
-    watch(searchText, () => {
-      if (searchText.value) {
-        isSearchFocus.value = true;
-      } else {
-        isSearchFocus.value = false;
-      }
-    });
-
-    const calcNameSize = (length) => {
+  data() {
+    return {
+      searchText: '',
+      isSearchFocus: false,
+    };
+  },
+  methods: {
+    calcNameSize(length) {
       if (length > 15) return 'fs-6';
       return 'fs-5';
-    };
-
-    const logOut = async () => {
+    },
+    async logOut() {
       const { data } = await apiLogOut();
       if (data.success) {
         document.cookie = 'LatteCake=;expires=Thu, 01 Jan 1970 00:00:00 UTC;';
-        router.push('/login');
+        this.$router.push('/login');
       }
-    };
-
-    return {
-      searchText,
-      isSearchFocus,
-      logOut,
-      calcNameSize,
-    };
+    },
+  },
+  watch: {
+    searchText(searchText) {
+      if (searchText) {
+        this.isSearchFocus = true;
+      } else {
+        this.isSearchFocus = false;
+      }
+    },
   },
 };
 </script>

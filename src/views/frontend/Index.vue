@@ -11,12 +11,19 @@
 import Navbar from '@/components/Navbar.vue';
 import SubFooter from '@/components/SubFooter.vue';
 import Footer from '@/components/Footer.vue';
+import GetScrollY from '@/mixins/GetScrollY.vue';
 
 export default {
   components: {
     Navbar,
     SubFooter,
     Footer,
+  },
+  mixins: [GetScrollY],
+  provide() {
+    return {
+      scroll: this.scroll,
+    };
   },
 };
 </script>

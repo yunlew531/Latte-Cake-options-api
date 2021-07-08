@@ -51,7 +51,13 @@
               <h2 class="fs-5 mb-0 duration-200">{{ product.title }}</h2>
               <p class="fs-7 text-black-300 m-0">草莓、白酒</p>
             </div>
-            <span class="text-danger align-self-start border border-danger px-1"
+            <span
+              class="
+                text-danger text-nowrap
+                align-self-start
+                border border-danger
+                px-1
+              "
               >熱銷商品</span
             >
           </div>
@@ -64,20 +70,16 @@
       </li>
     </ul>
   </section>
-  <!-- <Pagination class="py-8" :pages="pagination" @handPage="handPage" /> -->
+  <Pagination class="py-8" :pages="pagination" @handPage="handPage" />
 </template>
 
 <script>
-// import { computed, reactive, ref, watch, inject, toRefs } from 'vue';
-// import Pagination from '@/components/Pagination.vue';
-// import store from '@/composition/store';
-
-// const { getPageProducts } = store;
+import Pagination from '@/components/Pagination.vue';
 
 export default {
   name: 'Products',
   components: {
-    // Pagination,
+    Pagination,
   },
   data() {
     return {
@@ -86,12 +88,16 @@ export default {
       nowCategory: '',
       isTitleAniPlay: false,
       pageProductsData: {},
+      pagination: {},
     };
   },
   methods: {
     handTitleAni(action) {
       if (action === 'removeClass') this.isTitleAniPlay = false;
       else this.isTitleAniPlay = true;
+    },
+    handPage(page) {
+      this.$store.dispatch('getProducts', page);
     },
   },
   computed: {
@@ -119,57 +125,16 @@ export default {
     nowCategory() {
       this.handTitleAni();
     },
+    '$store.getters.pageProductsData': {
+      handler(productsData) {
+        this.pageProductsData = productsData.products;
+        this.pagination = productsData.pagination;
+      },
+    },
   },
   created() {
-    this.$store.dispatch('getProducts').then(() => {
-      this.pageProductsData = this.$store.getters.pageProductsData;
-    });
+    this.$store.dispatch('getProducts');
   },
-  // setup() {
-
-  //   getPageProducts();
-
-  //   // 換頁
-  //   const handPage = (page) => {
-  //     getPageProducts(page);
-  //   };
-
-  //   // 控制 Category Nav 動畫
-  //   const handProgressBarAni = computed(() => {
-  //     const percent = 100 / categoryList.length;
-  //     let position = 0;
-  //     // 有 hover nav 時動畫停在 hover 對象，反之動畫停在 nowCategory 對象
-  //     if (nowHoverCategory.value) {
-  //       categoryList.forEach((item, idx) => {
-  //         if (item === nowHoverCategory.value) position = idx * percent;
-  //       });
-  //     } else {
-  //       categoryList.forEach((item, idx) => {
-  //         if (item === nowCategory.value) position = idx * percent;
-  //       });
-  //     }
-  //     return [
-  //       { width: `${percent}%` },
-  //       { left: `${position}%` },
-  //       { transition: '0.3s' },
-  //     ];
-  //   });
-
-  //   watch(nowCategory, () => {
-  //     handTitleAni();
-  //   });
-
-  //   return {
-  //     ...toRefs(state),
-  //     categoryList,
-  //     nowHoverCategory,
-  //     nowCategory,
-  //     isTitleAniPlay,
-  //     handProgressBarAni,
-  //     handPage,
-  //     handTitleAni,
-  //   };
-  // },
 };
 </script>
 

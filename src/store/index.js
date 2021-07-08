@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { apiGetCarts, apiGetPageProducts } from '@/api';
+import { apiGetCarts, apiGetPageProducts, apiGetOrders } from '@/api';
 
 export default createStore({
   state: {
@@ -7,7 +7,7 @@ export default createStore({
     cartsData: [],
     shopPosition: 'Taipei',
     pageProductsData: {},
-    pagination: {}
+    backstageOrders: {}
   },
   mutations: {
     setCarts(state, data) {
@@ -19,11 +19,11 @@ export default createStore({
     setPageProductsData(state, products) {
       state.pageProductsData = products;
     },
-    setPagination(state, pages) {
-      state.pagination = pages;
-    },
     setIsLoading(state, boolean) {
       state.isLoading = boolean;
+    },
+    setBackstageOrders(state, orders) {
+      state.backstageOrders = orders;
     }
   },
   actions: {
@@ -32,7 +32,7 @@ export default createStore({
         const { data } = await apiGetCarts();
         if (data.success) commit('setCarts', data.data);
       } catch (err) {
-        console.dir('err');
+        console.dir(err);
       }
     },
     handDisplayCity({ commit }, city) {
@@ -42,8 +42,7 @@ export default createStore({
       try {
         const { data } = await apiGetPageProducts(page);
         if (data.success) {
-          commit('setPageProductsData', data.products);
-          commit('setPagination', data.pagination);
+          commit('setPageProductsData', data);
         }
         return true;
       } catch (err) {
@@ -53,6 +52,19 @@ export default createStore({
     },
     handIsLoading({ commit }, boolean) {
       commit('setIsLoading', boolean);
+    },
+    async getBackstageOrders({ commit }) {
+      try {
+        const { data } = await apiGetOrders();
+        if (data.success) {
+          commit('setBackstageOrders', data.orders);
+          return data;
+        }
+        return false;
+      } catch (err) {
+        console.dir(err);
+        return false;
+      }
     }
   },
   modules: {},
@@ -61,6 +73,6 @@ export default createStore({
     cartsData: (state) => state.cartsData,
     shopPosition: (state) => state.shopPosition,
     pageProductsData: (state) => state.pageProductsData,
-    pagination: (state) => state.pagination
+    backstageOrders: (state) => state.backstageOrders
   }
 });

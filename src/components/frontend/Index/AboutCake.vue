@@ -1,5 +1,5 @@
 <template>
-  <section class="container py-50">
+  <section class="about-cake-panel container py-50">
     <div
       class="
         handle-heat
@@ -8,7 +8,7 @@
         align-items-center
         flex-wrap
       "
-      :class="{ active: isHeatAniPlay }"
+      :class="{ active: isHeatAnimePlay }"
     >
       <div class="about-cake-img">
         <img
@@ -43,7 +43,7 @@
         flex-wrap
         pt-38
       "
-      :class="{ active: isMaterialsAniPlay }"
+      :class="{ active: isMaterialsAnimePlay }"
     >
       <div class="p-12 order-2 order-xl-1">
         <h3 class="paragraph-title text-primary fs-4 fw-bold tracking-2 mb-5">
@@ -87,26 +87,27 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
-import { useGetScrollY } from '@/methods';
-
 export default {
   name: 'AboutCake',
-  setup() {
-    const { scrollY } = useGetScrollY();
-    const isHeatAniPlay = ref(false);
-    const isMaterialsAniPlay = ref(false);
-
-    watch(scrollY, () => {
-      if (scrollY.value >= 1150 && scrollY.value <= 2700) {
-        isHeatAniPlay.value = true;
-      } else isHeatAniPlay.value = false;
-      if (scrollY.value >= 2000) {
-        isMaterialsAniPlay.value = true;
-      } else isMaterialsAniPlay.value = false;
-    });
-
-    return { isHeatAniPlay, isMaterialsAniPlay };
+  inject: ['scroll'],
+  data() {
+    return {
+      isHeatAnimePlay: false,
+      isMaterialsAnimePlay: false,
+    };
+  },
+  watch: {
+    scroll: {
+      handler(scroll) {
+        if (scroll.Y >= 2400 && scroll.Y <= 3800) {
+          this.isHeatAnimePlay = true;
+        } else this.isHeatAnimePlay = false;
+        if (scroll.Y >= 3100 && scroll.Y <= 4500) {
+          this.isMaterialsAnimePlay = true;
+        } else this.isMaterialsAnimePlay = false;
+      },
+      deep: true,
+    },
   },
 };
 </script>
@@ -115,47 +116,31 @@ export default {
 @import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
 
+.about-cake-panel {
+  overflow: hidden;
+}
+
 .paragraph-title,
 .paragraph-content-1,
 .paragraph-content-2 {
   opacity: 0;
   transform: translateY(100px);
 }
+
+.about-cake-img {
+  transform: translateX(-100%);
+}
+
+.about-flour-img {
+  transform: translateX(100%);
+}
+
 .about-cake-img,
 .about-flour-img {
+  opacity: 0;
   max-width: 700px;
-}
-.handle-heat,
-.hold-materials {
-  &.active {
-    .paragraph-title,
-    .paragraph-content-1,
-    .paragraph-content-2 {
-      animation: handle-heat-ani 0.5s forwards;
-    }
-    .paragraph-title {
-      animation-delay: 0.3s;
-    }
-    .paragraph-content-1 {
-      animation-delay: 0.8s;
-    }
-    .paragraph-content-2 {
-      animation-delay: 1.3s;
-    }
-  }
-}
-
-@keyframes handle-heat-ani {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.about-cake-img,
-.about-flour-img {
   position: relative;
-  transition: 0.5s;
+  transition: 1.5s transform, 5s opacity;
   &::before,
   &::after {
     content: '';
@@ -198,6 +183,39 @@ export default {
       margin-right: 0;
       background-position: right -155px top 0;
     }
+  }
+}
+
+.handle-heat,
+.hold-materials {
+  &.active {
+    .about-cake-img,
+    .about-flour-img {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .paragraph-title,
+    .paragraph-content-1,
+    .paragraph-content-2 {
+      animation: handle-heat-ani 0.5s forwards;
+    }
+    .paragraph-title {
+      animation-delay: 0.3s;
+    }
+    .paragraph-content-1 {
+      animation-delay: 0.8s;
+    }
+    .paragraph-content-2 {
+      animation-delay: 1.3s;
+    }
+  }
+}
+
+@keyframes handle-heat-ani {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>

@@ -70,22 +70,22 @@ const routes = [
         path: 'products',
         name: 'BackendProducts',
         component: () => import('../views/backend/Products.vue')
+      },
+      {
+        path: 'orders',
+        name: 'BackendOrders',
+        component: () => import('../views/backend/Orders.vue')
+      },
+      {
+        path: 'order/:id',
+        name: 'BackendOrder',
+        component: () => import('../views/backend/Order.vue')
+      },
+      {
+        path: 'coupon',
+        name: 'Coupon',
+        component: () => import('../views/backend/Coupon.vue')
       }
-      // {
-      //   path: 'coupon',
-      //   name: 'Coupon',
-      //   component: () => import('../views/backend/Coupon.vue')
-      // },
-      // {
-      //   path: 'orders',
-      //   name: 'Orders',
-      //   component: () => import('../views/backend/Orders.vue')
-      // },
-      // {
-      //   path: 'order/:id',
-      //   name: 'Order',
-      //   component: () => import('../views/backend/Order.vue')
-      // }
     ]
   },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('../views/NotFound.vue') }

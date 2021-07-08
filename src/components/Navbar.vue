@@ -89,8 +89,13 @@
               >
             </li>
             <li class="nav-item">
-              <router-link to="/order" class="nav-link d-block px-5"
+              <router-link to="/order/123" class="nav-link d-block px-5"
                 >單筆訂單</router-link
+              >
+            </li>
+            <li class="nav-item">
+              <router-link to="/login" class="nav-link d-block px-5"
+                >登入</router-link
               >
             </li>
           </ul>
@@ -145,14 +150,9 @@
 </template>
 
 <script>
-// import { ref, watch, inject, toRefs } from 'vue';
-// import { useGetScrollY } from '@/methods';
-// import store from '@/composition/store';
-
-// const { getCarts } = store;
-
 export default {
   name: 'Navbar',
+  inject: ['scroll'],
   data() {
     return {
       cartsData: {},
@@ -181,31 +181,14 @@ export default {
         this.cartsData = val;
       },
     },
+    scroll: {
+      handler(scroll) {
+        if (scroll.Y >= 100) this.isScrollDown = true;
+        else this.isScrollDown = false;
+      },
+      deep: true,
+    },
   },
-
-  // setup() {
-  //   const state = inject('state');
-  //   const { scrollY } = useGetScrollY();
-  //   const isScrollDown = ref(false);
-  //   const $emitter = inject('$emitter');
-  //   getCarts();
-
-  //   watch(scrollY, (newScrollY) => {
-  //     if (newScrollY >= 100) {
-  //       isScrollDown.value = true;
-  //     } else {
-  //       isScrollDown.value = false;
-  //     }
-  //   });
-
-  //   return {
-  //     ...toRefs(state),
-  //     searchText,
-  //     isSearchFocus,
-  //     isScrollDown,
-  //     showCartCanvas,
-  //   };
-  // },
 };
 </script>
 

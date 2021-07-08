@@ -1,5 +1,6 @@
 <template>
   <div class="rounded bg-white shadow w-100 p-10">
+    <Loading v-model:active="isLoading" :is-full-page="false" />
     <h2 class="mb-5">{{ boardStatus }}產品</h2>
     <Form v-slot="{ errors }" @submit="addProduct">
       <div class="row">
@@ -225,9 +226,14 @@
 <script>
 import { useToast } from '@/methods';
 import { apiPostUploadImg, apiPostAddProduct, apiPutEditProduct } from '@/api';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'AddProduct',
+  components: {
+    Loading,
+  },
   props: {
     boardStatus: {
       type: String,
@@ -244,6 +250,7 @@ export default {
     return {
       product: { imgs: [] },
       fileInput: null,
+      isLoading: false,
     };
   },
   methods: {
@@ -279,8 +286,11 @@ export default {
       try {
         const { data } = await method(productData, id);
         if (data.success) {
-          this.$router.push('/admin/products');
-          useToast('新增成功!', 'success');
+          useToast(
+            this.boardStatus === '新增' ? '新增成功!' : '完成更新!',
+            'success'
+          );
+          if (this.boardStatus === '新增') this.$router.push('/admin/products');
         } else useToast('發生錯誤!', 'danger');
       } catch (err) {
         console.dir(err);
@@ -290,7 +300,7 @@ export default {
       this.product.imagesUrl.splice(key, 1);
     },
     async upLoadImg() {
-      this.$store.dispatch('handIsLoading', true);
+      this.isLoading = true;
       const formData = new FormData();
       formData.append('file-to-upload', this.$refs.fileInput.files[0]);
       try {
@@ -301,7 +311,7 @@ export default {
           useToast('成功上傳!', 'success');
           console.log(1);
         } else useToast(data.message, 'danger');
-        this.$store.dispatch('handIsLoading', false);
+        this.isLoading = false;
       } catch (err) {
         console.dir(err);
       }
