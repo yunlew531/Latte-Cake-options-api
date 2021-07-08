@@ -1,29 +1,88 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <Loading
+    v-model:active="isLoading"
+    :isFullPage="true"
+    :background-color="'#000'"
+    :lockScroll="true"
+    :opacity="0.7"
+  >
+    <template v-slot:default class="position-absolute">
+      <div class="loading"></div>
+      <div class="cup-hand position-relative"></div> </template
+  ></Loading>
+  <CartCanvas />
+  <router-view />
 </template>
 
+<script>
+import CartCanvas from '@/components/CartCanvas.vue';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
+export default {
+  components: {
+    CartCanvas,
+    Loading,
+  },
+  data() {
+    return {
+      isLoading: null,
+    };
+  },
+  watch: {
+    '$store.getters.isLoading': {
+      handler() {
+        this.isLoading = this.$store.getters.isLoading;
+      },
+      immediate: true,
+    },
+  },
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import './assets/styleSheets';
+
+.cup-hand {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  border: 7px solid $white;
+  border-radius: 0 0 40% 40%;
+  left: 83px;
+  bottom: 65px;
+  transform: rotate(-90deg);
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+.loading {
+  width: 90px;
+  height: 80px;
+  border: 7px solid $white;
+  border-radius: 0 0 35% 35%;
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: '';
+    width: 150%;
+    height: 100%;
+    position: absolute;
+    left: -25%;
+    bottom: -80%;
+    background: $primary;
+    animation: coffee-wave 2s infinite;
+  }
+  @keyframes coffee-wave {
+    25% {
+      transform: rotate(-5deg);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+    75% {
+      transform: rotate(-5deg);
+    }
+    100% {
+      transform: rotate(5deg);
+      bottom: -20%;
     }
   }
 }
