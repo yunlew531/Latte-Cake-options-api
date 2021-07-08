@@ -1,5 +1,7 @@
 <template>
-  <div style="height: 500px; padding: 300px" class="fs-1">訂單列表</div>
+  <div style="height: 500px; padding: 300px" class="fs-1 text-black-300">
+    加速開發中 ...
+  </div>
 </template>
 
 <script>

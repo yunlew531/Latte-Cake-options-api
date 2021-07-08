@@ -267,6 +267,7 @@ export default {
       this.product.imgsTemp = '';
     },
     async addProduct() {
+      this.isLoading = true;
       const productData = {
         title: this.product.title,
         category: this.product.category,
@@ -290,7 +291,8 @@ export default {
             this.boardStatus === '新增' ? '新增成功!' : '完成更新!',
             'success'
           );
-          if (this.boardStatus === '新增') this.$router.push('/admin/products');
+          this.isLoading = false;
+          this.$router.push('/admin/products');
         } else useToast('發生錯誤!', 'danger');
       } catch (err) {
         console.dir(err);

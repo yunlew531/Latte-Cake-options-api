@@ -234,6 +234,7 @@ export default {
       date = this.translateTime(date, 'dash');
       this.tempCoupon.due_date = date;
       this.tempCoupon.is_enabled = 1;
+      this.tempCoupon.title = '';
     },
     async submitAddCoupon() {
       this.isAddCouponLoading = true;
@@ -286,6 +287,7 @@ export default {
     },
     cancelEdit(resetForm) {
       resetForm();
+      console.log('resetForm之後: ', this.tempCoupon);
       this.initCouponForm();
       this.isEdit = false;
     },

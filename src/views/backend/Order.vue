@@ -13,7 +13,7 @@
         </h3>
         <span class="fs-5">
           <span class="fs-6 me-2">成立時間:</span
-          >{{ translateTime(order.create_at) }}</span
+          >{{ translateTime(order.create_at, 'string') }}</span
         >
       </div>
       <div class="d-flex align-items-center mb-5">

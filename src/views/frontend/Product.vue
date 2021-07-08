@@ -82,6 +82,9 @@
           <p class="text-black-200 py-5">
             {{ productData.product?.description }}
           </p>
+          <p class="text-black-200 py-5">
+            {{ productData.product?.content }}
+          </p>
           <div
             class="bg-white border border-gray-300 shadow-inset rounded p-12"
           >
