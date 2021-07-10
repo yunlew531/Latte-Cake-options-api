@@ -15,7 +15,7 @@
           :key="category"
           class="flex-grow-1 py-3 text-nowrap"
           :class="{ active: nowCategory === category }"
-          @click="$emit('handNowCategory', category)"
+          @click="$emit('update:nowCategory', category)"
           @mouseenter="nowHoverCategory = category"
           @mouseleave="nowHoverCategory = ''"
         >
@@ -48,7 +48,7 @@ export default {
     },
   },
   emits: {
-    handNowCategory: (category) => typeof category === 'string',
+    'update:nowCategory': (category) => typeof category === 'string',
   },
   inject: ['scroll'],
   data() {

@@ -8,9 +8,8 @@
     ></div>
     <div class="row">
       <CategoryNav
-        :nowCategory="nowCategory"
+        v-model:nowCategory="nowCategory"
         :isScrollDown="isScrollDown"
-        @handNowCategory="setNowCategory"
       />
       <div
         id="navbarTeleportAside"
@@ -105,9 +104,6 @@ export default {
     },
     handPage(page) {
       this.$store.dispatch('getProducts', page);
-    },
-    setNowCategory(category) {
-      this.nowCategory = category;
     },
   },
   watch: {
