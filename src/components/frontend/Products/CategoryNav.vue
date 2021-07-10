@@ -53,7 +53,7 @@ export default {
   inject: ['scroll'],
   data() {
     return {
-      categoryList: ['全部', '咖啡', '蛋糕', '其他1', '其他2', '其他3'],
+      categoryList: ['全部', '咖啡', '蛋糕', '甜甜圈', '其他2', '其他3'],
       nowHoverCategory: '',
       navTeleport: '',
     };

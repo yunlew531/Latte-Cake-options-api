@@ -66,8 +66,8 @@ export default {
   methods: {
     getOrders() {
       this.isLoading = true;
-      this.$store.dispatch('getBackstageOrders').then((res) => {
-        if (res) this.isLoading = false;
+      this.$store.dispatch('getBackstageOrders').then(({ success }) => {
+        if (success) this.isLoading = false;
       });
     },
     showOrderDetail(order) {

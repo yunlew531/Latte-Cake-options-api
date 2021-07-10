@@ -1,13 +1,14 @@
 import { createStore } from 'vuex';
-import { apiGetCarts, apiGetPageProducts, apiGetOrders } from '@/api';
+import { apiGetCarts, apiGetPageProducts, apiGetOrders, apiGetAllProducts } from '@/api';
 
 export default createStore({
   state: {
     isLoading: false,
     cartsData: [],
     shopPosition: 'Taipei',
-    pageProductsData: {},
-    backstageOrders: {}
+    pageProductsData: [],
+    allProducts: [],
+    backstageOrders: []
   },
   mutations: {
     setCarts(state, data) {
@@ -24,6 +25,9 @@ export default createStore({
     },
     setBackstageOrders(state, orders) {
       state.backstageOrders = orders;
+    },
+    setAllProducts(state, products) {
+      state.allProducts = products;
     }
   },
   actions: {
@@ -35,36 +39,41 @@ export default createStore({
         console.dir(err);
       }
     },
+    async getProducts({ commit }, page) {
+      let data = null;
+      try {
+        ({ data } = await apiGetPageProducts(page));
+        if (data.success) commit('setPageProductsData', data);
+      } catch (err) {
+        console.dir(err);
+      }
+      return data;
+    },
+    async getAllProducts({ commit }) {
+      try {
+        const { data } = await apiGetAllProducts();
+        if (data.success) commit('setAllProducts', data.products);
+      } catch (err) {
+        console.dir(err);
+      }
+    },
+    async getBackstageOrders({ commit }) {
+      let data = null;
+      try {
+        ({ data } = await apiGetOrders());
+        if (data.success) {
+          commit('setBackstageOrders', data.orders);
+        }
+      } catch (err) {
+        console.dir(err);
+      }
+      return data;
+    },
     handDisplayCity({ commit }, city) {
       commit('setShopPosition', city);
     },
-    async getProducts({ commit }, page) {
-      try {
-        const { data } = await apiGetPageProducts(page);
-        if (data.success) {
-          commit('setPageProductsData', data);
-        }
-        return true;
-      } catch (err) {
-        console.dir(err);
-        return false;
-      }
-    },
     handIsLoading({ commit }, boolean) {
       commit('setIsLoading', boolean);
-    },
-    async getBackstageOrders({ commit }) {
-      try {
-        const { data } = await apiGetOrders();
-        if (data.success) {
-          commit('setBackstageOrders', data.orders);
-          return data;
-        }
-        return false;
-      } catch (err) {
-        console.dir(err);
-        return false;
-      }
     }
   },
   modules: {},
@@ -73,6 +82,7 @@ export default createStore({
     cartsData: (state) => state.cartsData,
     shopPosition: (state) => state.shopPosition,
     pageProductsData: (state) => state.pageProductsData,
-    backstageOrders: (state) => state.backstageOrders
+    backstageOrders: (state) => state.backstageOrders,
+    allProducts: (state) => state.allProducts
   }
 });

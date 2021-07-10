@@ -5,16 +5,9 @@
   <div class="bg-info">
     <div class="container position-relative py-8 py-md-16 mt-16">
       <img
-        class="
-          hamburger-img
-          img-fluid
-          position-absolute
-          ms-xl-50
-          start-0
-          bottom-0
-        "
-        src="@/assets/images/photo-hamburger.png"
-        alt="hamburger"
+        class="cake-img img-fluid position-absolute ms-xl-50 start-0 bottom-0"
+        src="@/assets/images/photo-cake.png"
+        alt="cake"
       />
       <div class="text-end px-xl-50 ps-50">
         <router-link

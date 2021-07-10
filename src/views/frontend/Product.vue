@@ -1,32 +1,34 @@
 <template>
-  <section class="nav-bg"></section>
+  <div class="nav-bg"></div>
   <section
     class="product-panel bg-white rounded shadow-sm container p-10"
-    :class="{ active: !isProductLoading }"
+    :class="{ active: !isAnimeReset }"
   >
     <div class="row gx-12">
       <ul class="col-6 list-unstyled mb-0">
         <li
           class="product-img rounded"
           :style="{
-            'background-image': `url(${productData.product?.imageUrl})`,
+            'background-image': `url(${product.imageUrl})`,
           }"
           @click="showLightbox(0)"
         ></li>
         <li
-          v-for="(img, key) in productData.product?.imagesUrl"
+          v-for="(img, key) in product.imagesUrl"
           :key="img + key"
           :style="{
             'background-image': `url(${img})`,
           }"
           class="product-img rounded"
-          @click="showLightbox(productData.product?.imageUrl ? key + 1 : key)"
+          @click="showLightbox(product.imageUrl ? key + 1 : key)"
         ></li>
       </ul>
       <div class="col-6">
         <div class="product-content position-sticky">
           <div class="d-flex justify-content-between pt-1">
-            <h2 class="fw-bold lh-1">{{ productData.product?.title }}</h2>
+            <h2 class="fw-bold lh-1 overflow-hidden">
+              <span class="product-title d-block">{{ product.title }}</span>
+            </h2>
             <div class="d-flex">
               <p
                 class="
@@ -46,7 +48,7 @@
                 <span class="ms-1">熱銷商品</span>
               </p>
               <p
-                v-if="productData.product?.freeDelivery"
+                v-if="product.freeDelivery"
                 class="
                   fs-7
                   align-self-start
@@ -64,7 +66,11 @@
               </p>
             </div>
           </div>
-          <h4 class="fs-6 text-black-300">蘋果、白酒</h4>
+          <h4 class="fs-6 text-black-300 overflow-hidden">
+            <span class="product-material d-block">
+              {{ product.description }}
+            </span>
+          </h4>
           <p class="fs-6 mb-0 lh-1 pt-2">
             <span
               class="
@@ -72,18 +78,15 @@
                 d-inline-block
                 w-50
               "
-              >NT${{ productData.product?.origin_price }}</span
+              >NT${{ product.origin_price?.toLocaleString() }}</span
             >
             <span class="fs-5 text-primary d-inline-block w-50"
-              >NT${{ productData.product?.price }}</span
+              >NT${{ product.price?.toLocaleString() }}</span
             >
           </p>
           <hr class="text-black-300" />
           <p class="text-black-200 py-5">
-            {{ productData.product?.description }}
-          </p>
-          <p class="text-black-200 py-5">
-            {{ productData.product?.content }}
+            {{ product.content }}
           </p>
           <div
             class="bg-white border border-gray-300 shadow-inset rounded p-12"
@@ -148,7 +151,7 @@
                 py-5
                 mt-8
               "
-              :class="{ active: isProductLoading }"
+              :class="{ active: isAnimeReset }"
               @click="addCart"
             >
               加入購物車
@@ -183,18 +186,18 @@ export default {
       lightboxImgs: [],
       lightboxIndex: 0,
       productNum: 1,
-      productData: {},
-      isProductLoading: false,
+      product: {},
+      isAnimeReset: false,
     };
   },
   methods: {
     async getProductInfo(id) {
-      this.isProductLoading = true;
+      this.isAnimeReset = true;
       try {
         const { data } = await apiGetProductInfo(id);
         if (data.success) {
-          this.productData = data;
-          this.isProductLoading = false;
+          this.product = data.product;
+          this.isAnimeReset = false;
           this.lightboxImgs = data.product.imageUrl
             ? [data.product.imageUrl, ...(data.product.imagesUrl || [])]
             : data.product.imagesUrl || [];
@@ -211,7 +214,7 @@ export default {
       this.isLightboxShow = false;
     },
     async addCart() {
-      const { id } = this.productData.product;
+      const { id } = this.product;
       try {
         this.$store.dispatch('handIsLoading', true);
         const { data } = await apiPostAddCart(id, this.productNum);
@@ -258,30 +261,39 @@ export default {
     margin-bottom: $spacer * 1.25;
     background-size: cover;
     transform: scale(0);
+    cursor: zoom-in;
     &:last-child {
       margin-bottom: 0;
     }
   }
+  .product-title,
+  .product-material {
+    transform: translateY(100%);
+  }
   &.active {
     .product-img {
       animation: scale-ani 0.5s forwards;
+    }
+    .product-title,
+    .product-material {
+      animation: rise-up 0.5s forwards;
+    }
+    .product-material {
+      animation-delay: 0.3s;
     }
   }
 }
 .product-content {
   top: 150px;
 }
-.page-title {
-  &.active {
-    > h3 {
-      animation: scale-ani 0.5s forwards;
-      transform: scale(0);
-    }
-  }
-}
 @keyframes scale-ani {
   to {
     transform: scale(1);
+  }
+}
+@keyframes rise-up {
+  to {
+    transform: translateY(0);
   }
 }
 .nav-bg {

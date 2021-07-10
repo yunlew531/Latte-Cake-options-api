@@ -3,7 +3,7 @@ import { getProductInfo } from './frontend/Product';
 import { getCarts, putCartQty, deleteCart, postAddCart } from './frontend/shared';
 import postLogin from './backend/Login';
 import { postCheck, getUser } from './backend/Backstage';
-import getPageProducts from './frontend/Products';
+import { getPageProducts, getAllProducts } from './frontend/Products';
 import { postCheckout } from './frontend/Checkout';
 import { postUploadImg, postAddProduct, putEditProduct } from './backend/AddProduct/index';
 import LogOut from './backend/shared/index';
@@ -16,6 +16,7 @@ import { postAddCoupon, getCoupons, editCoupon, deleteCoupon } from './backend/C
 export const apiGetProductInfo = getProductInfo;
 export const apiGetCarts = getCarts;
 export const apiGetPageProducts = getPageProducts;
+export const apiGetAllProducts = getAllProducts;
 export const apiPutCartQty = putCartQty;
 export const apiDeleteCart = deleteCart;
 export const apiPostAddCart = postAddCart;
