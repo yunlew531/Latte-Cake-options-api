@@ -5,7 +5,15 @@
       :class="{ 'drop-down': isScrollDown }"
     >
       <ul
-        class="d-flex flex-grow-1 list-unstyled text-center mb-0 order-1"
+        class="
+          d-flex
+          flex-grow-1
+          list-unstyled
+          text-center
+          mb-0
+          order-1
+          overflow-hidden
+        "
         :class="
           navTeleport === '#navbarTeleportAside' ? 'flex-wrap' : 'flex-nowrap'
         "
@@ -56,6 +64,8 @@ export default {
       categoryList: ['全部', '咖啡', '蛋糕', '甜甜圈', '其他2', '其他3'],
       nowHoverCategory: '',
       navTeleport: '',
+      teleportTopToAsideTimeout: null,
+      teleportAsideToTopTimeout: null,
     };
   },
   computed: {
@@ -92,10 +102,16 @@ export default {
   watch: {
     isScrollDown(down) {
       if (down) {
-        setTimeout(() => {
+        clearTimeout(this.teleportAsideToTopTimeout);
+        this.teleportTopToAsideTimeout = setTimeout(() => {
           this.navTeleport = '#navbarTeleportAside';
-        }, 100);
-      } else this.navTeleport = '#navbarTeleportTop';
+        }, 250);
+      } else {
+        clearTimeout(this.teleportTopToAsideTimeout);
+        this.teleportAsideToTopTimeout = setTimeout(() => {
+          this.navTeleport = '#navbarTeleportTop';
+        }, 250);
+      }
     },
   },
   mounted() {
@@ -111,7 +127,6 @@ export default {
 .products-nav-panel {
   transform: translateY(-50px);
   margin-bottom: -30px;
-  top: 0;
   transition: 1s ease-in;
   > ul {
     > li {

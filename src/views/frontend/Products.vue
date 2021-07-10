@@ -14,7 +14,7 @@
       <div
         id="navbarTeleportAside"
         class="teleport-container-aside duration-500"
-        :class="isScrollDown ? 'col-2' : 'w-0'"
+        :class="isScrollDown ? 'col-2' : 'w-0 p-0'"
       ></div>
       <div
         class="products-panel-container duration-500"

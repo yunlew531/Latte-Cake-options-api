@@ -130,17 +130,17 @@ export default {
       cartCanvas: null,
       cartsData: {},
       isNowProgressAnimePlay: false,
-      progressAniTimeOut: null,
+      progressAniTimeout: null,
     };
   },
   methods: {
     showCartCanvas(playAnime = false) {
       if (this.isNowProgressAnimePlay) {
-        clearTimeout(this.progressAniTimeOut);
+        clearTimeout(this.progressAniTimeout);
         this.isNowProgressAnimePlay = false;
       } else if (playAnime) {
         this.isNowProgressAnimePlay = true;
-        this.progressAniTimeOut = setTimeout(() => {
+        this.progressAniTimeout = setTimeout(() => {
           if (this.isNowProgressAnimePlay === false) return;
           this.isNowProgressAnimePlay = false;
           this.hideCartCanvas();

@@ -187,19 +187,7 @@ export default {
   background: url(~@/assets/images/bg-banner.jpg) no-repeat center;
   background-size: cover;
 }
-.aboutus-title {
-  &.active {
-    animation: title-ani 0.5s forwards;
-  }
-}
-@keyframes title-ani {
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
-}
+
 .city-btn {
   background: $black;
   &:hover {
