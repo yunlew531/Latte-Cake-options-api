@@ -1,9 +1,17 @@
-@import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
 
-.progress {
-  height: 3px;
+.teleport-container-top {
+  height: 81px;
 }
+
+.products-panel-container {
+  margin-left: auto;
+}
+
+.products-panel {
+  transition: 1s ease-out;
+}
+
 .category-title {
   &.active {
     > h3 {
@@ -24,24 +32,7 @@
   background: url(~@/assets/images/bg-banner.jpg) center no-repeat;
   background-size: cover;
 }
-.products-nav-panel {
-  transform: translateY(-50px);
-  margin-bottom: -30px;
-  > ul {
-    > li {
-      width: 16.667%;
-      cursor: pointer;
-      transition: 0.2s;
-      &:hover {
-        color: tint-color($danger, 30%);
-      }
-      &.active {
-        color: $danger;
-        font-weight: $font-weight-bold;
-      }
-    }
-  }
-}
+
 .product-item {
   animation: product-ani 0.3s;
   .product-img {

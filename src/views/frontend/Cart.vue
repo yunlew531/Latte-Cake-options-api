@@ -165,7 +165,7 @@
                           align-items-center
                         "
                         type="button"
-                        @click="removeCart(product)"
+                        @click="removeCart(product.id)"
                       >
                         <span class="text-danger material-icons"> delete </span>
                         <span class="ms-1">移除物品</span>
@@ -241,12 +241,8 @@
 </template>
 
 <script>
-// import { ref, inject, toRefs, computed } from 'vue';
-// import { useToast } from '@/methods';
-// import { apiPutCartQty, apiDeleteCart } from '@/api';
-// import store from '@/composition/store';
-
-// const { getCarts, setIsLoading } = store;
+import { useToast } from '@/methods';
+import { apiPutCartQty, apiDeleteCart } from '@/api';
 
 export default {
   name: 'Cart',
@@ -257,6 +253,39 @@ export default {
       isRemoveLoad: false,
       cartsData: [],
     };
+  },
+  methods: {
+    async handQty(item, num) {
+      const product = { ...item };
+      product.qty = item.qty + num <= 1 ? 1 : item.qty + num;
+      if (product.qty === item.qty) return;
+      this.$store.dispatch('handIsLoading', true);
+      try {
+        const { data } = await apiPutCartQty(product);
+        if (data.success) {
+          await this.$store.dispatch('getCarts');
+          this.$store.dispatch('handIsLoading', false);
+          useToast('成功更新數量!', 'success');
+        } else useToast('操作失敗!', 'danger');
+      } catch (err) {
+        console.dir(err);
+      }
+    },
+    async removeCart(productId) {
+      this.$store.dispatch('handIsLoading', true);
+      try {
+        const { data } = await apiDeleteCart(productId);
+        if (data.success) {
+          await this.$store.dispatch('getCarts');
+          this.$store.dispatch('handIsLoading', false);
+          useToast('成功移除商品!', 'success');
+        } else {
+          useToast('操作失敗!', 'danger');
+        }
+      } catch (err) {
+        console.dir(err);
+      }
+    },
   },
   computed: {
     deliveryTime() {
@@ -286,167 +315,9 @@ export default {
   created() {
     this.$store.dispatch('getCarts');
   },
-  // setup() {
-  //   const state = inject('state');
-  //   const productNum = ref(1);
-
-  //   const isQtyLoad = ref(false);
-  //   const handQty = async (item, num) => {
-  //     const product = { ...item };
-  //     product.qty = item.qty + num <= 1 ? 1 : item.qty + num;
-  //     if (product.qty === item.qty) return;
-  //     setIsLoading(true);
-  //     try {
-  //       const { data } = await apiPutCartQty(product);
-  //       if (data.success) {
-  //         await getCarts();
-  //         setIsLoading(false);
-  //         useToast('成功更新數量!', 'success');
-  //       } else useToast('操作失敗!', 'danger');
-  //     } catch (err) {
-  //       console.dir(err);
-  //     }
-  //   };
-
-  //   const isRemoveLoad = ref(false);
-  //   const removeCart = async (product) => {
-  //     setIsLoading(true);
-  //     try {
-  //       const { data } = await apiDeleteCart(product.id);
-  //       if (data.success) {
-  //         await getCarts();
-  //         setIsLoading(false);
-  //         useToast('成功移除商品!', 'success');
-  //       } else {
-  //         useToast('操作失敗!', 'danger');
-  //       }
-  //     } catch (err) {
-  //       console.dir(err);
-  //     }
-  //   };
-
-  //   return {
-  //     ...toRefs(state),
-  //     productNum,
-  //     deliveryTime,
-  //     removeCart,
-  //     handQty,
-  //     isQtyLoad,
-  //     isRemoveLoad,
-  //   };
-  // },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/styleSheets/custom/variables';
-
-.navbar-bg {
-  height: 300px;
-  background: url(~@/assets/images/bg-banner.jpg) no-repeat center;
-  background-size: cover;
-}
-.page-title {
-  > h3 {
-    transform: scale(0);
-  }
-  &.active {
-    > h3 {
-      animation: scale-ani 0.5s forwards;
-    }
-  }
-}
-@keyframes scale-ani {
-  to {
-    transform: scale(1);
-  }
-}
-.product-item {
-  border-bottom: 1px solid $secondary;
-  &:last-of-type {
-    border-bottom: 0;
-  }
-}
-.product-img {
-  width: 200px;
-  min-height: 200px;
-  flex-shrink: 0;
-  background: no-repeat center;
-  background-size: cover;
-}
-.quantity-text {
-  width: 120px;
-  height: 45px;
-  line-height: 45px;
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-}
-.quntity-btn {
-  width: 25px;
-  color: $danger;
-  transition: 0.1s;
-  background: $white;
-  &:first-of-type {
-    border-radius: 0 4px 0 0;
-  }
-  &:last-of-type {
-    border-radius: 0 0 4px 0;
-  }
-  &:hover {
-    color: $white;
-    background: $danger;
-  }
-  &:active {
-    background: shade-color($danger, 10%);
-  }
-}
-.product-remove-btn {
-  color: $black-200;
-  .heart-border,
-  .heart-solid {
-    color: $danger;
-  }
-  .heart-solid {
-    display: none;
-  }
-
-  &:hover {
-    color: $danger;
-    .heart-border {
-      display: none;
-    }
-    .heart-solid {
-      display: block;
-    }
-  }
-}
-.checkout-btn {
-  background: $primary;
-  position: relative;
-  overflow: hidden;
-  .checkout-btn-text {
-    color: $white;
-    transition: 0.2s ease-in-out;
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: $white;
-    border-radius: $border-radius;
-    top: -105%;
-    left: 0;
-    transition: 0.2s ease-in-out;
-  }
-  &:hover {
-    &::before {
-      top: 0;
-    }
-    .checkout-btn-text {
-      color: $primary;
-    }
-  }
-}
+@import '@/assets/styleSheets/views/frontend/Cart';
 </style>

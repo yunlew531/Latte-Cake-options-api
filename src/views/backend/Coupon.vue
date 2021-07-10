@@ -102,7 +102,7 @@
         <span v-if="!isEdit" class="fs-2 d-block mb-1">新增優惠券</span>
         <div v-else class="mb-3">
           <span class="fs-2 d-block mb-1">編輯優惠券</span>
-          <span class="fs-6 d-block mb-1"> 訂單編號</span>
+          <span class="fs-6 d-block mb-1"> 編號</span>
           <span class="fs-6 d-block"> {{ tempCoupon.id }} </span>
         </div>
         <Form v-slot="{ errors, resetForm }" @submit="handSubmit">
@@ -229,12 +229,21 @@ export default {
         console.dir(err);
       }
     },
+    cancelEdit(resetForm) {
+      resetForm();
+      this.initCouponForm();
+      this.isEdit = false;
+    },
     initCouponForm() {
       let date = Date.now() / 1000;
       date = this.translateTime(date, 'dash');
-      this.tempCoupon.due_date = date;
-      this.tempCoupon.is_enabled = 1;
-      this.tempCoupon.title = '';
+      this.tempCoupon = {
+        title: '',
+        percent: '',
+        code: '',
+        is_enabled: 1,
+        due_date: date,
+      };
     },
     async submitAddCoupon() {
       this.isAddCouponLoading = true;
@@ -284,12 +293,6 @@ export default {
       const dueDate = this.translateTime(temp.due_date, 'dash');
       temp.due_date = dueDate;
       this.tempCoupon = temp;
-    },
-    cancelEdit(resetForm) {
-      resetForm();
-      console.log('resetForm之後: ', this.tempCoupon);
-      this.initCouponForm();
-      this.isEdit = false;
     },
     async deleteCoupon(id) {
       this.isGetCouponsLoading = true;

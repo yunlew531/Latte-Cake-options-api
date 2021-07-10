@@ -7,6 +7,7 @@
     data-bs-backdrop="false"
     data-bs-scroll="true"
     aria-labelledby="cartCanvasLabel"
+    @click="isNowProgressAnimePlay = false"
   >
     <div class="offcanvas-header">
       <h4 id="cartCanvasLabel">購物車</h4>
@@ -29,8 +30,8 @@
     <div class="px-4 py-3 border-bottom">
       <div
         class="progress"
-        :class="{ active: isProgressAniPlay }"
-        v-show="isProgressAniPlay"
+        :class="{ active: isNowProgressAnimePlay }"
+        v-show="isNowProgressAnimePlay"
       >
         <div class="progress-bar" role="progressbar"></div>
       </div>
@@ -41,11 +42,7 @@
         v-for="product in cartsData.carts"
         :key="product.id"
       >
-        <a
-          href="javascript:;"
-          class="text-decoration-none text-reset"
-          @click="goToPage('product', product.product.id)"
-        >
+        <div>
           <div class="d-flex">
             <div
               class="product-img"
@@ -54,7 +51,12 @@
               }"
             ></div>
             <div class="p-3 flex-grow-1">
-              <h3 class="fs-6">{{ product.product.title }}</h3>
+              <h3
+                class="product-title fs-6"
+                @click="goToPage('product', product.product.id)"
+              >
+                {{ product.product.title }}
+              </h3>
               <div class="d-flex">
                 <span class="flex-grow-1">
                   NT$ {{ product.product.price?.toLocaleString() }}
@@ -74,7 +76,7 @@
                 >
                   <span
                     class="qty-btn material-icons"
-                    @click.stop="handQty(product, -1)"
+                    @click="handQty(product, -1)"
                   >
                     remove
                   </span>
@@ -90,7 +92,7 @@
                   >
                   <span
                     class="qty-btn material-icons"
-                    @click.stop="handQty(product, 1)"
+                    @click="handQty(product, 1)"
                   >
                     add
                   </span>
@@ -98,14 +100,14 @@
                 <button
                   type="button"
                   class="btn btn-danger py-2px"
-                  @click.stop="removeCart(product.id)"
+                  @click="removeCart(product.id)"
                 >
                   移除
                 </button>
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </li>
     </ul>
     <div class="d-flex align-items-center border-top px-4 py-4">
@@ -117,14 +119,9 @@
 </template>
 
 <script>
-// import { ref, inject, toRefs, onMounted, onUnmounted } from 'vue';
 import Offcanvas from 'bootstrap/js/dist/offcanvas';
-// import { apiPutCartQty, apiDeleteCart } from '@/api';
-// import { useRouter } from 'vue-router';
-// import store from '@/composition/store';
-// import { useToast } from '@/methods';
-
-// const { getCarts, setIsLoading } = store;
+import { apiPutCartQty, apiDeleteCart } from '@/api';
+import { useToast } from '@/methods';
 
 export default {
   name: 'CartCanvas',
@@ -132,20 +129,21 @@ export default {
     return {
       cartCanvas: null,
       cartsData: {},
-      isProgressAniPlay: false,
+      isNowProgressAnimePlay: false,
       progressAniTimeOut: null,
     };
   },
   methods: {
-    showCartCanvas(playAnimate) {
-      if (this.isProgressAniPlay) {
+    showCartCanvas(playAnime = false) {
+      if (this.isNowProgressAnimePlay) {
         clearTimeout(this.progressAniTimeOut);
-        this.isProgressAniPlay = false;
-      } else if (playAnimate) {
-        this.isProgressAniPlay = true;
+        this.isNowProgressAnimePlay = false;
+      } else if (playAnime) {
+        this.isNowProgressAnimePlay = true;
         this.progressAniTimeOut = setTimeout(() => {
-          this.isProgressAniPlay = false;
-          this.cartCanvas.hide();
+          if (this.isNowProgressAnimePlay === false) return;
+          this.isNowProgressAnimePlay = false;
+          this.hideCartCanvas();
         }, 8000);
       }
       this.cartCanvas.show();
@@ -161,6 +159,37 @@ export default {
     goToCart() {
       this.$router.push('/cart');
       this.cartCanvas.hide();
+    },
+    async handQty(item, num) {
+      const product = { ...item };
+      product.qty = item.qty + num <= 1 ? 1 : item.qty + num;
+      if (product.qty === item.qty) return;
+      this.$store.dispatch('handIsLoading', true);
+      try {
+        const { data } = await apiPutCartQty(product);
+        if (data.success) {
+          await this.$store.dispatch('getCarts');
+          this.$store.dispatch('handIsLoading', false);
+          useToast('成功更新數量!', 'success');
+        } else useToast('操作失敗!', 'danger');
+      } catch (err) {
+        console.dir(err);
+      }
+    },
+    async removeCart(productId) {
+      this.$store.dispatch('handIsLoading', true);
+      try {
+        const { data } = await apiDeleteCart(productId);
+        if (data.success) {
+          await this.$store.dispatch('getCarts');
+          this.$store.dispatch('handIsLoading', false);
+          useToast('成功移除商品!', 'success');
+        } else {
+          useToast('操作失敗!', 'danger');
+        }
+      } catch (err) {
+        console.dir(err);
+      }
     },
   },
   watch: {
@@ -182,56 +211,6 @@ export default {
     this.$emitter.off('showCartCanvas', this.showCartCanvas);
     this.$emitter.off('hideCartCanvas', this.hideCartCanvas);
   },
-  //   setup() {
-  //     const router = useRouter();
-  //     const $emitter = inject('$emitter');
-  //     const state = inject('state');
-  //     const cartCanvasDom = ref(null);
-  //     const isProgressAniPlay = ref(false);
-  //     let cartCanvas = null;
-  //     let progressAniTimeOut = null;
-
-  //     const handQty = async (item, num) => {
-  //       const product = { ...item };
-  //       product.qty = item.qty + num <= 1 ? 1 : item.qty + num;
-  //       if (product.qty === item.qty) return;
-  //       setIsLoading(true);
-  //       try {
-  //         const { data } = await apiPutCartQty(product);
-  //         if (data.success) {
-  //           await getCarts();
-  //           setIsLoading(false);
-  //           useToast('成功更新數量!', 'success');
-  //         } else useToast('操作失敗!', 'danger');
-  //       } catch (err) {
-  //         console.dir(err);
-  //       }
-  //     };
-
-  //     const removeCart = async (id) => {
-  //       setIsLoading(true);
-  //       try {
-  //         const { data } = await apiDeleteCart(id);
-  //         if (data.success) {
-  //           await getCarts();
-  //           setIsLoading(false);
-  //           useToast('成功移除商品!', 'success');
-  //         } else useToast('發生錯誤!', 'danger');
-  //       } catch (err) {
-  //         console.dir(err);
-  //       }
-  //     };
-
-  //     return {
-  //       ...toRefs(state),
-  //       cartCanvasDom,
-  //       goToPage,
-  //       goToCart,
-  //       handQty,
-  //       removeCart,
-  //       isProgressAniPlay,
-  //     };
-  //   },
 };
 </script>
 
@@ -306,6 +285,15 @@ export default {
     box-shadow: $box-shadow;
   }
 }
+
+.product-title {
+  color: $primary;
+  cursor: pointer;
+  &:hover {
+    color: shade-color($primary, 10%);
+  }
+}
+
 .product-img {
   width: 133px;
   background: center no-repeat;

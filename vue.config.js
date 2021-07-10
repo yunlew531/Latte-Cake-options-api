@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/Latte-Cake-options-api/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/Latte-Cake-options-api/' : '/'
 };

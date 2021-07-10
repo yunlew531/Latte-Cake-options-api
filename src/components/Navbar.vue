@@ -29,15 +29,16 @@
         px-12
         py-0
         z-20
+        overflow-hidden
       "
-      :class="{ active: isScrollDown }"
+      :class="{ 'scroll-down': isScrollDown }"
     >
       <div class="container-fluid">
         <h1 class="m-0 pt-1 pb-2px">
           <router-link
             to="/home"
             class="navbar-brand d-block"
-            :class="{ active: isScrollDown }"
+            :class="{ 'scroll-down': isScrollDown }"
           >
           </router-link>
         </h1>
@@ -208,7 +209,7 @@ export default {
   .logo-icon-text {
     bottom: $spacer * 0.25;
   }
-  &.active {
+  &.scroll-down {
     width: 117px;
     height: 48px;
     background-image: url(~@/assets/images/logo_transparent_small.png);
@@ -225,9 +226,35 @@ export default {
 .navbar {
   background-color: rgba(28, 28, 28, 0.6);
   top: $spacer * 1.75;
-  &.active {
+  &.scroll-down {
     top: 0;
     background-color: rgba(28, 28, 28, 0.9);
+  }
+}
+
+.nav-item {
+  transform: translateY(-100%);
+  animation: nav-item-drop 1s forwards ease-out;
+  $time: 0.3s;
+  &:nth-child(2) {
+    animation-delay: $time;
+  }
+  &:nth-child(3) {
+    animation-delay: $time * 2;
+  }
+  &:nth-child(4) {
+    animation-delay: $time * 3;
+  }
+  &:nth-child(5) {
+    animation-delay: $time * 4;
+  }
+  &:nth-child(6) {
+    animation-delay: $time * 5;
+  }
+}
+@keyframes nav-item-drop {
+  to {
+    transform: translateY(0);
   }
 }
 
