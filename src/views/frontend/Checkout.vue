@@ -1,7 +1,16 @@
 <template>
   <section class="nav-bg"></section>
-  <section class="container pt-20 pb-25">
-    <router-link to="/cart" class="fs-5 text-decoration-none d-block pb-5"
+  <section class="checkout-panel container position-relative mb-12">
+    <router-link
+      to="/cart"
+      class="
+        fs-6
+        text-decoration-none
+        btn btn-primary
+        mb-5
+        position-absolute
+        top-n16
+      "
       >返回購物車</router-link
     >
     <div class="row gx-8">
@@ -9,7 +18,7 @@
         <Form
           v-slot="{ errors }"
           @submit="onSubmit"
-          class="submit-form rounded p-8 bg-white shadow"
+          class="submit-form bg-white rounded p-8 shadow-sm"
         >
           <h3 class="fs-4 text-black-100">資料填寫</h3>
           <div class="form-group text-black-200">
@@ -98,7 +107,7 @@
         </Form>
       </div>
       <div class="col-6">
-        <div class="bg-white shadow rounded p-8">
+        <div class="bg-white shadow-sm rounded p-8">
           <ul class="list-unstyled">
             <li
               v-for="(product, key) in cartsData.carts"
@@ -141,7 +150,7 @@
             </p>
           </div>
         </div>
-        <div class="rounded shadow bg-white p-8 mt-8">
+        <div class="rounded shadow-sm bg-white p-8 mt-8">
           <h4 class="fs-4">輸入優惠折扣碼</h4>
           <div class="d-flex">
             <input type="text" class="flex-grow-1" />
@@ -223,6 +232,9 @@ export default {
 @import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
 
+.checkout-panel {
+  transform: translateY(-50px);
+}
 .nav-bg {
   height: 300px;
   background: url(~@/assets/images/bg-banner.jpg) center no-repeat;

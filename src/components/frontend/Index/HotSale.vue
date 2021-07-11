@@ -1,6 +1,6 @@
 <template>
-  <section class="hot-sale-section container py-25">
-    <h3 class="text-center fs-2 fw-bold text-primary mb-5">熱銷商品</h3>
+  <section class="hot-sale-section container pt-12 pb-38">
+    <h3 class="text-center fs-2 fw-bold text-danger mb-5">熱銷商品</h3>
     <h4 class="text-center fs-5 mb-12">值得您嘗鮮的選擇</h4>
     <swiper
       :slides-per-view="3"
@@ -49,10 +49,10 @@
           overflow-hidden
         "
       >
-        <span class="opacity-0">所有產品</span>
+        <span class="opacity-0">所有商品</span>
         <span
           class="btn-content position-absolute top-50 start-50 translate-middle"
-          >所有產品</span
+          >所有商品</span
         >
       </router-link>
     </div>
@@ -90,7 +90,7 @@ export default {
     }
   }
   .swiper-img {
-    height: 500px;
+    height: 400px;
     background: center no-repeat;
     background-size: cover;
     position: relative;

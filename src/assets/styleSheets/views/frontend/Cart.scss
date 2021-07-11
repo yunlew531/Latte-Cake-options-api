@@ -1,5 +1,8 @@
 @import '~@/assets/styleSheets/custom/variables';
 
+.cart-panel {
+  transform: translateY(-50px);
+}
 .navbar-bg {
   height: 300px;
   background: url(~@/assets/images/bg-banner.jpg) no-repeat center;

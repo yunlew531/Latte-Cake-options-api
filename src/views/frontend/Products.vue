@@ -1,10 +1,10 @@
 <template>
   <div class="nav-bg"></div>
-  <section class="container">
+  <section class="container mb-12">
     <div
       id="navbarTeleportTop"
-      class="teleport-container-top duration-500 mb-8"
-      :class="isScrollDown ? 'w-0' : 'w-100'"
+      class="teleport-container-top duration-600 mb-8"
+      :class="isScrollDown ? 'w-25' : 'w-100'"
     ></div>
     <div class="row">
       <CategoryNav
@@ -14,7 +14,7 @@
       <div
         id="navbarTeleportAside"
         class="teleport-container-aside duration-500"
-        :class="isScrollDown ? 'col-2' : 'w-0 p-0'"
+        :class="isScrollDown ? 'col-2' : 'w-0 skewX'"
       ></div>
       <div
         class="products-panel-container duration-500"
@@ -94,13 +94,13 @@
         </section>
       </div>
     </div>
+    <Pagination
+      class="py-8"
+      :class="{ invisible: nowCategory !== '全部' }"
+      :pages="pagination"
+      @handPage="handPage"
+    />
   </section>
-  <Pagination
-    class="py-8"
-    :class="{ invisible: nowCategory !== '全部' }"
-    :pages="pagination"
-    @handPage="handPage"
-  />
 </template>
 
 <script>

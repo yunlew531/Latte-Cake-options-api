@@ -1,9 +1,9 @@
 <template>
   <Carousel />
+  <WhyChooseUs />
   <HotSale />
-  <Category />
   <div class="bg-info">
-    <div class="container position-relative py-8 py-md-16 mt-16">
+    <div class="container position-relative py-8 py-md-16 mt-50">
       <img
         class="cake-img img-fluid position-absolute ms-xl-50 start-0 bottom-0"
         src="@/assets/images/photo-cake.png"
@@ -45,29 +45,30 @@
       </div>
     </div>
   </div>
-  <div class="bg-product-info">
-    <div class="bg-filter">
-      <AboutCake />
-    </div>
-  </div>
+  <AboutCake />
+  <OurTeam />
+  <RestaurantLightbox />
   <LocationPanel />
 </template>
 
 <script>
-// import { inject, toRefs } from 'vue';
 import Carousel from '@/components/frontend/Index/Carousel.vue';
+import WhyChooseUs from '@/components/frontend/Index/WhyChooseUs.vue';
 import HotSale from '@/components/frontend/Index/HotSale.vue';
-import Category from '@/components/frontend/Index/Category.vue';
 import AboutCake from '@/components/frontend/Index/AboutCake.vue';
+import OurTeam from '@/components/frontend/Index/OurTeam.vue';
+import RestaurantLightbox from '@/components/frontend/RestaurantLightbox.vue';
 import LocationPanel from '@/components/frontend/Index/LocationPanel.vue';
 
 export default {
   name: 'Index',
   components: {
     Carousel,
+    WhyChooseUs,
     HotSale,
-    Category,
     AboutCake,
+    OurTeam,
+    RestaurantLightbox,
     LocationPanel,
   },
 };

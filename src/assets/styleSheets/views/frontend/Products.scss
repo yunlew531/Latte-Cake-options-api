@@ -10,6 +10,11 @@
   height: 81px;
 }
 
+.skewX {
+  transition: transform 0.3s;
+  transform: skewX(-30deg) translateY(-100%);
+}
+
 .products-panel-container {
   margin-left: auto;
 }

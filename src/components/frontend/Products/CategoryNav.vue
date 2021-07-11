@@ -110,7 +110,7 @@ export default {
         clearTimeout(this.teleportTopToAsideTimeout);
         this.teleportAsideToTopTimeout = setTimeout(() => {
           this.navTeleport = '#navbarTeleportTop';
-        }, 250);
+        }, 150);
       }
     },
   },
@@ -147,6 +147,7 @@ export default {
     position: sticky;
     top: 50%;
     transform: translateY(-50%);
+    margin-bottom: 0;
     li {
       width: 100%;
     }

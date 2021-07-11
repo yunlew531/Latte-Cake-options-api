@@ -1,104 +1,68 @@
 <template>
   <div class="navbar-bg"></div>
   <section
-    class="about-us-panel container pt-25"
+    class="container about-us-panel bg-white shadow-sm rounded mb-12 pt-8 px-8"
     :class="{ active: isAnimeReset }"
   >
-    <ul class="d-flex list-unstyled mb-12">
-      <li class="flex-grow-1">
-        <button
-          type="button "
-          class="city-btn btn text-white w-100 rounded-0 shadow-none"
-          :class="{ active: shopPosition === 'Taipei' }"
-          @click="setShopPosition('Taipei')"
-        >
-          台北店
-        </button>
-      </li>
-      <li class="flex-grow-1">
-        <button
-          type="button "
-          class="city-btn btn text-white w-100 rounded-0 shadow-none"
-          :class="{ active: shopPosition === 'Taichung' }"
-          @click="setShopPosition('Taichung')"
-        >
-          台中店
-        </button>
-      </li>
-      <li class="flex-grow-1">
-        <button
-          type="button "
-          class="city-btn btn text-white w-100 rounded-0 shadow-none"
-          :class="{ active: shopPosition === 'Kaohsiung' }"
-          @click="setShopPosition('Kaohsiung')"
-        >
-          高雄店
-        </button>
-      </li>
-    </ul>
-    <div v-for="(map, key) in mapSrc" :key="map" class="google-map">
-      <iframe
-        v-if="shopPosition === key"
-        :src="map"
-        width="100%"
-        height="450"
-        style="border: 0"
-        allowfullscreen=""
-        loading="lazy"
-      ></iframe>
-    </div>
-  </section>
-  <section class="container py-25">
-    <VueEasyLightbox
-      scrollDisabled
-      moveDisabled
-      :visible="visible"
-      :imgs="imgs"
-      :index="imgIdx"
-      @hide="hideLightbox"
-    >
-    </VueEasyLightbox>
-    <div class="row">
-      <div class="col-lg-4 small-shop-imgs pt-6">
-        <div
-          :style="{ 'background-image': `url(${imgFilter})` }"
-          class="shop-img w-100 h-100"
-          @click="showLightbox(0)"
-        ></div>
-      </div>
-      <div class="small-shop-imgs col-lg-8">
-        <ul class="row gx-6 gy-6 h-100 mt-6 mt-lg-0 list-unstyled">
-          <li
-            v-for="(img, key) in imgsFilter"
-            :key="img"
-            class="col-4"
-            @click="showLightbox(key + 1)"
+    <div>
+      <ul class="d-flex list-unstyled mb-12">
+        <li class="flex-grow-1">
+          <button
+            type="button "
+            class="city-btn btn text-white w-100 rounded-0 shadow-none"
+            :class="{ active: shopPosition === 'Taipei' }"
+            @click="setShopPosition('Taipei')"
           >
-            <div
-              :style="{ 'background-image': `url(${img})` }"
-              class="shop-img w-100 h-100"
-            ></div>
-          </li>
-        </ul>
+            台北店
+          </button>
+        </li>
+        <li class="flex-grow-1">
+          <button
+            type="button "
+            class="city-btn btn text-white w-100 rounded-0 shadow-none"
+            :class="{ active: shopPosition === 'Taichung' }"
+            @click="setShopPosition('Taichung')"
+          >
+            台中店
+          </button>
+        </li>
+        <li class="flex-grow-1">
+          <button
+            type="button "
+            class="city-btn btn text-white w-100 rounded-0 shadow-none"
+            :class="{ active: shopPosition === 'Kaohsiung' }"
+            @click="setShopPosition('Kaohsiung')"
+          >
+            高雄店
+          </button>
+        </li>
+      </ul>
+      <div v-for="(map, key) in mapSrc" :key="map" class="google-map">
+        <iframe
+          v-if="shopPosition === key"
+          :src="map"
+          width="100%"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
       </div>
     </div>
+    <RestaurantLightbox />
   </section>
 </template>
 
 <script>
-import VueEasyLightbox from 'vue-easy-lightbox';
-import { apiGetShopImg } from '@/api';
+import RestaurantLightbox from '@/components/frontend/RestaurantLightbox.vue';
 
 export default {
   components: {
-    VueEasyLightbox,
+    RestaurantLightbox,
   },
   data() {
     return {
-      imgIdx: 0,
-      visible: false,
       shopPosition: '',
-      imgs: [],
       isAnimeReset: true,
       mapSrc: {
         Taipei:
@@ -111,31 +75,8 @@ export default {
     };
   },
   methods: {
-    hideLightbox() {
-      this.visible = false;
-    },
-    showLightbox(idx) {
-      this.visible = true;
-      this.imgIdx = idx;
-    },
     setShopPosition(city) {
       this.$store.dispatch('handDisplayCity', city);
-    },
-    async getShopImg() {
-      try {
-        const res = await apiGetShopImg();
-        if (res.status === 200) this.imgs = res.data.map((img) => img.url);
-      } catch (err) {
-        console.dir(err);
-      }
-    },
-  },
-  computed: {
-    imgFilter() {
-      return this.imgs[0];
-    },
-    imgsFilter() {
-      return this.imgs.filter((image, key) => key !== 0);
     },
   },
   watch: {
@@ -146,20 +87,8 @@ export default {
       immediate: true,
     },
   },
-  created() {
-    this.getShopImg();
-  },
 };
 </script>
-
-<style lang="scss">
-.btn__close {
-  margin-top: 50px;
-}
-.vel-toolbar {
-  display: none;
-}
-</style>
 
 <style lang="scss" scoped>
 @import '~bootstrap/scss/functions';
@@ -170,6 +99,7 @@ export default {
 }
 
 .about-us-panel {
+  transform: translateY(-50px);
   &.active {
     .google-map {
       animation: scale 0.3s forwards;
@@ -196,17 +126,5 @@ export default {
   &.active {
     background: tint-color($black, 20%);
   }
-}
-.shop-img {
-  cursor: zoom-in;
-  background: center no-repeat;
-  background-size: cover;
-  border-radius: $border-radius-lg;
-  &:hover {
-    filter: brightness(1.1);
-  }
-}
-.small-shop-imgs {
-  height: 416px;
 }
 </style>

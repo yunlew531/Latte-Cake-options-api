@@ -1,9 +1,9 @@
 <template>
   <section class="navbar-bg"></section>
-  <section class="container py-25">
+  <section class="container cart-panel mb-12">
     <div class="row g-8">
       <div class="col-lg-8">
-        <div class="rounded shadow bg-white p-8">
+        <div class="rounded shadow-sm bg-white p-8">
           <span v-if="cartsData.carts?.length !== 0" class="fs-4"
             >{{ cartsData.carts?.length }} 件商品</span
           >
@@ -199,7 +199,7 @@
             </li>
           </ul>
         </div>
-        <div class="rounded shadow bg-white p-8 mt-8">
+        <div class="rounded shadow-sm bg-white p-8 mt-8">
           <p class="d-flex">
             <span class="fs-4 flex-lg-grow-1">預計到貨日</span
             ><span class="fs-3">{{ deliveryTime }}</span>
@@ -211,7 +211,7 @@
       </div>
       <div class="col-4">
         <div class="position-sticky top-20">
-          <div class="rounded shadow bg-white p-8">
+          <div class="rounded shadow-sm bg-white p-8">
             <p class="fs-4">總金額</p>
             <p class="d-flex text-black-400">
               <span class="flex-grow-1">金額</span

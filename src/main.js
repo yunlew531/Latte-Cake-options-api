@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import emitter from '@/methods/mitt';
 import 'material-icons/iconfont/material-icons.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Field, Form, ErrorMessage, defineRule, configure } from 'vee-validate';
 import { required, email, min } from '@vee-validate/rules';
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
