@@ -105,7 +105,7 @@ export default {
         clearTimeout(this.teleportAsideToTopTimeout);
         this.teleportTopToAsideTimeout = setTimeout(() => {
           this.navTeleport = '#navbarTeleportAside';
-        }, 250);
+        }, 150);
       } else {
         clearTimeout(this.teleportTopToAsideTimeout);
         this.teleportAsideToTopTimeout = setTimeout(() => {
@@ -145,9 +145,9 @@ export default {
   &.drop-down {
     display: flex;
     position: sticky;
-    top: 50%;
     transform: translateY(-50%);
     margin-bottom: 0;
+    animation: drop-down 0.3s both;
     li {
       width: 100%;
     }
@@ -159,6 +159,14 @@ export default {
     .progress-bar {
       width: 100%;
     }
+  }
+}
+@keyframes drop-down {
+  from {
+    top: 20%;
+  }
+  to {
+    top: 50%;
   }
 }
 

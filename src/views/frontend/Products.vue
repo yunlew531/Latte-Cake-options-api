@@ -4,7 +4,7 @@
     <div
       id="navbarTeleportTop"
       class="teleport-container-top duration-600 mb-8"
-      :class="isScrollDown ? 'w-25' : 'w-100'"
+      :class="isScrollDown ? 'w-0' : 'w-100'"
     ></div>
     <div class="row">
       <CategoryNav

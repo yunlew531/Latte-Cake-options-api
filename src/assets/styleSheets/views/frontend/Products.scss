@@ -11,8 +11,8 @@
 }
 
 .skewX {
-  transition: transform 0.3s;
-  transform: skewX(-30deg) translateY(-100%);
+  transition: 0.3s transform;
+  transform: skewX(-30deg);
 }
 
 .products-panel-container {
