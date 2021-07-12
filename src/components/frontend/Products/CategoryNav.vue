@@ -85,6 +85,7 @@ export default {
           if (item === this.nowCategory) position = idx * percent;
         });
       }
+      // isScrollDown 判斷 nav 是水平或是垂直
       if (this.isScrollDown) {
         sizeDirection = 'height';
         zeroDirection = 'top';
@@ -101,6 +102,7 @@ export default {
   },
   watch: {
     isScrollDown(down) {
+      // isScrollDown 會觸發css動畫，動畫跑完再 teleport
       if (down) {
         clearTimeout(this.teleportAsideToTopTimeout);
         this.teleportTopToAsideTimeout = setTimeout(() => {

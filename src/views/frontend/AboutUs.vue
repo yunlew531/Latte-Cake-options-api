@@ -1,11 +1,11 @@
 <template>
   <div class="navbar-bg"></div>
   <section
-    class="container about-us-panel bg-white shadow-sm rounded mb-12 pt-8 px-8"
+    class="container about-us-panel bg-white shadow-sm rounded mb-n12 p-12"
     :class="{ active: isAnimeReset }"
   >
     <div>
-      <ul class="d-flex list-unstyled mb-12">
+      <ul class="d-flex list-unstyled">
         <li class="flex-grow-1">
           <button
             type="button "
@@ -49,8 +49,8 @@
         ></iframe>
       </div>
     </div>
-    <RestaurantLightbox />
   </section>
+  <RestaurantLightbox />
 </template>
 
 <script>
