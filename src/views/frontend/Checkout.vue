@@ -59,7 +59,7 @@
             <Field
               id="tel"
               name="tel"
-              type="number"
+              type="tel"
               class="form-control"
               :class="{ 'is-invalid': errors['tel'] }"
               placeholder="請輸入電話 ex: 0912345678"
@@ -67,7 +67,7 @@
               v-model="user.tel"
             ></Field>
             <error-message name="tel" class="invalid-feedback" as="span">
-              <span>電話為必填</span>
+              <span>請填寫正確電話號碼</span>
             </error-message>
           </div>
           <div class="form-group text-black-200">

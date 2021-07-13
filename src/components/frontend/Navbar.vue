@@ -27,19 +27,19 @@
         start-0
         end-0
         px-12
-        py-0
+        py-2
         z-20
         overflow-hidden
       "
       :class="{ 'scroll-down': isScrollDown }"
     >
       <div class="container-fluid">
-        <h1 class="m-0 pt-1 pb-2px">
+        <h1 class="m-0 lh-1">
           <router-link
             to="/home"
-            class="navbar-brand d-block"
+            class="navbar-brand fw-bolder text-danger d-block p-0"
             :class="{ 'scroll-down': isScrollDown }"
-          >
+            >SPAGHETTI
           </router-link>
         </h1>
         <button
@@ -52,7 +52,7 @@
         </button>
         <div class="collapse navbar-collapse ps-8" id="carouselNabar">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li>
               <router-link
                 to="/"
                 class="nav-link active px-5"
@@ -60,7 +60,7 @@
                 >首頁</router-link
               >
             </li>
-            <li class="nav-item">
+            <li>
               <router-link
                 to="/products"
                 class="nav-link d-block px-5"
@@ -69,32 +69,32 @@
                 >商品</router-link
               >
             </li>
-            <li class="nav-item">
+            <li>
               <router-link to="/aboutUs" class="nav-link d-block px-5"
                 >關於我們</router-link
               >
             </li>
-            <li class="nav-item">
+            <li>
               <router-link to="/cart" class="nav-link d-block px-5"
                 >購物車</router-link
               >
             </li>
-            <li class="nav-item">
+            <li>
               <router-link to="/checkout" class="nav-link d-block px-5"
                 >結帳</router-link
               >
             </li>
-            <li class="nav-item">
+            <li>
               <router-link to="/orders" class="nav-link d-block px-5"
                 >多筆訂單</router-link
               >
             </li>
-            <li class="nav-item">
+            <li>
               <router-link to="/order/123" class="nav-link d-block px-5"
                 >單筆訂單</router-link
               >
             </li>
-            <li class="nav-item">
+            <li>
               <router-link to="/login" class="nav-link d-block px-5"
                 >登入</router-link
               >
@@ -102,7 +102,14 @@
           </ul>
           <button
             type="button"
-            class="cart-btn lh-1 bg-transparent border-0 position-relative"
+            class="
+              cart-btn
+              lh-1
+              bg-transparent
+              border-0
+              bottom-n1
+              position-relative
+            "
             @click="showCartCanvas"
           >
             <span class="material-icons h-100 w-100"> shopping_cart </span>
@@ -198,21 +205,29 @@ export default {
 @import '~@/assets/styleSheets/custom/variables';
 
 .navbar-brand {
-  width: 136px;
-  height: 56px;
-  background: center no-repeat;
-  background-size: cover;
-  background-image: url(~@/assets/images/logo_transparent_medium.png);
-  .logo-icon {
-    padding-bottom: $spacer * 1;
-  }
-  .logo-icon-text {
-    bottom: $spacer * 0.25;
+  font-family: 'Nothing You Could Do', cursive;
+  font-size: $h4-font-size;
+  transition: 0.3s;
+  margin-top: 12px;
+  &::first-letter {
+    font-size: 48px;
   }
   &.scroll-down {
-    width: 117px;
-    height: 48px;
-    background-image: url(~@/assets/images/logo_transparent_small.png);
+    font-size: $h5-font-size;
+    margin-top: 6px;
+    &::first-letter {
+      font-size: $h2-font-size;
+    }
+  }
+}
+
+.navbar-nav {
+  transform: translateY(-150%) rotate3d(0, 1, 0, 45deg);
+  animation: navbar-nav 0.8s forwards cubic-bezier(0.17, 0.67, 0.71, 1.26);
+}
+@keyframes navbar-nav {
+  100% {
+    transform: translateY(0) rotate3d(0, 0, 0, 45deg);
   }
 }
 
@@ -229,32 +244,6 @@ export default {
   &.scroll-down {
     top: 0;
     background-color: rgba(28, 28, 28, 0.9);
-  }
-}
-
-.nav-item {
-  transform: translateY(-100%);
-  animation: nav-item-drop 1s forwards ease-out;
-  $time: 0.3s;
-  &:nth-child(2) {
-    animation-delay: $time;
-  }
-  &:nth-child(3) {
-    animation-delay: $time * 2;
-  }
-  &:nth-child(4) {
-    animation-delay: $time * 3;
-  }
-  &:nth-child(5) {
-    animation-delay: $time * 4;
-  }
-  &:nth-child(6) {
-    animation-delay: $time * 5;
-  }
-}
-@keyframes nav-item-drop {
-  to {
-    transform: translateY(0);
   }
 }
 

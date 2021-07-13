@@ -1,15 +1,23 @@
 <template>
-  <section class="container pt-38 pb-25">
-    <h3 class="text-center">
-      為什麼選擇 <span class="text-danger fw-bold px-1">Latte & Cake</span> ?
+  <section
+    class="why-choose-us-panel container overflow-hidden pt-38 pb-25"
+    :class="{ active: isAnime }"
+  >
+    <h3 class="title text-center overflow-hidden">
+      <span class="title-text d-block">
+        為什麼選擇
+        <span class="text-danger fw-bold px-1">SPAGHETTI</span> ?
+      </span>
     </h3>
-    <p class="text-center fs-6 fw-light pt-3">
-      我們的功夫源自於義大利威尼斯，代代相傳並由
-      <span class="text-danger fw-bold px-1">Latte & Cake</span
-      >使用最好的原料，<br />讓您以簡單的方式品嘗到健康而正宗的傳統風味。
+    <p class="paragraph text-center fs-6 fw-light overflow-hidden pt-3">
+      <span class="paragraph-text d-block">
+        我們的功夫源自於義大利威尼斯，代代相傳並由
+        <span class="text-danger fw-bold px-1">SPAGHETTI</span
+        >使用最好的原料，<br />讓您以簡單的方式品嘗到健康而正宗的傳統風味。
+      </span>
     </p>
-    <ul class="d-flex list-unstyled row g-8 py-8">
-      <li class="col-4">
+    <ul class="row list-unstyled g-8 py-8">
+      <li class="col-4 card-item">
         <div
           class="
             card-container
@@ -31,7 +39,7 @@
           </div>
         </div>
       </li>
-      <li class="col-4">
+      <li class="col-4 card-item">
         <div
           class="
             card-container
@@ -53,7 +61,7 @@
           </div>
         </div>
       </li>
-      <li class="col-4">
+      <li class="col-4 card-item">
         <div
           class="
             card-container
@@ -81,12 +89,71 @@
 </template>
 
 <script>
-export default {};
+export default {
+  inject: ['scroll'],
+  data() {
+    return {
+      isAnime: false,
+    };
+  },
+  watch: {
+    scroll: {
+      handler(scroll) {
+        if (scroll.Y > 150 && scroll.Y < 1500) this.isAnime = true;
+      },
+      deep: true,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 @import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
+
+.why-choose-us-panel {
+  .title-text,
+  .paragraph-text {
+    transition: 0.3s ease-in;
+    transform: translateY(100%);
+  }
+  .title-text {
+    transition-delay: 0.2s;
+  }
+  .paragraph-text {
+    transition-delay: 0.6s;
+  }
+  .card-item {
+    transition: 0.5s;
+    &:nth-child(n) {
+      opacity: 0;
+    }
+    &:nth-child(1) {
+      transform: translateX(-100%);
+      transition-delay: 1s;
+    }
+    &:nth-child(2) {
+      transition-delay: 1.5s;
+      transform: translateY(100%);
+    }
+    &:nth-child(3) {
+      transform: translateX(100%);
+      transition-delay: 1s;
+    }
+  }
+  &.active {
+    .title-text,
+    .paragraph-text {
+      transform: translateY(0);
+    }
+    .card-item {
+      &:nth-child(n) {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+}
 
 .card-container {
   background: $white;

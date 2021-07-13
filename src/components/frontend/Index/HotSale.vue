@@ -1,5 +1,8 @@
 <template>
-  <section class="hot-sale-section container pt-12 pb-38">
+  <section
+    class="hot-sale-panel container pt-12 pb-38"
+    :class="{ active: isAnime }"
+  >
     <h3 class="text-center fs-2 fw-bold text-danger mb-5">熱銷商品</h3>
     <h4 class="text-center fs-5 mb-12">值得您嘗鮮的選擇</h4>
     <swiper
@@ -15,24 +18,26 @@
       <swiper-slide
         v-for="(product, key) in 9"
         :key="key"
-        class="swiper-img swiper-img-1 rounded overflow-hidden"
+        class="rounded overflow-hidden bg-info"
       >
-        <div
-          class="
-            swiper-content
-            position-absolute
-            text-white
-            bottom-0
-            h-25
-            w-100
-            px-12
-          "
-        >
-          <router-link to="/" class="text-reset text-decoration-none">
-            {{ key }}
-            <h2>蘋果蛋餅</h2>
-            <p>鮮嫩多汁，現採現萃</p>
-          </router-link>
+        <div class="swiper-img swiper-img-1">
+          <div
+            class="
+              swiper-content
+              position-absolute
+              text-white
+              bottom-0
+              h-25
+              w-100
+              px-12
+            "
+          >
+            <router-link to="/" class="text-reset text-decoration-none">
+              {{ key }}
+              <h2>蘋果蛋餅</h2>
+              <p>鮮嫩多汁，現採現萃</p>
+            </router-link>
+          </div>
         </div>
       </swiper-slide>
     </swiper>
@@ -71,13 +76,30 @@ export default {
     Swiper,
     SwiperSlide,
   },
+  inject: ['scroll'],
+  data() {
+    return {
+      isAnime: false,
+    };
+  },
+  watch: {
+    scroll: {
+      handler(scroll) {
+        if (scroll.Y > 1000 && scroll.Y < 2300) this.isAnime = true;
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 @import '~@/assets/styleSheets/custom/variables';
 
-.hot-sale-section {
+.hot-sale-panel {
+  opacity: 0;
+  transition: 1s ease-out;
+  transform: translateY(50%);
   .swiper-content {
     h2,
     p {
@@ -148,6 +170,10 @@ export default {
         color: $danger;
       }
     }
+  }
+  &.active {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>

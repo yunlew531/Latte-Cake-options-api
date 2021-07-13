@@ -11,8 +11,8 @@ export default createStore({
     backstageOrders: []
   },
   mutations: {
-    setCarts(state, data) {
-      state.cartsData = data;
+    setCarts(state, payload) {
+      state.cartsData = payload;
     },
     setShopPosition(state, city) {
       state.shopPosition = city;

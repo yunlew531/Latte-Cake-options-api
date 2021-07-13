@@ -2,31 +2,60 @@
   <section
     ref="carouselPanel"
     class="carousel-panel position-relative"
+    :class="{ active: isResetAnime }"
     @mousemove="handTextShadow($event)"
     @mouseenter="isMouseInCarousel = true"
     @mouseleave="(isMouseInCarousel = false), handTextShadow($event)"
   >
-    <div class="carousel-content position-absolute start-25 top-50 z-10 p-10">
-      <h3
-        class="title fw-bold fs-1 tracking-3 text-white"
-        :style="styleSheets.title"
-        @animationend="isReadyTextShadow = true"
-      >
-        歡迎光臨 <span class="text-danger">Latte & Cake</span>
-      </h3>
-      <div class="pt-3">
-        <button type="button" class="btn btn-primary">瀏覽菜單</button>
-        <button type="button" class="btn btn-primary ms-5">線上訂位</button>
-      </div>
+    <!-- 進度條 start -->
+    <div class="progress carousel-progress position-absolute">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        aria-valuenow="75"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      ></div>
     </div>
+    <!-- 進度條 end -->
+
+    <!-- title 原始 teleport 位置 start -->
+    <div
+      id="titleTeleportMiddle"
+      class="
+        carousel-content
+        position-absolute
+        start-50
+        translate-middle
+        top-50
+        px-10
+        z-10
+      "
+    >
+      <CarouselTitle
+        v-model:isReadyTextShadow="isReadyTextShadow"
+        :styleSheets="styleSheets"
+      />
+    </div>
+    <!-- title 原始 teleport 位置 end -->
+
+    <!-- title 動畫結束後 teleport 位置 start -->
+    <div
+      id="titleTeleportAside"
+      class="position-absolute start-0 top-50 z-10 overflow-hidden px-12"
+    ></div>
+    <!-- title 動畫結束後 teleport 位置 end -->
+
     <div ref="carouselDom" class="carousel slide carousel-fade">
       <ul class="carousel-inner m-0 p-0">
-        <li class="carousel-item bg-carousel-1 active"></li>
-        <li class="carousel-item bg-carousel-2"></li>
-        <li class="carousel-item bg-carousel-3"></li>
-        <li class="carousel-item bg-carousel-4"></li>
-        <li class="carousel-item bg-carousel-5"></li>
-        <li class="carousel-item bg-carousel-6"></li>
+        <li
+          v-for="(image, key) in images"
+          :key="image in images"
+          class="carousel-item"
+          :class="{ active: key === 0 }"
+          :style="{ 'background-image': `url(${image})` }"
+          @animationend="isResetAnime = false"
+        ></li>
       </ul>
     </div>
     <div class="scroll-btn position-absolute bottom-0 start-50 z-10">
@@ -37,17 +66,29 @@
 
 <script>
 import Carousel from 'bootstrap/js/dist/carousel';
+import CarouselTitle from '@/components/frontend/Index/CarouselTitle.vue';
 
 export default {
   name: 'Carousel',
+  components: {
+    CarouselTitle,
+  },
   data() {
     return {
       carousel: null,
-      isReadyTextShadow: false,
-      isMouseInCarousel: false,
       styleSheets: {
         title: '',
       },
+      isReadyTextShadow: false,
+      isMouseInCarousel: false,
+      isResetAnime: true,
+      images: [
+        'https://images.unsplash.com/photo-1608649226842-f39257c9085f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+        'https://images.unsplash.com/photo-1571805553621-ca9924532ad3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80',
+        'https://images.unsplash.com/photo-1598504775929-a46f801ac47f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+        'https://images.unsplash.com/photo-1591798454113-023d7379221f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+        'https://images.unsplash.com/photo-1580307493015-fdf18832fdd1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+      ],
     };
   },
   methods: {
@@ -58,6 +99,9 @@ export default {
         ride: 'carousel',
       });
       this.carousel.cycle();
+    },
+    handProgressBar() {
+      this.isResetAnime = true;
     },
     handTextShadow($event) {
       if (!this.isReadyTextShadow) return;
@@ -83,19 +127,30 @@ export default {
 
       this.styleSheets.title = {
         textShadow: `
-        ${lengthX * 1}rem ${lengthY * 1}rem 0.3rem white,
-        ${lengthX * 2}rem ${lengthY * 2}rem 0.6rem white`,
+        ${lengthX * 1}rem ${lengthY * 1}rem 0.3rem rgba(255,255,255, 0.8),
+        ${lengthX * 3}rem ${lengthY * 3}rem 0.6rem rgba(255,255,255, 0.8)`,
       };
     },
   },
   mounted() {
     this.handCarousel();
+    this.$refs.carouselDom.addEventListener(
+      'slide.bs.carousel',
+      this.handProgressBar
+    );
+  },
+  beforeUnmount() {
+    this.$refs.carouselDom.removeEventListener(
+      'slide.bs.carousel',
+      this.handProgressBar
+    );
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import '~@/assets/styleSheets/custom/variables';
+
 .carousel-panel {
   &::before {
     content: '';
@@ -105,22 +160,36 @@ export default {
     position: absolute;
     z-index: 2;
   }
+  &.active {
+    .progress-bar {
+      animation: progress-bar 8s forwards linear;
+    }
+  }
+}
+
+.carousel-progress {
+  opacity: 0.8;
+  width: 200px;
+  height: 3px;
+  transform: rotate(90deg) translateY(-50%);
+  right: 0px;
+  top: 50%;
+  z-index: 50;
+  .progress-bar {
+    background-color: $danger;
+  }
+}
+@keyframes progress-bar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 .carousel-content {
   overflow: hidden;
-}
-
-.title {
-  animation: title-drop 1.5s forwards ease-in;
-  transform: translateY(200%);
-  opacity: 0;
-}
-@keyframes title-drop {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .carousel-item {
@@ -135,7 +204,7 @@ export default {
     filter: brightness(1);
     transform: scale(1.1);
   }
-  80% {
+  85% {
     filter: brightness(1);
   }
   100% {
@@ -155,22 +224,9 @@ export default {
     margin-bottom: -50px;
   }
 }
-.bg-carousel-1 {
-  background-image: url(~@/assets/images/carousel-1.jpg);
-}
-.bg-carousel-2 {
-  background-image: url(~@/assets/images/carousel-2.jpg);
-}
-.bg-carousel-3 {
-  background-image: url(~@/assets/images/carousel-3.jpg);
-}
-.bg-carousel-4 {
-  background-image: url(~@/assets/images/carousel-4.jpg);
-}
-.bg-carousel-5 {
-  background-image: url(~@/assets/images/carousel-5.jpg);
-}
-.bg-carousel-6 {
-  background-image: url(~@/assets/images/carousel-6.jpg);
+.carousel-item {
+  &:nth-of-type(1) {
+    background-image: url(~@/assets/images/carousel-1.jpg);
+  }
 }
 </style>

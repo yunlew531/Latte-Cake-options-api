@@ -1,6 +1,6 @@
 import { getShopImg } from './frontend/AboutUs';
 import { getProductInfo } from './frontend/Product';
-import { getCarts, putCartQty, deleteCart, postAddCart } from './frontend/shared';
+import { getCarts, putCartQty, deleteCart, deleteAllCarts, postAddCart } from './frontend/shared';
 import postLogin from './backend/Login';
 import { postCheck, getUser } from './backend/Backstage';
 import { getPageProducts, getAllProducts } from './frontend/Products';
@@ -19,6 +19,7 @@ export const apiGetPageProducts = getPageProducts;
 export const apiGetAllProducts = getAllProducts;
 export const apiPutCartQty = putCartQty;
 export const apiDeleteCart = deleteCart;
+export const apiDeleteAllCarts = deleteAllCarts;
 export const apiPostAddCart = postAddCart;
 export const apiGetShopImg = getShopImg;
 export const apiPostCheckout = postCheckout;

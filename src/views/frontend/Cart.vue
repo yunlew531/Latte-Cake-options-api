@@ -4,9 +4,21 @@
     <div class="row g-8">
       <div class="col-lg-8">
         <div class="rounded shadow-sm bg-white p-8">
-          <span v-if="cartsData.carts?.length !== 0" class="fs-4"
-            >{{ cartsData.carts?.length }} 件商品</span
+          <div
+            v-if="cartsData.carts?.length !== 0"
+            class="d-flex align-items-center"
           >
+            <span class="fs-4 me-auto"
+              >{{ cartsData.carts?.length }} 件商品</span
+            >
+            <button
+              type="button"
+              class="btn btn-sm btn-primary"
+              @click="removeAllCarts"
+            >
+              移除所有商品
+            </button>
+          </div>
           <div
             v-else
             class="d-flex justify-content-center align-content-center"
@@ -168,7 +180,7 @@
                         @click="removeCart(product.id)"
                       >
                         <span class="text-danger material-icons"> delete </span>
-                        <span class="ms-1">移除物品</span>
+                        <span class="ms-1">移除商品</span>
                       </button>
                       <button
                         class="
@@ -220,7 +232,10 @@
             <p class="d-flex text-black-400">
               <span class="flex-grow-1">運費</span><span>NT$ 100 元</span>
             </p>
-            <router-link to="/checkout" class="checkout-btn fs-5 btn w-100 py-3"
+            <router-link
+              v-if="cartsData.carts?.length"
+              to="/checkout"
+              class="checkout-btn fs-5 btn w-100 py-3"
               ><span
                 class="
                   checkout-btn-text
@@ -242,7 +257,7 @@
 
 <script>
 import { useToast } from '@/methods';
-import { apiPutCartQty, apiDeleteCart } from '@/api';
+import { apiPutCartQty, apiDeleteCart, apiDeleteAllCarts } from '@/api';
 
 export default {
   name: 'Cart',
@@ -265,7 +280,7 @@ export default {
         if (data.success) {
           await this.$store.dispatch('getCarts');
           this.$store.dispatch('handIsLoading', false);
-          useToast('成功更新數量!', 'success');
+          useToast('成功更新數量!');
         } else useToast('操作失敗!', 'danger');
       } catch (err) {
         console.dir(err);
@@ -277,11 +292,24 @@ export default {
         const { data } = await apiDeleteCart(productId);
         if (data.success) {
           await this.$store.dispatch('getCarts');
-          this.$store.dispatch('handIsLoading', false);
-          useToast('成功移除商品!', 'success');
+          useToast('成功移除商品!');
         } else {
           useToast('操作失敗!', 'danger');
         }
+        this.$store.dispatch('handIsLoading', false);
+      } catch (err) {
+        console.dir(err);
+      }
+    },
+    async removeAllCarts() {
+      this.$store.dispatch('handIsLoading', true);
+      try {
+        const { data } = await apiDeleteAllCarts();
+        if (data.success) {
+          useToast('成功移除!');
+          await this.$store.dispatch('getCarts');
+        } else useToast('操作失敗!', 'danger');
+        this.$store.dispatch('handIsLoading', false);
       } catch (err) {
         console.dir(err);
       }

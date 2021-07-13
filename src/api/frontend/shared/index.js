@@ -6,6 +6,8 @@ export const getCarts = () => frontReq.get(`api/${PATH}/cart`);
 
 export const deleteCart = (id) => frontReq.delete(`api/${PATH}/cart/${id}`);
 
+export const deleteAllCarts = () => frontReq.delete(`api/${PATH}/carts`);
+
 export const postAddCart = (id, qty) =>
   frontReq.post(`api/${PATH}/cart`, {
     data: { product_id: id, qty }

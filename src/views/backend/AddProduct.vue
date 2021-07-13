@@ -311,7 +311,6 @@ export default {
           this.product.imageUrl = data.imageUrl;
           this.$refs.fileInput.value = '';
           useToast('成功上傳!', 'success');
-          console.log(1);
         } else useToast(data.message, 'danger');
         this.isLoading = false;
       } catch (err) {
