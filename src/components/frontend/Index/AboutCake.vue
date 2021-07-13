@@ -10,7 +10,7 @@
             align-items-center
             flex-wrap
           "
-          :class="{ active: isHeatAnimePlay }"
+          :class="{ active: isScrollToHeat }"
         >
           <div class="about-cake-img">
             <img
@@ -47,7 +47,7 @@
             flex-wrap
             pt-38
           "
-          :class="{ active: isMaterialsAnimePlay }"
+          :class="{ active: isScrollToMetarial }"
         >
           <div class="p-12 order-2 order-xl-1">
             <h3
@@ -100,19 +100,19 @@ export default {
   inject: ['scroll'],
   data() {
     return {
-      isHeatAnimePlay: false,
-      isMaterialsAnimePlay: false,
+      isScrollToHeat: false,
+      isScrollToMetarial: false,
     };
   },
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y >= 2400 && scroll.Y <= 3800) {
-          this.isHeatAnimePlay = true;
-        } else this.isHeatAnimePlay = false;
-        if (scroll.Y >= 3100 && scroll.Y <= 4500) {
-          this.isMaterialsAnimePlay = true;
-        } else this.isMaterialsAnimePlay = false;
+        if (scroll.Y >= 2300 && scroll.Y <= 3600) {
+          this.isScrollToHeat = true;
+        } else this.isScrollToHeat = false;
+        if (scroll.Y >= 2900 && scroll.Y <= 4100) {
+          this.isScrollToMetarial = true;
+        } else this.isScrollToMetarial = false;
       },
       deep: true,
     },

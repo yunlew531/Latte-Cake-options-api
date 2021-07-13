@@ -1,65 +1,78 @@
 <template>
-  <section
-    class="hot-sale-panel container pt-12 pb-38"
-    :class="{ active: isAnime }"
-  >
-    <h3 class="text-center fs-2 fw-bold text-danger mb-5">熱銷商品</h3>
-    <h4 class="text-center fs-5 mb-12">值得您嘗鮮的選擇</h4>
-    <swiper
-      :slides-per-view="3"
-      :space-between="50"
-      :autoplay="{
-        delay: 5000,
-        pauseOnMouseEnter: true,
-        disableOnInteraction: false,
-      }"
-      :loop="true"
-    >
-      <swiper-slide
-        v-for="(product, key) in 9"
-        :key="key"
-        class="rounded overflow-hidden bg-info"
-      >
-        <div class="swiper-img swiper-img-1">
-          <div
+  <section class="bg-info overflow-hidden">
+    <div class="hot-sale-panel bg-white-100" :class="{ active: isScrollTo }">
+      <div class="container pt-12 pb-38">
+        <h3 class="text-center fs-2 fw-bold text-danger overflow-hidden mb-5">
+          <span class="title-text d-block">熱銷商品</span>
+        </h3>
+        <h4 class="text-center fs-5 overflow-hidden mb-12">
+          <p class="paragraph-text d-block m-0">值得您嘗鮮的選擇</p>
+        </h4>
+        <swiper
+          :slides-per-view="3"
+          :space-between="50"
+          :autoplay="{
+            delay: 5000,
+            disableOnInteraction: false,
+          }"
+          :speed="2000"
+          :loop="true"
+          @swiper="setControlledSwiper"
+        >
+          <swiper-slide
+            v-for="(product, key) in 9"
+            :key="key"
+            class="rounded overflow-hidden bg-info"
+            @transitionend="playSwiper($event)"
+          >
+            <div class="swiper-img swiper-img-1">
+              <div
+                class="
+                  swiper-content
+                  position-absolute
+                  text-white
+                  bottom-0
+                  h-25
+                  w-100
+                  px-12
+                "
+              >
+                <router-link to="/" class="text-reset text-decoration-none">
+                  {{ key }}
+                  <h2>蘋果蛋餅</h2>
+                  <p>鮮嫩多汁，現採現萃</p>
+                </router-link>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper>
+        <div class="text-center mt-12">
+          <router-link
+            to="/products"
             class="
-              swiper-content
-              position-absolute
-              text-white
-              bottom-0
-              h-25
-              w-100
+              all-product-btn
+              position-relative
+              rounded
+              btn btn-primary
               px-12
+              py-2
+              overflow-hidden
             "
           >
-            <router-link to="/" class="text-reset text-decoration-none">
-              {{ key }}
-              <h2>蘋果蛋餅</h2>
-              <p>鮮嫩多汁，現採現萃</p>
-            </router-link>
-          </div>
+            <span class="opacity-0">所有商品</span>
+            <span
+              class="
+                btn-content
+                position-absolute
+                top-50
+                start-50
+                translate-middle
+              "
+              >所有商品</span
+            >
+          </router-link>
         </div>
-      </swiper-slide>
-    </swiper>
-    <div class="text-center mt-12">
-      <router-link
-        to="/products"
-        class="
-          all-product-btn
-          position-relative
-          rounded
-          btn btn-primary
-          px-12
-          py-2
-          overflow-hidden
-        "
-      >
-        <span class="opacity-0">所有商品</span>
-        <span
-          class="btn-content position-absolute top-50 start-50 translate-middle"
-          >所有商品</span
-        >
-      </router-link>
+      </div>
     </div>
   </section>
 </template>
@@ -79,13 +92,23 @@ export default {
   inject: ['scroll'],
   data() {
     return {
-      isAnime: false,
+      isScrollTo: false,
+      swiper: null,
     };
+  },
+  methods: {
+    setControlledSwiper(swiper) {
+      this.swiper = swiper;
+      this.swiper.autoplay.stop();
+    },
+    playSwiper($event) {
+      if ($event.pseudoElement === '::before') this.swiper.autoplay.start();
+    },
   },
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 1000 && scroll.Y < 2300) this.isAnime = true;
+        if (scroll.Y > 1000 && scroll.Y < 2300) this.isScrollTo = true;
       },
       deep: true,
     },
@@ -98,8 +121,17 @@ export default {
 
 .hot-sale-panel {
   opacity: 0;
-  transition: 1s ease-out;
+  transition: 1.5s cubic-bezier(0.34, 0.34, 0.32, 1);
   transform: translateY(50%);
+  .title-text,
+  .paragraph-text {
+    transition: 0.5s 1.5s ease-out;
+    transform: translateY(100%);
+  }
+  .paragraph-text {
+    transition-delay: 2s;
+  }
+
   .swiper-content {
     h2,
     p {
@@ -109,6 +141,35 @@ export default {
     }
     p {
       transition-delay: 0.2s;
+    }
+  }
+  .swiper-slide:nth-of-type(4),
+  .swiper-slide:nth-of-type(5),
+  .swiper-slide:nth-of-type(6) {
+    .swiper-img {
+      position: relative;
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+      }
+      &::before {
+        width: 160%;
+        height: 100%;
+        background: $info;
+        left: -190%;
+        transform: skewX(30deg);
+        z-index: 10;
+        transition: 0.6s 2.5s cubic-bezier(0.16, 0.51, 0.83, 0.5);
+      }
+      &::after {
+        background: $white-100;
+        width: 160%;
+        height: 100%;
+        left: -30%;
+        transform: skewX(30deg);
+        transition: 0.6s 2.5s cubic-bezier(0.16, 0.51, 0.83, 0.5);
+      }
     }
   }
   .swiper-img {
@@ -122,7 +183,6 @@ export default {
       position: absolute;
       width: 100%;
       height: 100%;
-
       bottom: 0;
     }
     &:hover {
@@ -146,7 +206,8 @@ export default {
     background-image: url(~@/assets/images/swiper-1-1.jpg);
   }
   .all-product-btn {
-    display: inline-block;
+    transition: 0.5s 3.5s;
+    transform: translateX(-100%) rotate3d(0, 1, 0, 90deg);
     .btn-content {
       transition: 0.2s;
       color: $white;
@@ -174,6 +235,25 @@ export default {
   &.active {
     opacity: 1;
     transform: translateY(0);
+    .title-text,
+    .paragraph-text {
+      transform: translateY(0);
+    }
+    .swiper-slide:nth-of-type(4),
+    .swiper-slide:nth-of-type(5),
+    .swiper-slide:nth-of-type(6) {
+      .swiper-img {
+        &::before {
+          left: 140%;
+        }
+        &::after {
+          left: 140%;
+        }
+      }
+    }
+    .all-product-btn {
+      transform: translateY(0);
+    }
   }
 }
 </style>

@@ -207,6 +207,7 @@ export default {
 .navbar-brand {
   font-family: 'Nothing You Could Do', cursive;
   font-size: $h4-font-size;
+  text-shadow: 0.05rem 0.05rem 0.2rem $white;
   transition: 0.3s;
   margin-top: 12px;
   &::first-letter {

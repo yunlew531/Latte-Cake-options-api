@@ -1,90 +1,91 @@
 <template>
-  <section
-    class="why-choose-us-panel container overflow-hidden pt-38 pb-25"
-    :class="{ active: isAnime }"
-  >
-    <h3 class="title text-center overflow-hidden">
-      <span class="title-text d-block">
-        為什麼選擇
-        <span class="text-danger fw-bold px-1">SPAGHETTI</span> ?
-      </span>
-    </h3>
-    <p class="paragraph text-center fs-6 fw-light overflow-hidden pt-3">
-      <span class="paragraph-text d-block">
-        我們的功夫源自於義大利威尼斯，代代相傳並由
-        <span class="text-danger fw-bold px-1">SPAGHETTI</span
-        >使用最好的原料，<br />讓您以簡單的方式品嘗到健康而正宗的傳統風味。
-      </span>
-    </p>
-    <ul class="row list-unstyled g-8 py-8">
-      <li class="col-4 card-item">
-        <div
-          class="
-            card-container
-            px-8
-            py-12
-            d-flex
-            flex-column
-            h-100
-            shadow
-            rounded
-            overflow-hidden
-          "
-        >
-          <div class="card-content">
-            <h4 class="fs-3">品質</h4>
-            <p class="m-0">
-              從尚未加工的原材料開始：蔬菜經過清潔，肉經過研磨、調味和煮熟，雞蛋手工破碎。
-            </p>
-          </div>
-        </div>
-      </li>
-      <li class="col-4 card-item">
-        <div
-          class="
-            card-container
-            px-8
-            py-12
-            d-flex
-            flex-column
-            h-100
-            shadow
-            rounded
-            overflow-hidden
-          "
-        >
-          <div class="card-content">
-            <h4 class="fs-3">烹飪</h4>
-            <p class="m-0">
-              我們不斷學習，主動嘗試最新烹飪趨勢，以符合客人對我們的期待。
-            </p>
-          </div>
-        </div>
-      </li>
-      <li class="col-4 card-item">
-        <div
-          class="
-            card-container
-            px-8
-            py-12
-            d-flex
-            flex-column
-            h-100
-            shadow
-            rounded
-            overflow-hidden
-          "
-        >
-          <div class="card-content">
-            <h4 class="fs-3">服務</h4>
-            <p class="m-0">
-              對待客人像對待自己的朋友一樣善待他們。<br />
-              無論您是誰，我們都提供無可挑剔的服務。
-            </p>
-          </div>
-        </div>
-      </li>
-    </ul>
+  <section class="bg-info">
+    <div class="why-choose-us-panel bg-white-100" :class="{ active: isAnime }">
+      <div class="container overflow-hidden pt-38 pb-25">
+        <h3 class="title text-center overflow-hidden">
+          <span class="title-text d-block">
+            為什麼選擇
+            <span class="text-danger fw-bold px-1">SPAGHETTI</span> ?
+          </span>
+        </h3>
+        <p class="paragraph text-center fs-6 fw-light overflow-hidden pt-3">
+          <span class="paragraph-text d-block">
+            我們的功夫源自於義大利威尼斯，代代相傳並由
+            <span class="text-danger fw-bold px-1">SPAGHETTI</span
+            >使用最好的原料，<br />讓您以簡單的方式品嘗到健康而正宗的傳統風味。
+          </span>
+        </p>
+        <ul class="row list-unstyled g-8 py-8">
+          <li class="col-4 card-item">
+            <div
+              class="
+                card-container
+                px-8
+                py-12
+                d-flex
+                flex-column
+                h-100
+                shadow
+                rounded
+                overflow-hidden
+              "
+            >
+              <div class="card-content">
+                <h4 class="fs-3">品質</h4>
+                <p class="m-0">
+                  從尚未加工的原材料開始：蔬菜經過清潔，肉經過研磨、調味和煮熟，雞蛋手工破碎。
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="col-4 card-item">
+            <div
+              class="
+                card-container
+                px-8
+                py-12
+                d-flex
+                flex-column
+                h-100
+                shadow
+                rounded
+                overflow-hidden
+              "
+            >
+              <div class="card-content">
+                <h4 class="fs-3">烹飪</h4>
+                <p class="m-0">
+                  我們不斷學習，主動嘗試最新烹飪趨勢，以符合客人對我們的期待。
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="col-4 card-item">
+            <div
+              class="
+                card-container
+                px-8
+                py-12
+                d-flex
+                flex-column
+                h-100
+                shadow
+                rounded
+                overflow-hidden
+              "
+            >
+              <div class="card-content">
+                <h4 class="fs-3">服務</h4>
+                <p class="m-0">
+                  對待客人像對待自己的朋友一樣善待他們。<br />
+                  無論您是誰，我們都提供無可挑剔的服務。
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -112,36 +113,34 @@ export default {
 @import '~@/assets/styleSheets/custom/variables';
 
 .why-choose-us-panel {
+  transition: 1.5s cubic-bezier(0.34, 0.34, 0.32, 1);
+  transform: translateY(50%);
   .title-text,
   .paragraph-text {
-    transition: 0.3s ease-in;
+    transition: 0.5s 1.5s ease-out;
     transform: translateY(100%);
   }
-  .title-text {
-    transition-delay: 0.2s;
-  }
   .paragraph-text {
-    transition-delay: 0.6s;
+    transition-delay: 2s;
   }
   .card-item {
-    transition: 0.5s;
+    transition: 1s ease-out;
     &:nth-child(n) {
       opacity: 0;
+      transform: translateY(100%) rotate3d(0, 1, 0, 30deg);
     }
     &:nth-child(1) {
-      transform: translateX(-100%);
-      transition-delay: 1s;
+      transition-delay: 2.5s;
     }
     &:nth-child(2) {
-      transition-delay: 1.5s;
-      transform: translateY(100%);
+      transition-delay: 3s;
     }
     &:nth-child(3) {
-      transform: translateX(100%);
-      transition-delay: 1s;
+      transition-delay: 3.5s;
     }
   }
   &.active {
+    transform: translateY(0%);
     .title-text,
     .paragraph-text {
       transform: translateY(0);

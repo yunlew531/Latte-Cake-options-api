@@ -16,11 +16,6 @@ $black-400: rgb(100, 100, 100);
 $gray-300: #dfdfdf;
 // custom-end
 
-// Settings for the `<body>` element.
-$body-bg: $white-100 !default;
-$body-color: $black !default;
-$letter-spacing: 0.0625rem;
-
 // scss-docs-start color-variables
 $gray-100: #f8f9fa !default;
 $gray-900: #212529 !default;
@@ -56,6 +51,12 @@ $theme-colors: (
   'black-400': $black-400,
   'gray-300': $gray-300
 ) !default;
+
+// Settings for the `<body>` element.
+$body-bg: $white-100 !default;
+$body-color: $black !default;
+$letter-spacing: 0.0625rem;
+// Settings for the `<body>` element.
 
 // Spacing
 //

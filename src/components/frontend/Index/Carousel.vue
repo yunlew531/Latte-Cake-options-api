@@ -127,7 +127,7 @@ export default {
 
       this.styleSheets.title = {
         textShadow: `
-        ${lengthX * 1}rem ${lengthY * 1}rem 0.3rem rgba(255,255,255, 0.8),
+        ${lengthX * 1.5}rem ${lengthY * 1.5}rem 0.3rem rgba(255,255,255, 0.8),
         ${lengthX * 3}rem ${lengthY * 3}rem 0.6rem rgba(255,255,255, 0.8)`,
       };
     },

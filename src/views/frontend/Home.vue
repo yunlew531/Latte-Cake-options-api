@@ -2,49 +2,7 @@
   <Carousel />
   <WhyChooseUs />
   <HotSale />
-  <div class="bg-info">
-    <div class="container position-relative py-8 py-md-16 mt-50">
-      <img
-        class="cake-img img-fluid position-absolute ms-xl-50 start-0 bottom-0"
-        src="@/assets/images/photo-cake.png"
-        alt="cake"
-      />
-      <div class="text-end px-xl-50 ps-50">
-        <router-link
-          to="/products"
-          class="
-            products-page-link
-            border-2
-            btn btn-danger
-            text-decoration-none
-            px-6 px-sm-12
-            overflow-hidden
-          "
-        >
-          <span class="position-absolute start-50 top-50 translate-middle w-100"
-            >立即點餐</span
-          >
-          <span class="opacity-0">立即點餐</span></router-link
-        >
-        <p
-          class="
-            d-flex
-            flex-wrap
-            align-items-center
-            justify-content-end
-            text-white
-            fs-2
-            tracking-3
-            mt-5
-            mb-0
-          "
-        >
-          <span class="text-danger fs-5">餓了嗎?</span>
-          <span class="ms-5">立即享用餐點</span>
-        </p>
-      </div>
-    </div>
-  </div>
+  <ImmediatelyOrder />
   <AboutCake />
   <OurTeam />
   <RestaurantLightbox />
@@ -55,6 +13,7 @@
 import Carousel from '@/components/frontend/Index/Carousel.vue';
 import WhyChooseUs from '@/components/frontend/Index/WhyChooseUs.vue';
 import HotSale from '@/components/frontend/Index/HotSale.vue';
+import ImmediatelyOrder from '@/components/frontend/Index/ImmediatelyOrder.vue';
 import AboutCake from '@/components/frontend/Index/AboutCake.vue';
 import OurTeam from '@/components/frontend/Index/OurTeam.vue';
 import RestaurantLightbox from '@/components/frontend/RestaurantLightbox.vue';
@@ -66,6 +25,7 @@ export default {
     Carousel,
     WhyChooseUs,
     HotSale,
+    ImmediatelyOrder,
     AboutCake,
     OurTeam,
     RestaurantLightbox,
@@ -73,7 +33,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '~@/assets/styleSheets/views/frontend/Home';
-</style>
