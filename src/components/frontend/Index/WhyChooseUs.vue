@@ -2,18 +2,14 @@
   <section class="bg-info">
     <div class="why-choose-us-panel bg-white-100" :class="{ active: isAnime }">
       <div class="container overflow-hidden pt-38 pb-25">
-        <h3 class="title text-center overflow-hidden">
-          <span class="title-text d-block">
-            為什麼選擇
-            <span class="text-danger fw-bold px-1">SPAGHETTI</span> ?
-          </span>
+        <h3 class="title text-center">
+          為什麼選擇
+          <span class="text-danger fw-bold px-1">SPAGHETTI</span> ?
         </h3>
-        <p class="paragraph text-center fs-6 fw-light overflow-hidden pt-3">
-          <span class="paragraph-text d-block">
-            我們的功夫源自於義大利威尼斯，代代相傳並由
-            <span class="text-danger fw-bold px-1">SPAGHETTI</span
-            >使用最好的原料，<br />讓您以簡單的方式品嘗到健康而正宗的傳統風味。
-          </span>
+        <p class="paragraph text-center fs-6 fw-light pt-3">
+          我們的功夫源自於義大利威尼斯，代代相傳並由
+          <span class="text-danger fw-bold px-1">SPAGHETTI</span
+          >使用最好的原料，<br />讓您以簡單的方式品嘗到健康而正宗的傳統風味。
         </p>
         <ul class="row list-unstyled g-8 py-8">
           <li class="col-4 card-item">
@@ -115,20 +111,19 @@ export default {
 .why-choose-us-panel {
   transition: 1.5s cubic-bezier(0.34, 0.34, 0.32, 1);
   transform: translateY(50%);
-  .title-text,
-  .paragraph-text {
-    transition: 0.5s 1.5s ease-out;
-    transform: translateY(100%);
+  .title,
+  .paragraph {
+    opacity: 0;
+    transition: 1s 1.5s cubic-bezier(0.34, 0.34, 0.32, 1);
+    transform: translateY(100%) rotate3d(0, 1, 0, 30deg);
   }
-  .paragraph-text {
+  .paragraph {
     transition-delay: 2s;
   }
   .card-item {
     transition: 1s ease-out;
-    &:nth-child(n) {
-      opacity: 0;
-      transform: translateY(100%) rotate3d(0, 1, 0, 30deg);
-    }
+    opacity: 0;
+    transform: translateY(100%) rotate3d(0, 1, 0, 30deg);
     &:nth-child(1) {
       transition-delay: 2.5s;
     }
@@ -141,8 +136,9 @@ export default {
   }
   &.active {
     transform: translateY(0%);
-    .title-text,
-    .paragraph-text {
+    .title,
+    .paragraph {
+      opacity: 1;
       transform: translateY(0);
     }
     .card-item {

@@ -1,5 +1,5 @@
 <template>
-  <header class="d-block position-absolute z-30 top-0 start-0 end-0 p-0">
+  <header class="d-block position-absolute z-999 top-0 start-0 end-0 p-0">
     <p
       class="
         container

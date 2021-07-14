@@ -2,10 +2,20 @@
   <section class="bg-info overflow-hidden">
     <div class="hot-sale-panel bg-white-100" :class="{ active: isScrollTo }">
       <div class="container pt-12 pb-38">
-        <h3 class="text-center fs-2 fw-bold text-danger overflow-hidden mb-5">
-          <span class="title-text d-block">熱銷商品</span>
+        <h3
+          class="
+            title
+            text-center
+            fs-2
+            fw-bold
+            text-danger
+            overflow-hidden
+            mb-5
+          "
+        >
+          熱銷商品
         </h3>
-        <h4 class="text-center fs-5 overflow-hidden mb-12">
+        <h4 class="text-center fs-5 mb-12">
           <p class="paragraph-text d-block m-0">值得您嘗鮮的選擇</p>
         </h4>
         <swiper
@@ -120,13 +130,13 @@ export default {
 @import '~@/assets/styleSheets/custom/variables';
 
 .hot-sale-panel {
-  opacity: 0;
   transition: 1.5s cubic-bezier(0.34, 0.34, 0.32, 1);
   transform: translateY(50%);
-  .title-text,
+  .title,
   .paragraph-text {
-    transition: 0.5s 1.5s ease-out;
-    transform: translateY(100%);
+    opacity: 0;
+    transition: 1s 1.5s cubic-bezier(0.34, 0.34, 0.32, 1);
+    transform: translateY(100%) rotate3d(0, 1, 0, 30deg);
   }
   .paragraph-text {
     transition-delay: 2s;
@@ -160,7 +170,7 @@ export default {
         left: -190%;
         transform: skewX(30deg);
         z-index: 10;
-        transition: 0.6s 2.5s cubic-bezier(0.16, 0.51, 0.83, 0.5);
+        transition: 0.6s 2.8s cubic-bezier(0.16, 0.51, 0.83, 0.5);
       }
       &::after {
         background: $white-100;
@@ -168,7 +178,7 @@ export default {
         height: 100%;
         left: -30%;
         transform: skewX(30deg);
-        transition: 0.6s 2.5s cubic-bezier(0.16, 0.51, 0.83, 0.5);
+        transition: 0.6s 2.8s cubic-bezier(0.16, 0.51, 0.83, 0.5);
       }
     }
   }
@@ -206,7 +216,8 @@ export default {
     background-image: url(~@/assets/images/swiper-1-1.jpg);
   }
   .all-product-btn {
-    transition: 0.5s 3.5s;
+    transition: 0.5s 3.8s;
+    opacity: 0;
     transform: translateX(-100%) rotate3d(0, 1, 0, 90deg);
     .btn-content {
       transition: 0.2s;
@@ -233,10 +244,10 @@ export default {
     }
   }
   &.active {
-    opacity: 1;
     transform: translateY(0);
-    .title-text,
+    .title,
     .paragraph-text {
+      opacity: 1;
       transform: translateY(0);
     }
     .swiper-slide:nth-of-type(4),
@@ -253,6 +264,7 @@ export default {
     }
     .all-product-btn {
       transform: translateY(0);
+      opacity: 1;
     }
   }
 }

@@ -23,17 +23,15 @@
             <h3
               class="paragraph-title text-primary fs-4 fw-bold tracking-2 mb-5"
             >
-              火侯的掌握
+              雞蛋
             </h3>
             <p class="paragraph-content-1 fs-6 lh-lg">
-              烘烤蛋糕操作時的溫度、 時間和濕度等因素，<br />
-              影響著蛋糕的口感、以及蛋糕外觀的好與壞。<br />
+              我們的雞蛋僅來自由 Turo 和 Paria France <br />
+              等嚴肅公司控制和認證的農場。<br />
             </p>
             <p class="paragraph-content-2 fs-6 m-0 lh-lg">
-              製作過程唯有不斷地嘗試，<br />
-              每次調配不同的參數，<br />
-              觀察其對食材的影響，不斷地調整，<br />
-              才能製烘烤出品質上乘的蛋糕。
+              這些公司所擁有的高質量標準，<br />
+              得到了眾多重要的意大利和歐洲認證的證明。
             </p>
           </div>
         </div>
@@ -53,17 +51,15 @@
             <h3
               class="paragraph-title text-primary fs-4 fw-bold tracking-2 mb-5"
             >
-              食材的堅持
+              麵粉
             </h3>
             <p class="paragraph-content-1 fs-6 lh-lg">
-              選用頂級丹麥低筋麵粉，<br />
-              保存期限僅短短半年。經過一道道程序，<br />
-              精選、磨粉、篩粉、包裝再加上長時間運送，<br />
-              大約剩3~4個月有效期限。<br />
+              對於麵粉，我們選擇了兩家丹麥大公司的質量和專業知識，<br />
+              這兩家公司都處於研磨行業的前沿。
             </p>
             <p class="paragraph-content-2 fs-6 lh-lg">
-              天然無添加，<br />
-              食材選用是我們不妥協的地方。
+              精選、磨粉、篩粉、包裝經過一道道程序，<br />
+              食材選用是我們不會妥協的地方。
             </p>
             <div class="about-material d-flex justify-content-end mt-12">
               <a

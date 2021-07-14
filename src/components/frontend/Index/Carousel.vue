@@ -216,9 +216,9 @@ export default {
   cursor: pointer;
   margin-bottom: 10px;
   opacity: 1;
-  animation: scroll-btn-ani 5s infinite;
+  animation: scroll-btn-anime 5s infinite;
 }
-@keyframes scroll-btn-ani {
+@keyframes scroll-btn-anime {
   100% {
     opacity: 0;
     margin-bottom: -50px;
