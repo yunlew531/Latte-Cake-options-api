@@ -75,6 +75,7 @@ export default {
   },
   methods: {
     handNowCategory(category) {
+      if (category === this.nowCategory) return;
       this.$emit('update:nowCategory', category);
       this.$store.dispatch('handNavSearchText', '');
     },
@@ -112,7 +113,11 @@ export default {
     },
     fixedNavSticky() {
       let style = null;
-      if (this.displayData.length <= 3 && this.isScrollDown) {
+      if (
+        this.displayData.length <= 3 &&
+        this.isScrollDown &&
+        this.navTeleport === '#navbarTeleportAside'
+      ) {
         style = {
           position: 'absolute',
           'margin-right': '12px',
@@ -125,15 +130,12 @@ export default {
     isScrollDown(down) {
       // isScrollDown 會觸發css動畫，動畫跑完再 teleport
       if (down) {
-        clearTimeout(this.teleportAsideToTopTimeout);
         this.teleportTopToAsideTimeout = setTimeout(() => {
           this.navTeleport = '#navbarTeleportAside';
-        }, 150);
+        }, 250);
       } else {
         clearTimeout(this.teleportTopToAsideTimeout);
-        this.teleportAsideToTopTimeout = setTimeout(() => {
-          this.navTeleport = '#navbarTeleportTop';
-        }, 150);
+        this.navTeleport = '#navbarTeleportTop';
       }
     },
     // 搜尋時 navbar 增加"搜尋"選項
@@ -160,8 +162,6 @@ export default {
 
 .products-nav-panel {
   transform: translateY(-50px);
-  margin-bottom: -30px;
-  transition: 1s ease-in, 0 margin;
   > ul {
     > li {
       width: 16.667%;

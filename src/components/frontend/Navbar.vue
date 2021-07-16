@@ -141,7 +141,7 @@
               type="search"
               placeholder="搜尋商品"
               aria-label="Search"
-              v-model="searchText"
+              v-model.trim="searchText"
               @keyup.enter="searchProduct"
             />
             <button
@@ -177,6 +177,7 @@ export default {
       this.$emitter.emit('showCartCanvas');
     },
     searchProduct() {
+      window.scrollTo(0, 0);
       this.$store.dispatch('handNavSearchText', this.searchText);
       this.$router.push('/products');
     },

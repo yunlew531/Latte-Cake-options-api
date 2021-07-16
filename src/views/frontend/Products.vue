@@ -1,6 +1,6 @@
 <template>
   <div class="nav-bg"></div>
-  <section class="container mb-12">
+  <section class="products-panel container mb-12">
     <div
       id="navbarTeleportTop"
       class="teleport-container-top duration-600 mb-8"
@@ -15,34 +15,45 @@
       <div
         id="navbarTeleportAside"
         class="teleport-container-aside duration-500 position-relative"
-        :class="isScrollDown ? 'col-2' : 'w-0 skewX'"
+        :class="isScrollDown ? 'col-2' : 'w-0'"
       ></div>
       <div
         class="products-panel-container duration-500"
         :class="isScrollDown ? 'col-10' : 'col-12'"
       >
-        <h3 v-if="searchText" class="fs-5 pb-2">
+        <h3 v-if="searchText && allProducts.length" class="fs-5 pb-2">
           搜尋到
           <span class="fs-4 text-danger">{{ displayData.length }}</span> 件有關
           <span class="fs-4 text-danger">{{ searchText }}</span> 的商品
         </h3>
         <section
-          class="products-panel bg-white rounded shadow-sm p-10"
+          class="
+            products-panel
+            d-flex
+            flex-column
+            bg-white
+            rounded
+            shadow-sm
+            p-10
+          "
           :class="{ active: isAnimeReset }"
         >
-          <div v-if="displayData.length === 0 && searchText" class="p-8">
-            <p class="text-center display-3">找不到您要的商品!</p>
-            <div class="text-center">
-              <button
-                type="button"
-                class="btn btn-primary"
-                @click="cancelSearch"
-              >
-                返回全部品項
-              </button>
-            </div>
+          <div
+            v-if="!displayData.length && searchText && allProducts.length"
+            class="
+              flex-grow-1
+              d-flex
+              flex-column
+              justify-content-center
+              align-items-center
+            "
+          >
+            <p class="display-5">找不到您要的商品!</p>
+            <button type="button" class="btn btn-primary" @click="cancelSearch">
+              返回全部品項
+            </button>
           </div>
-          <ul class="row gx-5 gy-10 list-unstyled">
+          <ul v-if="displayData.length" class="row gx-5 gy-10 list-unstyled">
             <li
               v-for="product in displayData"
               :key="product.id"
@@ -155,7 +166,7 @@ export default {
   computed: {
     displayData() {
       let displayData = null;
-      if (this.searchText && this.allProducts.length !== 0) {
+      if (this.searchText && this.allProducts.length) {
         displayData = this.allProducts.filter((product) =>
           product.title.match(this.searchText)
         );
@@ -188,6 +199,7 @@ export default {
       handler(val) {
         this.searchText = val;
         if (val) this.nowCategory = '搜尋';
+        else this.nowCategory = '全部';
       },
       immediate: true,
     },

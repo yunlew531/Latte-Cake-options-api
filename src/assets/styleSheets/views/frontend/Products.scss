@@ -1,5 +1,9 @@
 @import '~@/assets/styleSheets/custom/variables';
 
+.products-panel {
+  min-height: 400px;
+}
+
 .nav-bg {
   height: 300px;
   background: url(~@/assets/images/bg-banner.jpg) center no-repeat;
@@ -10,9 +14,8 @@
   height: 81px;
 }
 
-.skewX {
-  transition: 0.3s transform;
-  transform: skewX(-30deg);
+.teleport-container-aside {
+  transition: 0 margin;
 }
 
 .products-panel-container {
