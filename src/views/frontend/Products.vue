@@ -10,23 +10,41 @@
       <CategoryNav
         v-model:nowCategory="nowCategory"
         :isScrollDown="isScrollDown"
+        :displayData="displayData"
       />
       <div
         id="navbarTeleportAside"
-        class="teleport-container-aside duration-500"
+        class="teleport-container-aside duration-500 position-relative"
         :class="isScrollDown ? 'col-2' : 'w-0 skewX'"
       ></div>
       <div
         class="products-panel-container duration-500"
         :class="isScrollDown ? 'col-10' : 'col-12'"
       >
+        <h3 v-if="searchText" class="fs-5 pb-2">
+          搜尋到
+          <span class="fs-4 text-danger">{{ displayData.length }}</span> 件有關
+          <span class="fs-4 text-danger">{{ searchText }}</span> 的商品
+        </h3>
         <section
           class="products-panel bg-white rounded shadow-sm p-10"
           :class="{ active: isAnimeReset }"
         >
+          <div v-if="displayData.length === 0 && searchText" class="p-8">
+            <p class="text-center display-3">找不到您要的商品!</p>
+            <div class="text-center">
+              <button
+                type="button"
+                class="btn btn-primary"
+                @click="cancelSearch"
+              >
+                返回全部品項
+              </button>
+            </div>
+          </div>
           <ul class="row gx-5 gy-10 list-unstyled">
             <li
-              v-for="product in catetgoryFilter"
+              v-for="product in displayData"
               :key="product.id"
               class="product-item d-flex flex-column"
               :class="isScrollDown ? 'col-4' : 'col-3'"
@@ -96,7 +114,7 @@
     </div>
     <Pagination
       class="py-8"
-      :class="{ invisible: nowCategory !== '全部' }"
+      :class="{ invisible: nowCategory !== '全部' || searchText }"
       :pages="pagination"
       @handPage="handPage"
     />
@@ -117,26 +135,33 @@ export default {
   data() {
     return {
       nowCategory: '全部',
-      pageProductsData: {},
-      allProducts: {},
+      pageProductsData: [],
+      allProducts: [],
       pagination: {},
       isScrollDown: false,
       isAnimeReset: false,
+      searchText: '',
     };
   },
   methods: {
     handPage(page) {
       this.$store.dispatch('getProducts', page);
     },
-    hand($event) {
-      console.log($event);
+    cancelSearch() {
+      this.$store.dispatch('handNavSearchText', '');
+      this.nowCategory = '全部';
     },
   },
   computed: {
-    catetgoryFilter() {
+    displayData() {
       let displayData = null;
-      if (this.nowCategory === '全部') displayData = this.pageProductsData;
-      else {
+      if (this.searchText && this.allProducts.length !== 0) {
+        displayData = this.allProducts.filter((product) =>
+          product.title.match(this.searchText)
+        );
+      } else if (this.nowCategory === '全部') {
+        displayData = this.pageProductsData;
+      } else {
         displayData = this.allProducts.filter(
           (product) => product.category === this.nowCategory
         );
@@ -159,6 +184,13 @@ export default {
         this.allProducts = data;
       },
     },
+    '$store.getters.navSearchText': {
+      handler(val) {
+        this.searchText = val;
+        if (val) this.nowCategory = '搜尋';
+      },
+      immediate: true,
+    },
     scroll: {
       handler(scroll) {
         if (scroll.Y > 180) this.isScrollDown = true;
@@ -172,6 +204,9 @@ export default {
       if (success) this.isAnimeReset = true;
     });
     this.$store.dispatch('getAllProducts');
+  },
+  unmounted() {
+    this.$store.dispatch('handNavSearchText', '');
   },
 };
 </script>

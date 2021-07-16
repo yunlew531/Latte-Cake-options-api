@@ -128,7 +128,7 @@
               >{{ cartsData.carts?.length }}</span
             >
           </button>
-          <form class="d-flex position-relative ms-3">
+          <div class="d-flex position-relative ms-3">
             <input
               class="
                 search-input
@@ -142,14 +142,16 @@
               placeholder="搜尋商品"
               aria-label="Search"
               v-model="searchText"
+              @keyup.enter="searchProduct"
             />
             <button
               class="search-btn btn position-absolute end-0"
               type="button"
+              @click="searchProduct"
             >
               <span class="material-icons"> search </span>
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </nav>
@@ -174,6 +176,10 @@ export default {
       this.$store.dispatch('getCarts');
       this.$emitter.emit('showCartCanvas');
     },
+    searchProduct() {
+      this.$store.dispatch('handNavSearchText', this.searchText);
+      this.$router.push('/products');
+    },
   },
   created() {
     this.$store.dispatch('getCarts');
@@ -189,12 +195,22 @@ export default {
         this.cartsData = val;
       },
     },
+    '$store.getters.navSearchText': {
+      handler(val) {
+        this.searchText = val;
+      },
+    },
     scroll: {
       handler(scroll) {
         if (scroll.Y >= 100) this.isScrollDown = true;
         else this.isScrollDown = false;
       },
       deep: true,
+    },
+    '$route.path': {
+      handler(path) {
+        if (path !== '/products') this.$store.dispatch('handNavSearchText', '');
+      },
     },
   },
 };

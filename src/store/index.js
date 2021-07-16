@@ -9,7 +9,8 @@ export default createStore({
     shopPosition: 'Taipei',
     pageProductsData: [],
     allProducts: [],
-    backstageOrders: []
+    backstageOrders: [],
+    navSearchText: ''
   },
   mutations: {
     setCarts(state, payload) {
@@ -32,6 +33,9 @@ export default createStore({
     },
     setLogInStatus(state, status) {
       state.isLogIn = status;
+    },
+    setNavSearchText(state, text) {
+      state.navSearchText = text;
     }
   },
   actions: {
@@ -81,6 +85,9 @@ export default createStore({
     },
     handLogInStatus({ commit }, status) {
       commit('setLogInStatus', status);
+    },
+    handNavSearchText({ commit }, text) {
+      commit('setNavSearchText', text);
     }
   },
   modules: {},
@@ -91,6 +98,7 @@ export default createStore({
     pageProductsData: (state) => state.pageProductsData,
     backstageOrders: (state) => state.backstageOrders,
     allProducts: (state) => state.allProducts,
-    isLogIn: (state) => state.isLogIn
+    isLogIn: (state) => state.isLogIn,
+    navSearchText: (state) => state.navSearchText
   }
 });

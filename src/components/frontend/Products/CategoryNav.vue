@@ -3,6 +3,7 @@
     <section
       class="products-nav-panel bg-white rounded shadow-sm p-10"
       :class="{ 'drop-down': isScrollDown }"
+      :style="fixedNavSticky"
     >
       <ul
         class="
@@ -23,7 +24,7 @@
           :key="category"
           class="flex-grow-1 py-3 text-nowrap"
           :class="{ active: nowCategory === category }"
-          @click="$emit('update:nowCategory', category)"
+          @click="handNowCategory(category)"
           @mouseenter="nowHoverCategory = category"
           @mouseleave="nowHoverCategory = ''"
         >
@@ -54,6 +55,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    displayData: {
+      type: Array,
+      default: () => [],
+    },
   },
   emits: {
     'update:nowCategory': (category) => typeof category === 'string',
@@ -67,6 +72,12 @@ export default {
       teleportTopToAsideTimeout: null,
       teleportAsideToTopTimeout: null,
     };
+  },
+  methods: {
+    handNowCategory(category) {
+      this.$emit('update:nowCategory', category);
+      this.$store.dispatch('handNavSearchText', '');
+    },
   },
   computed: {
     progressBarAnime() {
@@ -85,7 +96,7 @@ export default {
           if (item === this.nowCategory) position = idx * percent;
         });
       }
-      // isScrollDown 判斷 nav 是水平或是垂直
+      // isScrollDown 判斷 navbar 是水平或是垂直
       if (this.isScrollDown) {
         sizeDirection = 'height';
         zeroDirection = 'top';
@@ -97,6 +108,16 @@ export default {
         { [sizeDirection]: `${percent}%` },
         { [zeroDirection]: `${position}%` },
       ];
+      return style;
+    },
+    fixedNavSticky() {
+      let style = null;
+      if (this.displayData.length <= 3 && this.isScrollDown) {
+        style = {
+          position: 'absolute',
+          'margin-right': '12px',
+        };
+      } else style = '';
       return style;
     },
   },
@@ -115,6 +136,17 @@ export default {
         }, 150);
       }
     },
+    // 搜尋時 navbar 增加"搜尋"選項
+    '$store.getters.navSearchText': {
+      handler(val) {
+        if (val && this.categoryList[0] !== '搜尋') {
+          this.categoryList.unshift('搜尋');
+        } else if (!val && this.categoryList[0] === '搜尋') {
+          this.categoryList.shift('搜尋');
+        }
+      },
+      immediate: true,
+    },
   },
   mounted() {
     this.navTeleport = '#navbarTeleportTop';
@@ -129,7 +161,7 @@ export default {
 .products-nav-panel {
   transform: translateY(-50px);
   margin-bottom: -30px;
-  transition: 1s ease-in;
+  transition: 1s ease-in, 0 margin;
   > ul {
     > li {
       width: 16.667%;
