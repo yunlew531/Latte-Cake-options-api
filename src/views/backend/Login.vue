@@ -1,7 +1,6 @@
 <template>
   <section class="navbar-bg">
     <div
-      v-if="showPage"
       class="
         login-panel
         shadow
@@ -57,16 +56,14 @@
 </template>
 
 <script>
-import { apiPostLogin, apiPostCheck } from '@/api';
+import { apiPostLogin } from '@/api';
 import { useToast } from '@/methods';
-import backReq from '@/api/backReq';
 
 export default {
   name: 'Login',
   data() {
     return {
       user: {},
-      showPage: false,
     };
   },
   methods: {
@@ -89,29 +86,13 @@ export default {
         console.dir(err);
       }
     },
-    setHeaders() {
-      const token = document.cookie.replace(
-        /(?:(?:^|.*;\s*)LatteCake\s*=\s*([^;]*).*$)|^.*$/,
-        '$1'
-      );
-      backReq.defaults.headers.common.Authorization = token;
-    },
-    checkLoginStatus() {
-      this.setHeaders();
-      apiPostCheck().then(({ data }) => {
-        if (data.success) {
-          this.$store.dispatch('handLogInStatus', true);
-          this.$router.push('/admin');
-        } else this.showPage = true;
-      });
-    },
   },
-  created() {
-    if (this.$store.getters.isLogIn) {
-      this.$router.push('/admin');
-    } else {
-      this.checkLoginStatus();
-    }
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!from.path.match('/admin') || vm.$store.getters.isLogIn) {
+        vm.$router.push('/admin');
+      }
+    });
   },
 };
 </script>

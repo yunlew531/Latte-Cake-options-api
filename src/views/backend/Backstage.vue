@@ -54,17 +54,18 @@ export default {
       );
       backReq.defaults.headers.common.Authorization = token;
     },
-    checkLoginStatus() {
+    checkLoginStatus(from) {
       this.setHeaders();
       apiPostCheck()
         .then(({ data }) => {
+          console.log('驗證');
           if (data.success) {
             this.$store.dispatch('handLogInStatus', true);
             this.$router.push('/admin');
           } else {
             this.$store.dispatch('handLogInStatus', false);
             this.$router.push('/login');
-            if (this.$route.path.match('/admin')) {
+            if (from.path !== '/login') {
               useToast('請重新登入', 'danger');
             }
           }
@@ -78,8 +79,10 @@ export default {
         });
     },
   },
-  created() {
-    this.checkLoginStatus();
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.checkLoginStatus(from);
+    });
   },
 };
 </script>

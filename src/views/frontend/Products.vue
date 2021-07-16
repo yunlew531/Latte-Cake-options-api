@@ -199,7 +199,6 @@ export default {
       handler(val) {
         this.searchText = val;
         if (val) this.nowCategory = '搜尋';
-        else this.nowCategory = '全部';
       },
       immediate: true,
     },

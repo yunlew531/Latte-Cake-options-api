@@ -12,7 +12,11 @@
           >使用最好的原料，<br />讓您以簡單的方式品嘗到健康而正宗的傳統風味。
         </p>
         <ul class="row list-unstyled g-8 py-8">
-          <li class="col-4 card-item">
+          <li
+            v-for="content in cardList"
+            :key="content"
+            class="col-4 card-item"
+          >
             <div
               class="
                 card-container
@@ -27,54 +31,9 @@
               "
             >
               <div class="card-content">
-                <h4 class="fs-3">品質</h4>
+                <h4 class="fs-3">{{ content.title }}</h4>
                 <p class="m-0">
-                  從尚未加工的原材料開始：蔬菜經過清潔，肉經過研磨、調味和煮熟，雞蛋手工破碎。
-                </p>
-              </div>
-            </div>
-          </li>
-          <li class="col-4 card-item">
-            <div
-              class="
-                card-container
-                px-8
-                py-12
-                d-flex
-                flex-column
-                h-100
-                shadow
-                rounded
-                overflow-hidden
-              "
-            >
-              <div class="card-content">
-                <h4 class="fs-3">烹飪</h4>
-                <p class="m-0">
-                  我們不斷學習，主動嘗試最新烹飪趨勢，以符合客人對我們的期待。
-                </p>
-              </div>
-            </div>
-          </li>
-          <li class="col-4 card-item">
-            <div
-              class="
-                card-container
-                px-8
-                py-12
-                d-flex
-                flex-column
-                h-100
-                shadow
-                rounded
-                overflow-hidden
-              "
-            >
-              <div class="card-content">
-                <h4 class="fs-3">服務</h4>
-                <p class="m-0">
-                  對待客人像對待自己的朋友一樣善待他們。<br />
-                  無論您是誰，我們都提供無可挑剔的服務。
+                  {{ content.content }}
                 </p>
               </div>
             </div>
@@ -90,8 +49,32 @@ export default {
   inject: ['scroll'],
   data() {
     return {
+      cardList: [
+        {
+          title: '品質',
+          content:
+            '從尚未加工的原材料開始：蔬菜經過清潔，肉經過研磨、調味和煮熟，雞蛋手工破碎。',
+        },
+        {
+          title: '烹飪',
+          content:
+            '我們不斷學習，主動嘗試最新烹飪趨勢，以符合客人對我們的期待。',
+        },
+        {
+          title: '服務',
+          content:
+            '對待客人像對待自己的朋友一樣善待他們。無論您是誰，我們都提供無可挑剔的服務。',
+        },
+      ],
+      KeyframeEffect: null,
       isAnime: false,
     };
+  },
+  methods: {
+    lazyScrollAnime(domPosition) {
+      if (domPosition === 'up') this.isAnimeLazyUp = true;
+      else if (domPosition === 'down') this.isAnimeLazyDown = true;
+    },
   },
   watch: {
     scroll: {
