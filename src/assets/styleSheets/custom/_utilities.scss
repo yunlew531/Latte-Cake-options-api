@@ -132,6 +132,13 @@ $utilities: map-merge(
         100: 100%,
         auto: auto
       )
+    ),
+    'wrap': (
+      property: white-space,
+      class: text,
+      values: (
+        wrap: pre-wrap
+      )
     )
   )
 );

@@ -3,6 +3,7 @@ import { apiGetCarts, apiGetPageProducts, apiGetOrders, apiGetAllProducts } from
 
 export default createStore({
   state: {
+    isLogIn: false,
     isLoading: false,
     cartsData: [],
     shopPosition: 'Taipei',
@@ -28,6 +29,9 @@ export default createStore({
     },
     setAllProducts(state, products) {
       state.allProducts = products;
+    },
+    setLogInStatus(state, status) {
+      state.isLogIn = status;
     }
   },
   actions: {
@@ -74,6 +78,9 @@ export default createStore({
     },
     handIsLoading({ commit }, boolean) {
       commit('setIsLoading', boolean);
+    },
+    handLogInStatus({ commit }, status) {
+      commit('setLogInStatus', status);
     }
   },
   modules: {},
@@ -83,6 +90,7 @@ export default createStore({
     shopPosition: (state) => state.shopPosition,
     pageProductsData: (state) => state.pageProductsData,
     backstageOrders: (state) => state.backstageOrders,
-    allProducts: (state) => state.allProducts
+    allProducts: (state) => state.allProducts,
+    isLogIn: (state) => state.isLogIn
   }
 });

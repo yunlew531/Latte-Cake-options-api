@@ -98,6 +98,7 @@ export default {
       const { data } = await apiLogOut();
       if (data.success) {
         document.cookie = 'LatteCake=;expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+        this.$store.dispatch('handLogInStatus', false);
         this.$router.push('/login');
       }
     },

@@ -5,6 +5,37 @@
     :class="{ active: isAnimeReset }"
   >
     <div>
+      <div class="row g-8">
+        <div class="col-6">
+          <img
+            src="@/assets/images/bg-banner.jpg"
+            alt="spaghetti"
+            class="img-fluid"
+          />
+        </div>
+        <div class="col-6 lh-lg">
+          <h2 class="fs-3">關於我們</h2>
+          <p>
+            <span class="text-danger">SPAGHETTI</span>
+            是一家成立於 1950 年的義大利獨資公司。<br />
+            是一家新鮮義大利麵餐廳，提供熱食，如義大利麵、pizza等。
+          </p>
+          <p>
+            我們致力於為我們的客戶帶來全家人都會喜歡的經典義大利麵食，<br />
+            食材均來自嚴格篩選，我們使用通過 100% 安全認證之廠商。
+          </p>
+          <p>
+            中央廚房每天烹飪，不含防腐劑、添加劑著色劑或味精。<br />
+            無需真空包裝，因為它只是從我們廚房送到您手中的新鮮食物。
+          </p>
+          <p>
+            義大利麵廚師確實為您提供了家人應得的古老時尚美食。<br />
+            餐點是通過各地真實家庭的反饋完成的，我們的成功取決於他們！<br />
+            我們致力於為您的家人提供包含傳統美味的食物。
+          </p>
+        </div>
+      </div>
+      <h2 class="text-center mt-12 mb-3">店家地址</h2>
       <ul class="d-flex list-unstyled">
         <li class="flex-grow-1">
           <button
@@ -50,7 +81,10 @@
       </div>
     </div>
   </section>
-  <RestaurantLightbox />
+  <div class="container bg-white rounded shadow-sm p-8 my-8">
+    <h2 class="text-center">餐廳照片</h2>
+    <RestaurantLightbox class="my-n20" />
+  </div>
 </template>
 
 <script>

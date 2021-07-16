@@ -133,6 +133,7 @@
                   :class="{ 'is-invalid': errors['原價'] }"
                   placeholder="請輸入 原價"
                   rules="required"
+                  min="0"
                   v-model.number="product.origin_price"
                 ></Field>
                 <error-message
@@ -152,6 +153,7 @@
                   :class="{ 'is-invalid': errors['售價'] }"
                   placeholder="請輸入 售價"
                   rules="required"
+                  min="0"
                   v-model.number="product.price"
                 ></Field>
                 <error-message

@@ -58,7 +58,7 @@ const routes = [
   {
     path: '/admin',
     name: 'Backstage',
-    redirect: '/admin/Products',
+    redirect: '/admin/products',
     component: () => import('../views/backend/Backstage.vue'),
     children: [
       {

@@ -85,7 +85,7 @@
             >
           </p>
           <hr class="text-black-300" />
-          <p class="text-black-200 py-5">
+          <p class="text-wrap lh-lg fs-5 fw-light text-black-100 py-5">
             {{ product.content }}
           </p>
           <div

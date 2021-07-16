@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLogIn">
+  <div v-if="$store.getters.isLogIn">
     <BackendNavbar :user="user" />
     <div class="d-flex flex-wrap px-5 pb-8">
       <Sidebar :boardStatus="boardStatus" />
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import backReq from '@/api/backReq';
-import { apiPostCheck, apiGetUser } from '@/api';
-import { useToast } from '@/methods';
+import { apiGetUser, apiPostCheck } from '@/api';
 import BackendNavbar from '@/components/backend/BackendNavbar.vue';
 import Sidebar from '@/components/backend/Sidebar.vue';
+import { useToast } from '@/methods';
+import backReq from '@/api/backReq';
 
 export default {
   name: 'Backstage',
@@ -28,7 +28,6 @@ export default {
   },
   data() {
     return {
-      isLogIn: false,
       boardStatus: '新增',
       tempProduct: {},
       user: {},
@@ -39,6 +38,15 @@ export default {
       this.boardStatus = data.status;
       this.tempProduct = data.product;
     },
+    getUser() {
+      apiGetUser().then((res) => {
+        if (res.status === 200) {
+          const data = res.data.results[0];
+          this.user.username = `${data.name.first} ${data.name.last}`;
+          this.user.photo = data.picture.medium;
+        }
+      });
+    },
     setHeaders() {
       const token = document.cookie.replace(
         /(?:(?:^|.*;\s*)LatteCake\s*=\s*([^;]*).*$)|^.*$/,
@@ -46,30 +54,32 @@ export default {
       );
       backReq.defaults.headers.common.Authorization = token;
     },
+    checkLoginStatus() {
+      this.setHeaders();
+      apiPostCheck()
+        .then(({ data }) => {
+          if (data.success) {
+            this.$store.dispatch('handLogInStatus', true);
+            this.$router.push('/admin');
+          } else {
+            this.$store.dispatch('handLogInStatus', false);
+            this.$router.push('/login');
+            if (this.$route.path.match('/admin')) {
+              useToast('請重新登入', 'danger');
+            }
+          }
+          return data;
+        })
+        .then(({ success }) => {
+          if (success) this.getUser();
+        })
+        .catch((err) => {
+          console.dir(err);
+        });
+    },
   },
   created() {
-    this.setHeaders();
-    apiPostCheck()
-      .then((res) => {
-        if (res.data.success) {
-          this.isLogIn = true;
-        } else {
-          useToast('請重新登入', 'danger');
-          this.$router.push('/login');
-          return false;
-        }
-        return apiGetUser();
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          const data = res.data.results[0];
-          this.user.username = `${data.name.first} ${data.name.last}`;
-          this.user.photo = data.picture.medium;
-        }
-      })
-      .catch((err) => {
-        console.dir(err);
-      });
+    this.checkLoginStatus();
   },
 };
 </script>
