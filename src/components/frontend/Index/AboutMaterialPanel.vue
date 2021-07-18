@@ -62,8 +62,8 @@
               食材選用是我們不會妥協的地方。
             </p>
             <div class="about-material d-flex justify-content-end mt-12">
-              <a
-                href="javascript:;"
+              <router-link
+                to="/aboutMaterial"
                 class="
                   text-decoration-none
                   duration-600
@@ -74,7 +74,7 @@
               >
                 <h4 class="fs-6 lh-1 m-0">關於更多食材</h4>
                 <span class="material-icons ms-1"> trending_flat </span>
-              </a>
+              </router-link>
             </div>
           </div>
           <div class="about-flour-img order-1 order-xl-2">

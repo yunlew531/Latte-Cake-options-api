@@ -59,7 +59,7 @@
         <div class="text-center mt-12">
           <router-link to="/products" class="d-block">
             <Button hoverBgColor="white" class="all-products-btn px-12 py-2"
-              ><span class="btn-content">線上訂位</span>
+              ><span class="btn-content">全部商品</span>
             </Button>
           </router-link>
         </div>

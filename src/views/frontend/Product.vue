@@ -7,6 +7,7 @@
     <div class="row gx-12">
       <ul class="col-6 list-unstyled mb-0">
         <li
+          v-if="product.imageUrl"
           class="product-img rounded"
           :style="{
             'background-image': `url(${product.imageUrl})`,

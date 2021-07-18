@@ -21,7 +21,11 @@
             <th scope="row">{{ key + 1 }}</th>
             <td class="pe-10">
               <div
-                :style="{ 'background-image': `url(${product.imageUrl})` }"
+                :style="{
+                  'background-image': `url(${
+                    product.imageUrl || product.imagesUrl[0]
+                  })`,
+                }"
                 class="product-img"
               ></div>
             </td>

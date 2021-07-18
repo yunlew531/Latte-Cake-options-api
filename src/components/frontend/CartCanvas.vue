@@ -42,7 +42,9 @@
             <div
               class="product-img"
               :style="{
-                'background-image': `url(${product.product.imageUrl})`,
+                'background-image': `url(${
+                  product.product.imageUrl || product.product.imagesUrl[0]
+                })`,
               }"
             ></div>
             <div class="p-3 flex-grow-1">

@@ -82,7 +82,11 @@
                       justify-content-center
                       align-items-center
                     "
-                    :style="{ 'background-image': `url(${product.imageUrl})` }"
+                    :style="{
+                      'background-image': `url(${
+                        product.imageUrl || product.imagesUrl[0]
+                      })`,
+                    }"
                   >
                     <p class="more-info-text text-white duration-500">
                       商品詳細
@@ -215,6 +219,9 @@ export default {
       if (success) this.isAnimeReset = true;
     });
     this.$store.dispatch('getAllProducts');
+    if (this.$route.query.category) {
+      this.nowCategory = this.$route.query.category;
+    }
   },
   unmounted() {
     this.$store.dispatch('handNavSearchText', '');

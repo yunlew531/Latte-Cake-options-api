@@ -9,7 +9,7 @@
       :style="styleSheets.title"
       @animationend="handTeleport"
     >
-      <span class="fw-bolder text-danger tracking-3">SPAGHETTI</span>
+      <span class="fw-bolder text-danger tracking-2 w-100">PastaHouse</span>
     </h3>
     <div class="btns-group ps-12" :class="{ show: !playFirstAnime }">
       <Button>瀏覽菜單</Button>
@@ -65,7 +65,7 @@ export default {
   &.first-anime {
     transform: translateY(200%) scale(0.95);
     margin-top: 64px;
-    font-size: 12rem;
+    font-size: 10rem;
     animation: first-anime 4s 0.8s forwards cubic-bezier(0.17, 0.67, 0.73, 1.16);
     &::first-letter {
       font-size: 20rem;

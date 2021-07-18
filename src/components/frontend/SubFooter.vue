@@ -3,8 +3,8 @@
     <div class="container px-25 py-25">
       <ul class="row gx-8 list-unstyled">
         <li class="col-6">
-          <a
-            href="javascript:;"
+          <router-link
+            to="/aboutMaterial"
             class="
               link-item
               text-reset text-decoration-none
@@ -24,7 +24,7 @@
             <span class="material-icons fs-5 text-danger pe-2">
               play_circle_outline
             </span>
-          </a>
+          </router-link>
         </li>
         <li class="col-6">
           <router-link

@@ -39,7 +39,7 @@
             to="/home"
             class="navbar-brand fw-bolder text-danger d-block p-0"
             :class="{ 'scroll-down': isScrollDown }"
-            >SPAGHETTI
+            >PastaHouse
           </router-link>
         </h1>
         <button
@@ -79,21 +79,7 @@
                 >購物車</router-link
               >
             </li>
-            <li>
-              <router-link to="/checkout" class="nav-link d-block px-5"
-                >結帳</router-link
-              >
-            </li>
-            <li>
-              <router-link to="/orders" class="nav-link d-block px-5"
-                >多筆訂單</router-link
-              >
-            </li>
-            <li>
-              <router-link to="/order/123" class="nav-link d-block px-5"
-                >單筆訂單</router-link
-              >
-            </li>
+            <li></li>
             <li>
               <router-link to="/admin" class="nav-link d-block px-5"
                 >登入</router-link

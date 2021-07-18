@@ -16,7 +16,7 @@
         <div class="col-6 lh-lg">
           <h2 class="fs-3">關於我們</h2>
           <p>
-            <span class="text-danger">SPAGHETTI</span>
+            <span class="shop-name fw-bold text-danger">PastaHouse</span>
             是一家成立於 1950 年的義大利獨資公司。<br />
             是一家新鮮義大利麵餐廳，提供熱食，如義大利麵、pizza等。
           </p>
@@ -127,6 +127,10 @@ export default {
 <style lang="scss" scoped>
 @import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
+
+.shop-name {
+  font-family: 'Nothing You Could Do', cursive;
+}
 
 .google-map {
   transform: scale(0);

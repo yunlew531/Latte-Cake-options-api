@@ -3,7 +3,7 @@
   <WhyChooseUs />
   <HotSale />
   <ImmediatelyOrder />
-  <AboutCake />
+  <AboutMaterialPanel />
   <OurTeam />
   <RestaurantLightbox />
   <LocationPanel />
@@ -14,7 +14,7 @@ import Carousel from '@/components/frontend/Index/Carousel.vue';
 import WhyChooseUs from '@/components/frontend/Index/WhyChooseUs.vue';
 import HotSale from '@/components/frontend/Index/HotSale.vue';
 import ImmediatelyOrder from '@/components/frontend/Index/ImmediatelyOrder.vue';
-import AboutCake from '@/components/frontend/Index/AboutCake.vue';
+import AboutMaterialPanel from '@/components/frontend/Index/AboutMaterialPanel.vue';
 import OurTeam from '@/components/frontend/Index/OurTeam.vue';
 import RestaurantLightbox from '@/components/frontend/RestaurantLightbox.vue';
 import LocationPanel from '@/components/frontend/Index/LocationPanel.vue';
@@ -26,7 +26,7 @@ export default {
     WhyChooseUs,
     HotSale,
     ImmediatelyOrder,
-    AboutCake,
+    AboutMaterialPanel,
     OurTeam,
     RestaurantLightbox,
     LocationPanel,

@@ -4,11 +4,11 @@
       <div class="container overflow-hidden pt-38 pb-25">
         <h3 class="title text-center">
           為什麼選擇
-          <span class="text-danger fw-bold px-1">SPAGHETTI</span> ?
+          <span class="shop-name text-danger fw-bold px-1">PastaHouse</span> ?
         </h3>
         <p class="paragraph text-center fs-6 fw-light pt-3">
           我們的功夫源自於義大利威尼斯，代代相傳並由
-          <span class="text-danger fw-bold px-1">SPAGHETTI</span
+          <span class="shop-name text-danger fw-bold px-1">PastaHouse</span
           >使用最好的原料，<br />讓您以簡單的方式品嘗到健康而正宗的傳統風味。
         </p>
         <ul class="row list-unstyled g-8 py-8">
@@ -90,6 +90,10 @@ export default {
 <style lang="scss" scoped>
 @import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
+
+.shop-name {
+  font-family: 'Nothing You Could Do', cursive;
+}
 
 .why-choose-us-panel {
   transition: 1.5s cubic-bezier(0.34, 0.34, 0.32, 1);

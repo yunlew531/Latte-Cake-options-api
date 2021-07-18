@@ -75,7 +75,9 @@
                 <div
                   class="product-img"
                   :style="{
-                    'background-image': `url(${product.product.imageUrl})`,
+                    'background-image': `url(${
+                      product.product.imageUrl || product.product.imagesUrl[0]
+                    })`,
                   }"
                 ></div>
                 <div
@@ -89,7 +91,7 @@
                 >
                   <div class="d-flex">
                     <div class="flex-grow-1 flex-shrink-1">
-                      <h2 class="fs-3">
+                      <h2 class="fs-3 mb-2px">
                         <router-link
                           :to="`/product/${product.product.id}`"
                           class="text-decoration-none"
@@ -97,10 +99,18 @@
                         >
                       </h2>
                       <h4 class="fs-7 text-black-300">
-                        {{ product.product.category }}
+                        {{ product.product.description }}
+                      </h4>
+                      <h4 class="fs-7 text-black-200">
+                        分類:
+                        <a
+                          href="javascript:;"
+                          @click="searchCategory(product.product.category)"
+                        >
+                          {{ product.product.category }}
+                        </a>
                       </h4>
                     </div>
-
                     <div
                       class="
                         align-self-start
@@ -159,7 +169,7 @@
                       </div>
                     </div>
                   </div>
-                  <p class="text-black-200">
+                  <p class="text-wrap tracking-2 text-black-200">
                     {{ product.product.content }}
                   </p>
                   <div class="d-flex align-items-center">
@@ -218,7 +228,7 @@
         </div>
       </div>
       <div class="col-4">
-        <div class="position-sticky top-20">
+        <div class="total-price-panel position-sticky">
           <div class="rounded shadow-sm bg-white p-8">
             <p class="fs-4">總金額</p>
             <p class="d-flex text-black-400">
@@ -303,6 +313,9 @@ export default {
       } catch (err) {
         console.dir(err);
       }
+    },
+    searchCategory(category) {
+      this.$router.push({ path: '/products', query: { category } });
     },
   },
   computed: {

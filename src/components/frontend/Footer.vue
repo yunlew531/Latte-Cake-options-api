@@ -2,7 +2,7 @@
   <footer class="py-20 text-white bg-black-100">
     <div class="container d-flex justify-content-between align-items-center">
       <div>
-        <h3 class="footer-title fw-bold tracking-2 text-danger">SPAGHETTI</h3>
+        <h3 class="footer-title fw-bold tracking-2 text-danger">PastaHouse</h3>
         <p class="text-black-300">110台北市信義區市府路1號</p>
         <a
           href="tel:+886-2-22885566"
@@ -54,7 +54,7 @@
         >
           <Field
             id="email"
-            name="email"
+            name="Email"
             type="email"
             class="
               form-control
@@ -64,13 +64,13 @@
               ps-5
               pe-25
             "
-            :class="{ 'is-invalid': errors['email'] }"
+            :class="{ 'is-invalid': errors['Email'] }"
             placeholder="請輸入 Email"
             rules="email|required"
             v-model="email"
           >
           </Field>
-          <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
+          <ErrorMessage name="Email" class="invalid-feedback"></ErrorMessage>
           <button
             type="submit"
             class="

@@ -66,7 +66,7 @@ export default {
   inject: ['scroll'],
   data() {
     return {
-      categoryList: ['全部', '圓直麵', '筆管麵', '咖啡', '其他2', '其他3'],
+      categoryList: ['全部', '圓直麵', '筆管麵', '咖啡', '甜品'],
       nowHoverCategory: '',
       navTeleport: '',
       teleportTopToAsideTimeout: null,
@@ -111,6 +111,7 @@ export default {
       ];
       return style;
     },
+    // 品項只有一排時，稱不開 div position sticky 樣式的 top， 改用 absolute
     fixedNavSticky() {
       let style = null;
       if (
