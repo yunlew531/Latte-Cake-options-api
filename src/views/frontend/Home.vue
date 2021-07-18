@@ -1,6 +1,7 @@
 <template>
   <Carousel />
   <WhyChooseUs />
+  <Menu ref="menu" />
   <HotSale />
   <ImmediatelyOrder />
   <AboutMaterialPanel />
@@ -12,6 +13,7 @@
 <script>
 import Carousel from '@/components/frontend/Index/Carousel.vue';
 import WhyChooseUs from '@/components/frontend/Index/WhyChooseUs.vue';
+import Menu from '@/components/frontend/Index/Menu.vue';
 import HotSale from '@/components/frontend/Index/HotSale.vue';
 import ImmediatelyOrder from '@/components/frontend/Index/ImmediatelyOrder.vue';
 import AboutMaterialPanel from '@/components/frontend/Index/AboutMaterialPanel.vue';
@@ -24,12 +26,30 @@ export default {
   components: {
     Carousel,
     WhyChooseUs,
+    Menu,
     HotSale,
     ImmediatelyOrder,
     AboutMaterialPanel,
     OurTeam,
     RestaurantLightbox,
     LocationPanel,
+  },
+  methods: {
+    scrollToEl(ref) {
+      const el = this.$refs[ref].$refs[ref];
+      const top = el.offsetTop;
+      window.scrollTo(0, top);
+    },
+  },
+  mounted() {
+    this.$emitter.on('scrollToEl', (ref) => {
+      this.scrollToEl(ref);
+    });
+  },
+  unmounted() {
+    this.$emitter.off('scrollToEl', (ref) => {
+      this.scrollToEl(ref);
+    });
   },
 };
 </script>

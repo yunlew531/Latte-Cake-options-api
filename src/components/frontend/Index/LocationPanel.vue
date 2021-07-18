@@ -146,7 +146,7 @@ export default {
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 5000) {
+        if (scroll.Y > 5700 && scroll.Y < 7000) {
           this.isScrollTo = true;
           this.carousel.cycle();
         }

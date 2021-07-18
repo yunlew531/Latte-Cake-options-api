@@ -15,9 +15,7 @@
         >
           熱銷商品
         </h3>
-        <h4 class="text-center fs-5 mb-12">
-          <p class="paragraph-text d-block m-0">值得您嘗鮮的選擇</p>
-        </h4>
+        <h4 class="text-center fs-5 mb-12"></h4>
         <swiper
           :slides-per-view="3"
           :space-between="50"
@@ -101,7 +99,7 @@ export default {
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 1000 && scroll.Y < 2300) this.isScrollTo = true;
+        if (scroll.Y > 1600 && scroll.Y < 2700) this.isScrollTo = true;
       },
       deep: true,
     },

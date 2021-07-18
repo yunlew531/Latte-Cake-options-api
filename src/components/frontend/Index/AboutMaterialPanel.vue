@@ -103,10 +103,10 @@ export default {
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y >= 2300 && scroll.Y <= 3600) {
+        if (scroll.Y >= 2900 && scroll.Y <= 3900) {
           this.isScrollToHeat = true;
         } else this.isScrollToHeat = false;
-        if (scroll.Y >= 2900 && scroll.Y <= 4100) {
+        if (scroll.Y >= 3500 && scroll.Y <= 4600) {
           this.isScrollToMetarial = true;
         } else this.isScrollToMetarial = false;
       },

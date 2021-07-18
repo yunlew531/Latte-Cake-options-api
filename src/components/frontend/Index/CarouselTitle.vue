@@ -12,7 +12,9 @@
       <span class="fw-bolder text-danger tracking-2 w-100">PastaHouse</span>
     </h3>
     <div class="btns-group ps-12" :class="{ show: !playFirstAnime }">
-      <Button>瀏覽菜單</Button>
+      <a @click="scrollToEl">
+        <Button>瀏覽菜單</Button>
+      </a>
       <Button class="ms-5">線上訂位</Button>
     </div>
   </teleport>
@@ -48,6 +50,9 @@ export default {
       this.playFirstAnime = false;
       this.titleTeleportPosition = '#titleTeleportAside';
       this.$emit('update:isReadyTextShadow', true);
+    },
+    scrollToEl() {
+      this.$emitter.emit('scrollToEl', 'menu');
     },
   },
   mounted() {

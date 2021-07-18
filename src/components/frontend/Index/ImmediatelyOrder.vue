@@ -55,7 +55,7 @@ export default {
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 1680 && scroll.Y < 2580) this.playAnime = true;
+        if (scroll.Y > 2500 && scroll.Y < 3300) this.playAnime = true;
       },
       deep: true,
     },

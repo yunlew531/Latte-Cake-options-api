@@ -136,7 +136,7 @@ export default {
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 3480 && scroll.Y < 4900) this.isScrollTo = true;
+        if (scroll.Y > 4200 && scroll.Y < 5600) this.isScrollTo = true;
       },
       deep: true,
     },

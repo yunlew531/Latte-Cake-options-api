@@ -1,10 +1,16 @@
 <template>
-  <section class="bg-info">
-    <div class="why-choose-us-panel bg-white-100" :class="{ active: isAnime }">
-      <div class="container overflow-hidden pt-38 pb-25">
+  <section class="bg-info overflow-hidden">
+    <div
+      class="why-choose-us-panel bg-white-100"
+      :class="{ active: playAnime }"
+    >
+      <div class="container overflow-hidden pt-38">
         <h3 class="title text-center">
           為什麼選擇
-          <span class="shop-name text-danger fw-bold px-1">PastaHouse</span> ?
+          <span class="shop-name fs-2 text-danger fw-bold px-1"
+            >PastaHouse</span
+          >
+          ?
         </h3>
         <p class="paragraph text-center fs-6 fw-light pt-3">
           我們的功夫源自於義大利威尼斯，代代相傳並由
@@ -66,20 +72,13 @@ export default {
             '對待客人像對待自己的朋友一樣善待他們。無論您是誰，我們都提供無可挑剔的服務。',
         },
       ],
-      KeyframeEffect: null,
-      isAnime: false,
+      playAnime: false,
     };
-  },
-  methods: {
-    lazyScrollAnime(domPosition) {
-      if (domPosition === 'up') this.isAnimeLazyUp = true;
-      else if (domPosition === 'down') this.isAnimeLazyDown = true;
-    },
   },
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 150 && scroll.Y < 1500) this.isAnime = true;
+        if (scroll.Y > 150 && scroll.Y < 1500) this.playAnime = true;
       },
       deep: true,
     },
