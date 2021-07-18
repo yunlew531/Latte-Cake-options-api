@@ -139,23 +139,13 @@
                 </button>
               </div>
             </div>
-            <button
-              class="
-                add-cart-btn
-                fs-5
-                tracking-2
-                btn btn-danger
-                border-danger
-                rounded-lg
-                w-100
-                py-5
-                mt-8
-              "
+            <Button
+              bgColor="danger"
+              class="fs-5 w-100 py-5 mt-8"
               :class="{ active: isAnimeReset }"
               @click="addCart"
-            >
-              加入購物車
-            </button>
+              >加入購物車
+            </Button>
           </div>
         </div>
       </div>
@@ -174,11 +164,13 @@
 import { apiPostAddCart, apiGetProductInfo } from '@/api';
 import { useToast } from '@/methods';
 import VueEasyLightbox from 'vue-easy-lightbox';
+import Button from '@/components/frontend/Button.vue';
 
 export default {
   name: 'Product',
   components: {
     VueEasyLightbox,
+    Button,
   },
   data() {
     return {

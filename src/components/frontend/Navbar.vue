@@ -95,7 +95,7 @@
               >
             </li>
             <li>
-              <router-link to="/login" class="nav-link d-block px-5"
+              <router-link to="/admin" class="nav-link d-block px-5"
                 >登入</router-link
               >
             </li>

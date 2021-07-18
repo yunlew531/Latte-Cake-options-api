@@ -11,20 +11,16 @@
             <span class="fs-4 me-auto"
               >{{ cartsData.carts?.length }} 件商品</span
             >
-            <button
-              type="button"
-              class="btn btn-sm btn-primary"
-              @click="removeAllCarts"
-            >
-              移除所有商品
-            </button>
+            <Button @click="removeAllCarts" class="remove-all-products-btn"
+              >移除所有商品
+            </Button>
           </div>
           <div
             v-else
             class="d-flex justify-content-center align-content-center"
           >
-            <router-link to="/products" class="btn btn-primary">
-              立即前往購物
+            <router-link to="/products">
+              <Button class="px-5 py-2">立即前往購物 </Button>
             </router-link>
           </div>
           <ul class="list-unstyled">
@@ -235,19 +231,9 @@
             <router-link
               v-if="cartsData.carts?.length"
               to="/checkout"
-              class="checkout-btn fs-5 btn w-100 py-3"
-              ><span
-                class="
-                  checkout-btn-text
-                  position-absolute
-                  start-50
-                  top-50
-                  translate-middle
-                "
-                >結帳</span
-              >
-              <span class="opacity-0">結帳</span></router-link
-            >
+              class="d-inline-block w-100"
+              ><Button class="fs-5 w-100 py-3">結帳 </Button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -258,9 +244,13 @@
 <script>
 import { useToast } from '@/methods';
 import { apiPutCartQty, apiDeleteCart, apiDeleteAllCarts } from '@/api';
+import Button from '@/components/frontend/Button.vue';
 
 export default {
   name: 'Cart',
+  components: {
+    Button,
+  },
   data() {
     return {
       productNum: 1,

@@ -170,7 +170,7 @@ export default {
         displayData = this.allProducts.filter((product) =>
           product.title.match(this.searchText)
         );
-      } else if (this.nowCategory === '全部') {
+      } else if (this.nowCategory === '全部' || this.nowCategory === '搜尋') {
         displayData = this.pageProductsData;
       } else {
         displayData = this.allProducts.filter(

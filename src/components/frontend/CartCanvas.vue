@@ -20,12 +20,7 @@
     </div>
     <div class="px-4 m-0 d-flex align-items-center">
       <span class="me-auto">{{ cartsData.carts?.length }} 個品項</span>
-      <a
-        href="javascript:;"
-        class="cart-btn btn btn-danger"
-        @click="goToPage('cart')"
-        >詳細購物車</a
-      >
+      <Button class="py-1" @click="goToPage('cart')"> 詳細購物車 </Button>
     </div>
     <div class="px-4 py-3 border-bottom">
       <div
@@ -97,13 +92,9 @@
                     add
                   </span>
                 </div>
-                <button
-                  type="button"
-                  class="btn btn-danger py-2px"
-                  @click="removeCart(product.id)"
-                >
+                <Button class="py-2px" @click="removeCart(product.id)">
                   移除
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -122,9 +113,13 @@
 import Offcanvas from 'bootstrap/js/dist/offcanvas';
 import { apiPutCartQty, apiDeleteCart } from '@/api';
 import { useToast } from '@/methods';
+import Button from '@/components/frontend/Button.vue';
 
 export default {
   name: 'CartCanvas',
+  components: {
+    Button,
+  },
   data() {
     return {
       cartCanvas: null,
@@ -216,14 +211,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/styleSheets/custom/variables';
-
-.cart-btn {
-  color: $white;
-  &:hover {
-    color: $primary;
-    background: $white;
-  }
-}
 
 .progress {
   height: 6px;

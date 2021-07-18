@@ -27,10 +27,7 @@
               v-model="user.email"
             >
             </Field>
-            <error-message
-              name="email"
-              class="invalid-feedback"
-            ></error-message>
+            <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="form-group">
             <label for="password" class="form-label text-white">密碼</label>
@@ -44,11 +41,16 @@
               rules="required"
               v-model="user.password"
             ></Field>
-            <error-message name="密碼" class="invalid-feedback"></error-message>
+            <ErrorMessage name="密碼" class="invalid-feedback"></ErrorMessage>
           </div>
         </div>
-        <div class="d-flex justify-content-end">
-          <button class="btn btn-primary" type="submit">登入</button>
+        <div class="d-flex align-items-center">
+          <router-link
+            to="/home"
+            class="text-white fw-lighter text-decoration-none me-auto"
+            >返回前台</router-link
+          >
+          <Button btnType="submit"> 登入 </Button>
         </div>
       </Form>
     </div>
@@ -58,9 +60,13 @@
 <script>
 import { apiPostLogin } from '@/api';
 import { useToast } from '@/methods';
+import Button from '@/components/frontend/Button.vue';
 
 export default {
   name: 'Login',
+  components: {
+    Button,
+  },
   data() {
     return {
       user: {},

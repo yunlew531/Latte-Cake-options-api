@@ -79,7 +79,7 @@
               rules="required"
               v-model.trim="product.title"
             ></Field>
-            <error-message name="名稱" class="invalid-feedback"></error-message>
+            <ErrorMessage name="名稱" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="row">
             <div class="col-6">
@@ -95,10 +95,10 @@
                   rules="required"
                   v-model.trim="product.category"
                 ></Field>
-                <error-message
+                <ErrorMessage
                   name="分類"
                   class="invalid-feedback"
-                ></error-message>
+                ></ErrorMessage>
               </div>
             </div>
             <div class="col-6">
@@ -114,10 +114,10 @@
                   rules="required"
                   v-model.trim="product.unit"
                 ></Field>
-                <error-message
+                <ErrorMessage
                   name="單位"
                   class="invalid-feedback"
-                ></error-message>
+                ></ErrorMessage>
               </div>
             </div>
           </div>
@@ -136,10 +136,10 @@
                   min="0"
                   v-model.number="product.origin_price"
                 ></Field>
-                <error-message
+                <ErrorMessage
                   name="原價"
                   class="invalid-feedback"
-                ></error-message>
+                ></ErrorMessage>
               </div>
             </div>
             <div class="col-6">
@@ -156,10 +156,10 @@
                   min="0"
                   v-model.number="product.price"
                 ></Field>
-                <error-message
+                <ErrorMessage
                   name="售價"
                   class="invalid-feedback"
-                ></error-message>
+                ></ErrorMessage>
               </div>
             </div>
           </div>

@@ -1,18 +1,9 @@
 <template>
   <section class="nav-bg"></section>
   <section class="checkout-panel container position-relative mb-12">
-    <router-link
-      to="/cart"
-      class="
-        fs-6
-        text-decoration-none
-        btn btn-primary
-        mb-5
-        position-absolute
-        top-n16
-      "
-      >返回購物車</router-link
-    >
+    <router-link to="/cart" class="position-absolute start-0 top-n16">
+      <Button class="fs-6 px-5 ms-2">返回購物車</Button>
+    </router-link>
     <div class="row gx-8">
       <div class="col-6">
         <Form
@@ -22,9 +13,9 @@
         >
           <h3 class="fs-4 text-black-100">資料填寫</h3>
           <div class="form-group text-black-200">
-            <label for="email" class="form-label mb-1">Email</label>
+            <label for="orderEmail" class="form-label mb-1">Email</label>
             <Field
-              id="email"
+              id="orderEmail"
               name="email"
               type="email"
               class="form-control"
@@ -33,10 +24,7 @@
               rules="email|required"
               v-model="user.email"
             ></Field>
-            <error-message
-              name="email"
-              class="invalid-feedback"
-            ></error-message>
+            <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="form-group text-black-200">
             <label for="name" class="form-label mb-1">姓名</label>
@@ -50,9 +38,9 @@
               rules="required"
               v-model="user.name"
             ></Field>
-            <error-message name="name" class="invalid-feedback" as="span">
+            <ErrorMessage name="name" class="invalid-feedback" as="span">
               <span>姓名為必填</span>
-            </error-message>
+            </ErrorMessage>
           </div>
           <div class="form-group text-black-200">
             <label for="tel" class="form-label mb-1">電話</label>
@@ -66,9 +54,9 @@
               :rules="validateTel"
               v-model="user.tel"
             ></Field>
-            <error-message name="tel" class="invalid-feedback" as="span">
+            <ErrorMessage name="tel" class="invalid-feedback" as="span">
               <span>請填寫正確電話號碼</span>
-            </error-message>
+            </ErrorMessage>
           </div>
           <div class="form-group text-black-200">
             <label for="address" class="form-label mb-1">地址</label>
@@ -82,9 +70,9 @@
               rules="required"
               v-model="user.address"
             ></Field>
-            <error-message name="address" class="invalid-feedback" as="span">
+            <ErrorMessage name="address" class="invalid-feedback" as="span">
               <span>地址為必填</span>
-            </error-message>
+            </ErrorMessage>
           </div>
           <div class="form-group text-black-200">
             <label for="payment" class="form-label mb-1">付款方式</label>
@@ -101,9 +89,7 @@
               <option value="Google Pay">Google Pay</option>
             </Field>
           </div>
-          <button class="fs-5 btn btn-primary w-100 py-4 mt-4" type="submit">
-            送出訂單
-          </button>
+          <Button btnType="submit" class="fs-6 px-5 ms-2">送出訂單</Button>
         </Form>
       </div>
       <div class="col-6">
@@ -132,19 +118,22 @@
                 >
               </button>
               <div class="product-content">
-                <p class="fs-7 d-flex justify-content-end m-0">
+                <div class="fs-7 d-flex justify-content-between">
+                  <router-link :to="`/product/${product.product.id}`">
+                    商品連結
+                  </router-link>
                   <span>售價: NT$ {{ product.product.price }}</span>
+                </div>
+                <p class="fs-6 fw-light py-1">
+                  {{ product.product.content }}
                 </p>
-                {{ product.product.content }}
               </div>
             </li>
           </ul>
           <div class="d-flex">
-            <router-link
-              to="/products"
-              class="btn btn-primary text-decoration-none me-auto"
-              >選購更多商品</router-link
-            >
+            <router-link to="/products" class="me-auto">
+              <Button class="px-5 ms-2">選購更多商品</Button>
+            </router-link>
             <p class="text-primary fs-5 m-0">
               總金額 NT$ <span class="fs-3">{{ cartsData.final_total }}</span>
             </p>
@@ -154,20 +143,7 @@
           <h4 class="fs-4">輸入優惠折扣碼</h4>
           <div class="d-flex">
             <input type="text" class="flex-grow-1" />
-            <button
-              type="button"
-              class="btn coupon-btn px-5 ms-2 position-relative"
-            >
-              <span
-                class="
-                  coupon-btn-text
-                  position-absolute
-                  start-50
-                  translate-middle-x
-                "
-                >送出</span
-              ><span class="opacity-0">送出</span>
-            </button>
+            <Button class="px-5 ms-2">送出</Button>
           </div>
         </div>
       </div>
@@ -178,8 +154,13 @@
 <script>
 import { apiPostCheckout } from '@/api';
 import { useToast } from '@/methods';
+import Button from '@/components/frontend/Button.vue';
 
 export default {
+  name: 'Checkout',
+  components: {
+    Button,
+  },
   data() {
     return {
       cartsData: [],
@@ -279,39 +260,5 @@ export default {
 .product-content {
   overflow: hidden;
   max-height: 0;
-}
-
-.btn-check:focus + .btn,
-.btn:focus {
-  box-shadow: 0 0 0 0 rgb(0, 0, 0);
-}
-.coupon-btn {
-  border: 1px solid $black-200;
-  overflow: hidden;
-  .coupon-btn-text {
-    color: $primary;
-    transition: 0.2s;
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: $primary;
-    border-radius: $border-radius;
-    top: -105%;
-    left: 0;
-    transition: 0.2s ease-in-out;
-  }
-  &:hover {
-    color: $white;
-    background: $primary;
-    &::before {
-      top: 0;
-    }
-    .coupon-btn-text {
-      color: $white;
-    }
-  }
 }
 </style>

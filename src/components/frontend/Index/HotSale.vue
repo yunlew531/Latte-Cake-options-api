@@ -57,29 +57,10 @@
           </swiper-slide>
         </swiper>
         <div class="text-center mt-12">
-          <router-link
-            to="/products"
-            class="
-              all-product-btn
-              position-relative
-              rounded
-              btn btn-primary
-              px-12
-              py-2
-              overflow-hidden
-            "
-          >
-            <span class="opacity-0">所有商品</span>
-            <span
-              class="
-                btn-content
-                position-absolute
-                top-50
-                start-50
-                translate-middle
-              "
-              >所有商品</span
-            >
+          <router-link to="/products" class="d-block">
+            <Button hoverBgColor="white" class="all-products-btn px-12 py-2"
+              ><span class="btn-content">線上訂位</span>
+            </Button>
           </router-link>
         </div>
       </div>
@@ -91,6 +72,7 @@
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import SwiperCore, { Autoplay } from 'swiper';
 import 'swiper/swiper.scss';
+import Button from '@/components/frontend/Button.vue';
 
 SwiperCore.use(Autoplay);
 
@@ -98,6 +80,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
+    Button,
   },
   inject: ['scroll'],
   data() {
@@ -215,31 +198,17 @@ export default {
   .swiper-img-1 {
     background-image: url(~@/assets/images/swiper-1-1.jpg);
   }
-  .all-product-btn {
+  .all-products-btn {
     transition: 0.5s 3.8s;
     opacity: 0;
     transform: translateX(-100%) rotate3d(0, 1, 0, 90deg);
     .btn-content {
-      transition: 0.2s;
       color: $white;
-    }
-    &::before {
-      content: '';
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      background: $white;
-      top: -150%;
-      left: 0;
-      border-radius: $border-radius;
-      transition: 0.2s ease-in-out;
+      transition: 0.3s;
     }
     &:hover {
-      &::before {
-        top: 0;
-      }
       .btn-content {
-        color: $danger;
+        color: $primary !important;
       }
     }
   }
@@ -262,7 +231,7 @@ export default {
         }
       }
     }
-    .all-product-btn {
+    .all-products-btn {
       transform: translateY(0);
       opacity: 1;
     }

@@ -14,22 +14,9 @@
         alt="cake"
       />
       <div class="overflow-hidden text-end px-xl-50 ps-50">
-        <router-link
-          to="/products"
-          class="
-            products-page-link
-            border-2
-            btn btn-danger
-            text-decoration-none
-            px-6 px-sm-12
-            overflow-hidden
-          "
-        >
-          <span class="position-absolute start-50 top-50 translate-middle w-100"
-            >立即點餐</span
-          >
-          <span class="opacity-0">立即點餐</span></router-link
-        >
+        <router-link to="/products">
+          <Button class="products-page-link px-6 px-sm-12">立即點餐</Button>
+        </router-link>
         <p
           class="
             paragraph
@@ -53,7 +40,12 @@
 </template>
 
 <script>
+import Button from '@/components/frontend/Button.vue';
+
 export default {
+  components: {
+    Button,
+  },
   inject: ['scroll'],
   data() {
     return {
@@ -106,25 +98,10 @@ export default {
 .products-page-link {
   font-size: $h3-font-size;
   color: $white;
-  position: relative;
   transition: 0.7s 3s;
   transform: translateY(230%) rotate3d(0, 1, 0, 90deg);
-  &::before {
-    content: '';
-    position: absolute;
-    top: -105%;
-    left: 0;
-    width: 100%;
-    border-radius: $border-radius;
-    height: 100%;
-    background: $info;
-    transition: 0.2s ease-in-out;
-  }
   &:hover {
     color: shade-color($white, 10%);
-    &::before {
-      top: 0;
-    }
   }
 }
 @include media-breakpoint-down(sm) {

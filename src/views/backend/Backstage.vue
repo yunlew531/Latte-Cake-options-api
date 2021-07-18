@@ -17,7 +17,6 @@
 import { apiGetUser, apiPostCheck } from '@/api';
 import BackendNavbar from '@/components/backend/BackendNavbar.vue';
 import Sidebar from '@/components/backend/Sidebar.vue';
-import { useToast } from '@/methods';
 import backReq from '@/api/backReq';
 
 export default {
@@ -54,7 +53,7 @@ export default {
       );
       backReq.defaults.headers.common.Authorization = token;
     },
-    checkLoginStatus(from) {
+    checkLoginStatus() {
       this.setHeaders();
       apiPostCheck()
         .then(({ data }) => {
@@ -65,9 +64,6 @@ export default {
           } else {
             this.$store.dispatch('handLogInStatus', false);
             this.$router.push('/login');
-            if (from.path !== '/login') {
-              useToast('請重新登入', 'danger');
-            }
           }
           return data;
         })
@@ -79,10 +75,8 @@ export default {
         });
     },
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.checkLoginStatus(from);
-    });
+  created() {
+    this.checkLoginStatus();
   },
 };
 </script>

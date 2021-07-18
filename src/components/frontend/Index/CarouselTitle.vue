@@ -12,13 +12,15 @@
       <span class="fw-bolder text-danger tracking-3">SPAGHETTI</span>
     </h3>
     <div class="btns-group ps-12" :class="{ show: !playFirstAnime }">
-      <button type="button" class="btn btn-primary">瀏覽菜單</button>
-      <button type="button" class="btn btn-primary ms-5">線上訂位</button>
+      <Button>瀏覽菜單</Button>
+      <Button class="ms-5">線上訂位</Button>
     </div>
   </teleport>
 </template>
 
 <script>
+import Button from '@/components/frontend/Button.vue';
+
 export default {
   props: {
     styleSheets: {
@@ -31,6 +33,9 @@ export default {
   },
   emits: {
     'update:isReadyTextShadow': (isReady) => typeof isReady === 'boolean',
+  },
+  components: {
+    Button,
   },
   data() {
     return {
