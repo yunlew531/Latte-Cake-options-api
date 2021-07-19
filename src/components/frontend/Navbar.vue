@@ -81,6 +81,11 @@
             </li>
             <li></li>
             <li>
+              <router-link to="/orders" class="nav-link d-block px-5"
+                >歷史訂單</router-link
+              >
+            </li>
+            <li>
               <router-link to="/admin" class="nav-link d-block px-5"
                 >登入</router-link
               >

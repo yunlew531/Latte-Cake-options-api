@@ -57,6 +57,9 @@ export default {
       default: () => ({}),
     },
   },
+  emits: {
+    handPage: (page) => typeof page === 'number',
+  },
   data() {
     return {
       pagination: {},
@@ -82,6 +85,7 @@ export default {
       handler(val) {
         this.pagination = val;
       },
+      immediate: true,
     },
   },
 };

@@ -1,12 +1,185 @@
 <template>
-  <div style="height: 500px; padding: 300px" class="fs-1 text-primary">
-    加速開發中 ...
-  </div>
+  <div class="nav-bg"></div>
+  <section class="order-panel bg-white rounded shadow-sm container p-10">
+    <Loading v-model:active="isLoading" :is-full-page="false" />
+    <div v-if="order.id">
+      <router-link to="/orders" class="btn btn-sm btn-outline-primary mb-3"
+        >返回訂單列表</router-link
+      >
+      <div class="d-flex">
+        <h3 class="fs-5 me-auto">
+          <span class="fs-6 me-2">訂單編號:</span>{{ order.id }}
+        </h3>
+        <span class="fs-5">
+          <span class="fs-6 me-2">成立時間:</span
+          >{{ translateTime(order.create_at, 'string') }}</span
+        >
+      </div>
+      <div class="d-flex align-items-center mb-5">
+        <h4 class="fs-6 d-flex align-items-center m-0 me-2">
+          狀態:
+          <span>
+            <span
+              v-if="order.is_paid"
+              class="text-success d-flex align-items-center"
+            >
+              <span class="material-icons-outlined"> done </span>
+              <span>已付款</span>
+            </span>
+            <span v-else class="text-danger d-flex align-items-center">
+              <span class="material-icons-outlined"> close </span>
+              <span>未付款</span>
+            </span>
+          </span>
+        </h4>
+      </div>
+      <ul class="list-unstyled bg-white-100 border rounded my-5">
+        <li class="user-item d-flex">
+          <span class="user-title px-5 py-2">姓名</span
+          ><span class="px-5 py-2">{{ order.user.name }}</span>
+        </li>
+        <li class="user-item d-flex">
+          <span class="user-title px-5 py-2">電話</span
+          ><span class="px-5 py-2">{{ order.user.tel }}</span>
+        </li>
+        <li class="user-item d-flex">
+          <span class="user-title px-5 py-2">信箱</span
+          ><span class="px-5 py-2">{{ order.user.email }}</span>
+        </li>
+        <li class="user-item d-flex">
+          <span class="user-title px-5 py-2">地址</span
+          ><span class="px-5 py-2">{{ order.user.address }}</span>
+        </li>
+      </ul>
+      <ul class="list-unstyled row g-6">
+        <li v-for="product in order.products" :key="product.id" class="col-6">
+          <div class="bg-white-100 border rounded p-5">
+            <div class="d-flex align-items-center mb-3">
+              <h2 class="fs-5 m-0 me-auto">
+                <router-link
+                  :to="`/product/${product.product.id}`"
+                  class="product-name text-decoration-none"
+                  >{{ product.product.title }}</router-link
+                >
+              </h2>
+              <span class="fs-7"
+                >id: <span class="fs-6">{{ product.product.id }}</span>
+              </span>
+            </div>
+            <div class="d-flex">
+              <img
+                :src="product.product.imageUrl"
+                :alt="product.product.title"
+                class="product-img rounded me-8"
+              />
+              <div class="flex-grow-1">
+                <h4 class="fs-6">類別: {{ product.product.category }}</h4>
+                <p class="d-flex align-items-center mb-2">
+                  <span class="me-auto"
+                    >原價:
+                    {{ product.product.origin_price?.toLocaleString() }}</span
+                  >
+                  <span
+                    >售價: {{ product.product.price?.toLocaleString() }}</span
+                  >
+                </p>
+                <p class="mb-2">數量: {{ product.qty }}</p>
+                <p class="mb-2">金額: {{ product.total?.toLocaleString() }}</p>
+                <p class="mb-2">
+                  折扣後金額:
+                  <span class="fs-5">{{
+                    product.final_total?.toLocaleString()
+                  }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <p class="text-end fs-6 m-0">
+        總計: NT$
+        <span class="fs-3">{{ order.total?.toLocaleString() }} </span>
+      </p>
+    </div>
+  </section>
 </template>
 
 <script>
-export default {};
+import { apiGetCustOrder } from '@/api';
+import TranslateTime from '@/mixins/TranslateTime.vue';
+import { useToast } from '@/methods';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
+export default {
+  components: {
+    Loading,
+  },
+  mixins: [TranslateTime],
+  data() {
+    return {
+      isLoading: false,
+      order: {},
+    };
+  },
+  methods: {
+    async getOrder() {
+      this.isLoading = true;
+      const { id } = this.$route.params;
+      const { data } = await apiGetCustOrder(id);
+      if (data.success) this.order = data.order;
+      else useToast('無法取得訂單!', 'danger');
+      this.isLoading = false;
+    },
+  },
+  created() {
+    this.getOrder();
+  },
+};
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import '~bootstrap/scss/functions';
+@import '~@/assets/styleSheets/custom/variables';
+
+.nav-bg {
+  height: 300px;
+  background: url(~@/assets/images/bg-banner.jpg) center no-repeat;
+  background-size: cover;
+}
+.order-panel {
+  transform: translateY(-50px);
+}
+.user-item {
+  border-top: $gray-300 solid 1px;
+  border-bottom: $gray-300 solid 1px;
+  margin-bottom: -1px;
+  &:first-child {
+    border-top: 0;
+  }
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+.user-title {
+  width: 150px;
+  background: shade-color($white, 5%);
+}
+.product-name {
+  color: $primary;
+  &:hover {
+    color: tint-color($primary, 30%);
+  }
+}
+.product-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+.price-input {
+  width: 150px;
+  &::-webkit-inner-spin-button {
+    margin-left: 5px;
+  }
+}
 </style>

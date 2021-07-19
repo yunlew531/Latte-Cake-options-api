@@ -1,3 +1,5 @@
+import getCustOrders from './frontend/Orders';
+import getCustOrder from './frontend/Order';
 import { getShopImg } from './frontend/AboutUs';
 import { getProductInfo } from './frontend/Product';
 import { getCarts, putCartQty, deleteCart, deleteAllCarts, postAddCart } from './frontend/shared';
@@ -23,6 +25,8 @@ export const apiDeleteAllCarts = deleteAllCarts;
 export const apiPostAddCart = postAddCart;
 export const apiGetShopImg = getShopImg;
 export const apiPostCheckout = postCheckout;
+export const apiGetCustOrders = getCustOrders;
+export const apiGetCustOrder = getCustOrder;
 
 // backend
 export const apiPostLogin = postLogin;

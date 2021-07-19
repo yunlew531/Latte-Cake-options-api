@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded bg-white shadow w-100 p-10">
+  <section class="rounded bg-white shadow w-100 p-10">
     <Loading v-model:active="isLoading" :is-full-page="false" />
     <div v-if="order.id">
       <router-link
@@ -150,7 +150,7 @@
         </p>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

@@ -57,7 +57,6 @@ export default {
       this.setHeaders();
       apiPostCheck()
         .then(({ data }) => {
-          console.log('驗證');
           if (data.success) {
             this.$store.dispatch('handLogInStatus', true);
             this.$router.push('/admin');

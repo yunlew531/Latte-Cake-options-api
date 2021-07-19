@@ -28,12 +28,20 @@
           @swiper="setControlledSwiper"
         >
           <swiper-slide
-            v-for="(product, key) in 9"
+            v-for="(product, key) in products"
             :key="key"
             class="rounded overflow-hidden bg-info"
             @transitionend="playSwiper($event)"
           >
-            <div class="swiper-img swiper-img-1">
+            <router-link
+              :to="`/product/${product.id}`"
+              class="swiper-img d-block"
+              :style="{
+                'background-image': `url(${
+                  product.imageUrl || product.imagesUrl[0]
+                })`,
+              }"
+            >
               <div
                 class="
                   swiper-content
@@ -45,13 +53,12 @@
                   px-12
                 "
               >
-                <router-link to="/" class="text-reset text-decoration-none">
-                  {{ key }}
-                  <h2>蘋果蛋餅</h2>
-                  <p>鮮嫩多汁，現採現萃</p>
-                </router-link>
+                <div class="text-reset text-decoration-none">
+                  <h2>{{ product.title }}</h2>
+                  <p>{{ product.description }}</p>
+                </div>
               </div>
-            </div>
+            </router-link>
           </swiper-slide>
         </swiper>
         <div class="text-center mt-12">
@@ -85,6 +92,7 @@ export default {
     return {
       isScrollTo: false,
       swiper: null,
+      products: [],
     };
   },
   methods: {
@@ -102,6 +110,11 @@ export default {
         if (scroll.Y > 1600 && scroll.Y < 2700) this.isScrollTo = true;
       },
       deep: true,
+    },
+    '$store.getters.allProducts': {
+      handler(products) {
+        this.products = products;
+      },
     },
   },
 };
@@ -131,12 +144,12 @@ export default {
       transition: 0.3s;
     }
     p {
-      transition-delay: 0.2s;
+      transition-delay: 0.1s;
     }
   }
-  .swiper-slide:nth-of-type(4),
-  .swiper-slide:nth-of-type(5),
-  .swiper-slide:nth-of-type(6) {
+  .swiper-slide:nth-of-type(1),
+  .swiper-slide:nth-of-type(2),
+  .swiper-slide:nth-of-type(3) {
     .swiper-img {
       position: relative;
       &::before,
@@ -217,9 +230,9 @@ export default {
       opacity: 1;
       transform: translateY(0);
     }
-    .swiper-slide:nth-of-type(4),
-    .swiper-slide:nth-of-type(5),
-    .swiper-slide:nth-of-type(6) {
+    .swiper-slide:nth-of-type(1),
+    .swiper-slide:nth-of-type(2),
+    .swiper-slide:nth-of-type(3) {
       .swiper-img {
         &::before {
           left: 140%;

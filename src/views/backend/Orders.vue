@@ -89,10 +89,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/styleSheets/custom/variables';
+
 tbody {
   th,
   td {
     line-height: 38px;
   }
+}
+tr:last-child {
+  border-bottom: 1px solid $black;
 }
 </style>
