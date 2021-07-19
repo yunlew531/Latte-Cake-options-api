@@ -1,7 +1,15 @@
 <template>
   <div class="rounded bg-white shadow w-100 p-10">
     <Loading v-model:active="isLoading" :is-full-page="false" />
-    <h2>訂單</h2>
+    <div class="d-flex justify-content-center">
+      <h2 class="me-auto">訂單</h2>
+      <button
+        class="btn btn-primary align-self-center"
+        @click="deleteAllOrders"
+      >
+        刪除全部訂單
+      </button>
+    </div>
     <table class="table">
       <thead>
         <tr>
@@ -14,10 +22,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(order, key) in backstageOrders" :key="order.id">
-          <th scope="row">{{ key + 1 }}</th>
+        <tr v-for="(order, key) in backstageOrders" :key="order.id + key">
+          <th scope="row">
+            {{ (pagination.current_page - 1) * 10 + key + 1 }}
+          </th>
           <td>{{ order.id }}</td>
-          <td>{{ translateTime(order?.create_at) }}</td>
+          <td>{{ translateTime(order?.create_at, 'string') }}</td>
           <td>
             <p
               v-if="order.is_paid"
@@ -44,6 +54,7 @@
         </tr>
       </tbody>
     </table>
+    <Pagination :pages="pagination" @handPage="handPage" class="pt-5" />
   </div>
 </template>
 
@@ -51,28 +62,52 @@
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import TranslateTime from '@/mixins/TranslateTime.vue';
+import Pagination from '@/components/Pagination.vue';
+import { apiDeleteAllOrders } from '@/api';
+import { useToast } from '@/methods';
 
 export default {
   components: {
     Loading,
+    Pagination,
   },
   mixins: [TranslateTime],
   data() {
     return {
       isLoading: false,
       backstageOrders: [],
+      pagination: {},
     };
   },
   methods: {
-    getOrders() {
+    getOrders(page) {
       this.isLoading = true;
-      this.$store.dispatch('getBackstageOrders').then(({ success }) => {
-        if (success) this.isLoading = false;
-      });
+      this.$store
+        .dispatch('getBackstageOrders', page)
+        .then(({ success }) => {
+          this.isLoading = false;
+          if (!success) useToast('取得訂單失敗!', 'danger');
+        })
+        .catch((err) => {
+          this.isLoading = false;
+          console.dir(err);
+        });
     },
     showOrderDetail(order) {
       this.$emit('setOrderDetail', order);
       this.$router.push(`/admin/order/${order.id}`);
+    },
+    handPage(page) {
+      this.getOrders(page);
+    },
+    async deleteAllOrders() {
+      this.isLoading = true;
+      const { data } = await apiDeleteAllOrders();
+      this.isLoading = false;
+      if (data.success) {
+        useToast('已刪除全部訂單!');
+        this.getOrders();
+      } else useToast(data.message, 'danger');
     },
   },
   created() {
@@ -80,8 +115,9 @@ export default {
   },
   watch: {
     '$store.getters.backstageOrders': {
-      handler(val) {
-        this.backstageOrders = val;
+      handler(data) {
+        this.backstageOrders = data.orders;
+        this.pagination = data.pagination;
       },
     },
   },

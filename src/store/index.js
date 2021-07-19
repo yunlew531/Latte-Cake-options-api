@@ -9,7 +9,7 @@ export default createStore({
     shopPosition: 'Taipei',
     pageProductsData: [],
     allProducts: [],
-    backstageOrders: [],
+    backstageOrders: {},
     navSearchText: ''
   },
   mutations: {
@@ -65,12 +65,12 @@ export default createStore({
         console.dir(err);
       }
     },
-    async getBackstageOrders({ commit }) {
+    async getBackstageOrders({ commit }, page) {
       let data = null;
       try {
-        ({ data } = await apiGetOrders());
+        ({ data } = await apiGetOrders(page));
         if (data.success) {
-          commit('setBackstageOrders', data.orders);
+          commit('setBackstageOrders', data);
         }
       } catch (err) {
         console.dir(err);

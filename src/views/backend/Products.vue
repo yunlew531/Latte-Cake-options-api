@@ -95,12 +95,13 @@ export default {
       this.isLoading = true;
       try {
         const { data } = await apiGetProducts(page);
+        this.isLoading = false;
         if (data.success) {
           this.products = data.products;
           this.pagination = data.pagination;
-          this.isLoading = false;
         }
       } catch (err) {
+        this.isLoading = false;
         console.dir(err);
       }
     },
@@ -112,12 +113,13 @@ export default {
       this.isLoading = true;
       try {
         const { data } = await apiDeleteProduct(productId);
+        this.isLoading = false;
         if (data.success) {
           useToast('成功刪除!', 'success');
           this.handPage();
         } else useToast('發生錯誤!', 'danger');
-        this.isLoading = false;
       } catch (err) {
+        this.isLoading = false;
         console.dir(err);
       }
     },

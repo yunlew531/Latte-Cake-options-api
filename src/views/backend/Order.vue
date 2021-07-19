@@ -167,7 +167,7 @@ export default {
   mixins: [TranslateTime],
   data() {
     return {
-      isLoading: true,
+      isLoading: false,
       isEdit: false,
       order: {},
       tempOrder: {},
@@ -196,11 +196,11 @@ export default {
         const { data } = await apiPutEditOrder(id, {
           data: this.tempOrder,
         });
+        this.isLoading = false;
         if (data.success) {
           useToast('成功更新訂單!', 'success');
           await this.$store.dispatch('getBackstageOrders');
           this.isEdit = false;
-          this.isLoading = false;
         } else useToast(data.message, 'dnager');
       } catch (err) {
         console.dir(err);
