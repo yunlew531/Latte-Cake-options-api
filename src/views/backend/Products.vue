@@ -161,4 +161,7 @@ tbody {
   background: center no-repeat;
   background-size: cover;
 }
+tr:last-child {
+  border-bottom: 1px solid $black;
+}
 </style>

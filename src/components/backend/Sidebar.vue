@@ -98,11 +98,21 @@
 <script>
 export default {
   name: 'Sidebar',
-  props: {
-    boardStatus: {
-      type: String,
-      default: '新增',
+  data() {
+    return {
+      boardStatus: '新增',
+    };
+  },
+  methods: {
+    handStatus(status) {
+      this.boardStatus = status;
     },
+  },
+  mounted() {
+    this.$emitter.on('handStatus', this.handStatus);
+  },
+  unmounted() {
+    this.$emitter.off('handStatus', this.handStatus);
   },
 };
 </script>

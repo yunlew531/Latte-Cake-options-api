@@ -329,6 +329,7 @@ export default {
       handler(val) {
         if (val === '編輯') {
           this.product = JSON.parse(this.tempProduct);
+          this.$emitter.emit('handStatus', '編輯');
         }
       },
       immediate: true,
@@ -336,6 +337,7 @@ export default {
   },
   unmounted() {
     this.$emit('handStatus', { status: '新增' });
+    this.$emitter.emit('handStatus', '新增');
   },
 };
 </script>
