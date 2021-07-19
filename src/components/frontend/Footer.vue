@@ -12,7 +12,7 @@
         <a
           href="mailto:spaghetti@gmail.com"
           class="text-black-300 text-decoration-none d-block"
-          >電子郵件： spaghetti@gmail.com</a
+          >電子郵件： pastahouse@gmail.com</a
         >
         <div class="mt-4">
           <a

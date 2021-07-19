@@ -93,11 +93,16 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  scrollBehavior() {
+    return {
+      top: 0,
+      behavior: 'smooth'
+    };
+  }
 });
 
 router.beforeEach((to, from, next) => {
-  window.scrollTo(0, 0);
   next();
 });
 

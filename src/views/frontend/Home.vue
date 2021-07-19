@@ -42,14 +42,10 @@ export default {
     },
   },
   mounted() {
-    this.$emitter.on('scrollToEl', (ref) => {
-      this.scrollToEl(ref);
-    });
+    this.$emitter.on('scrollToEl', this.scrollToEl);
   },
   unmounted() {
-    this.$emitter.off('scrollToEl', (ref) => {
-      this.scrollToEl(ref);
-    });
+    this.$emitter.off('scrollToEl', this.scrollToEl);
   },
 };
 </script>
