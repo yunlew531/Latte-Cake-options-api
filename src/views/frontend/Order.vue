@@ -54,40 +54,40 @@
       <ul class="list-unstyled row g-6">
         <li v-for="product in order.products" :key="product.id" class="col-6">
           <div class="bg-white-100 border rounded p-5">
-            <div class="d-flex align-items-center mb-3">
-              <h2 class="fs-5 m-0 me-auto">
-                <router-link
-                  :to="`/product/${product.product.id}`"
-                  class="product-name text-decoration-none"
-                  >{{ product.product.title }}</router-link
-                >
-              </h2>
-              <span class="fs-7"
-                >id: <span class="fs-6">{{ product.product.id }}</span>
-              </span>
-            </div>
+            <h2 class="fs-5 m-0 me-auto mb-2">
+              <router-link
+                :to="`/product/${product.product.id}`"
+                class="product-name text-decoration-none"
+                >{{ product.product.title }}</router-link
+              >
+            </h2>
             <div class="d-flex">
               <img
-                :src="product.product.imageUrl"
+                :src="product.product.imageUrl || product.product.imagesUrl[0]"
                 :alt="product.product.title"
                 class="product-img rounded me-8"
               />
               <div class="flex-grow-1">
                 <h4 class="fs-6">類別: {{ product.product.category }}</h4>
                 <p class="d-flex align-items-center mb-2">
-                  <span class="me-auto"
+                  <span class="text-decoration-line-through me-auto"
                     >原價:
                     {{ product.product.origin_price?.toLocaleString() }}</span
                   >
                   <span
-                    >售價: {{ product.product.price?.toLocaleString() }}</span
-                  >
+                    >售價:
+                    <span class="text-danger">{{
+                      product.product.price?.toLocaleString()
+                    }}</span>
+                  </span>
                 </p>
                 <p class="mb-2">數量: {{ product.qty }}</p>
-                <p class="mb-2">金額: {{ product.total?.toLocaleString() }}</p>
+                <p class="text-decoration-line-through mb-2">
+                  金額: {{ product.total?.toLocaleString() }}
+                </p>
                 <p class="mb-2">
                   折扣後金額:
-                  <span class="fs-5">{{
+                  <span class="text-danger fs-5">{{
                     product.final_total?.toLocaleString()
                   }}</span>
                 </p>

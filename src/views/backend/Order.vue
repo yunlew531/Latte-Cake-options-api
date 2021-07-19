@@ -1,7 +1,8 @@
 <template>
+  <Modal ref="msgModal" @onDelete="deleteOrder" />
   <section class="rounded bg-white shadow w-100 p-10">
     <Loading v-model:active="isLoading" :is-full-page="false" />
-    <div v-if="order.id">
+    <div>
       <router-link
         to="/admin/orders"
         class="btn btn-sm btn-outline-primary mb-3"
@@ -80,7 +81,7 @@
             </div>
             <div class="d-flex">
               <img
-                :src="product.product.imageUrl"
+                :src="product.product.imageUrl || product.product.imagesUrl[0]"
                 :alt="product.product.title"
                 class="product-img rounded me-8"
               />
@@ -135,6 +136,20 @@
             儲存
           </button>
         </div>
+        <button
+          v-show="isEdit"
+          type="button"
+          class="
+            btn btn-primary
+            position-absolute
+            start-50
+            translate-middle-x
+            px-10
+          "
+          @click="showModal"
+        >
+          刪除
+        </button>
         <p class="fs-6 m-0">
           總計: NT$
           <span v-show="!isEdit" class="fs-3"
@@ -155,40 +170,42 @@
 
 <script>
 import { useToast } from '@/methods';
-import { apiPutEditOrder } from '@/api';
+import { apiPutEditOrder, apiDelOrder } from '@/api';
 import TranslateTime from '@/mixins/TranslateTime.vue';
+import Modal from '@/components/Modal.vue';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   components: {
     Loading,
+    Modal,
   },
   mixins: [TranslateTime],
   data() {
     return {
       isLoading: false,
       isEdit: false,
-      order: {},
+      order: { user: {} },
       tempOrder: {},
     };
   },
   methods: {
-    setOrder(orders) {
-      const orderData = orders.filter(
-        (order) => order.id === this.$route.params.id
-      );
-      if (orderData.length) {
-        [this.order] = orderData;
-        this.isLoading = false;
-      } else {
-        this.$router.push('/admin/orders');
-        useToast('找不到訂單!', 'danger');
+    async getOrder(orderId) {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch('getBackstageOrders');
+        const { orders } = this.$store.getters.backstageOrders;
+        const orderData = orders.filter((order) => order.id === orderId);
+        if (orderData.length) [this.order] = orderData;
+        else {
+          useToast('找不到訂單!', 'danger');
+          this.$router.push('/admin/orders');
+        }
+      } catch (err) {
+        console.dir(err);
       }
-    },
-    editOrder() {
-      this.isEdit = true;
-      this.tempOrder = { ...this.order };
+      this.isLoading = false;
     },
     async saveEditOrder(id) {
       this.isLoading = true;
@@ -196,37 +213,57 @@ export default {
         const { data } = await apiPutEditOrder(id, {
           data: this.tempOrder,
         });
-        this.isLoading = false;
         if (data.success) {
           useToast('成功更新訂單!', 'success');
-          await this.$store.dispatch('getBackstageOrders');
+          await this.getOrder(id);
           this.isEdit = false;
         } else useToast(data.message, 'dnager');
       } catch (err) {
         console.dir(err);
       }
+      this.isLoading = false;
+    },
+    async deleteOrder() {
+      try {
+        const { data } = await apiDelOrder();
+        if (data.success) {
+          useToast('已刪除訂單!');
+          this.$router.push('/admin/orders');
+        } else useToast(data.message, 'danger');
+      } catch (err) {
+        console.dir(err);
+      }
+      this.$refs.msgModal.hideModal();
+    },
+    editOrder() {
+      this.isEdit = true;
+      this.tempOrder = { ...this.order };
     },
     cancelEditOrder() {
       this.isEdit = false;
     },
-  },
-  created() {
-    this.isLoading = true;
-    this.$store.dispatch('getBackstageOrders');
+    showModal() {
+      this.$refs.msgModal.showModal({
+        title: '刪除訂單',
+        content: '是否刪除訂單? 刪除後無法恢復。',
+      });
+    },
   },
   watch: {
-    '$store.getters.backstageOrders': {
-      handler(orders) {
-        this.setOrder(orders);
-      },
-    },
     '$route.params.id': {
-      handler() {
+      handler(orderId) {
         if (this.$route.name === 'BackendOrder') {
-          this.$store.dispatch('getBackstageOrders');
+          this.getOrder(orderId);
         }
       },
     },
+  },
+  created() {
+    this.getOrder(this.$route.params.id);
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$refs.msgModal.isLoading = false;
+    next();
   },
 };
 </script>

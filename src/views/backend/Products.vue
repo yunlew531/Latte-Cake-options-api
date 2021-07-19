@@ -95,37 +95,42 @@ export default {
       this.isLoading = true;
       try {
         const { data } = await apiGetProducts(page);
-        this.isLoading = false;
         if (data.success) {
           this.products = data.products;
           this.pagination = data.pagination;
         }
       } catch (err) {
-        this.isLoading = false;
         console.dir(err);
       }
+      this.isLoading = false;
     },
     editProduct(product) {
-      this.$emit('handStatus', { status: '編輯', product });
-      this.$router.push('/admin/addProduct');
+      const tempProduct = JSON.stringify(product);
+      this.$router.push({
+        name: 'AddProduct',
+        params: { boardStatus: '編輯', tempProduct },
+      });
     },
     async deleteProduct(productId) {
       this.isLoading = true;
       try {
         const { data } = await apiDeleteProduct(productId);
-        this.isLoading = false;
         if (data.success) {
           useToast('成功刪除!', 'success');
           this.handPage();
         } else useToast('發生錯誤!', 'danger');
       } catch (err) {
-        this.isLoading = false;
         console.dir(err);
       }
+      this.isLoading = false;
     },
   },
   created() {
     this.handPage();
+  },
+  beforeRouteLeave(to, from, next) {
+    this.isLoading = false;
+    next();
   },
 };
 </script>

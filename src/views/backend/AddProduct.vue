@@ -242,7 +242,7 @@ export default {
       default: '新增',
     },
     tempProduct: {
-      type: Object,
+      type: String,
     },
   },
   emits: {
@@ -293,12 +293,12 @@ export default {
             this.boardStatus === '新增' ? '新增成功!' : '完成更新!',
             'success'
           );
-          this.isLoading = false;
           this.$router.push('/admin/products');
         } else useToast('發生錯誤!', 'danger');
       } catch (err) {
         console.dir(err);
       }
+      this.isLoading = false;
     },
     removeImg(key) {
       this.product.imagesUrl.splice(key, 1);
@@ -314,10 +314,10 @@ export default {
           this.$refs.fileInput.value = '';
           useToast('成功上傳!', 'success');
         } else useToast(data.message, 'danger');
-        this.isLoading = false;
       } catch (err) {
         console.dir(err);
       }
+      this.isLoading = false;
     },
     handStatus() {
       this.$emit('handStatus', { status: '新增' });
@@ -328,7 +328,7 @@ export default {
     boardStatus: {
       handler(val) {
         if (val === '編輯') {
-          this.product = this.tempProduct;
+          this.product = JSON.parse(this.tempProduct);
         }
       },
       immediate: true,

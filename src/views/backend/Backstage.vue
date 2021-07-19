@@ -1,14 +1,11 @@
 <template>
-  <div v-if="$store.getters.isLogIn">
+  <div v-if="$store.getters.isLogIn" id="backstage">
     <BackendNavbar :user="user" />
     <div class="d-flex flex-wrap px-5 pb-8">
       <Sidebar :boardStatus="boardStatus" />
-      <router-view
-        :boardStatus="boardStatus"
-        :tempProduct="tempProduct"
-        @handStatus="handStatus"
-        class="dashboard-content flex-grow-1"
-      />
+      <div class="dashboard-content flex-grow-1">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -57,10 +54,8 @@ export default {
       this.setHeaders();
       apiPostCheck()
         .then(({ data }) => {
-          if (data.success) {
-            this.$store.dispatch('handLogInStatus', true);
-            this.$router.push('/admin');
-          } else {
+          if (data.success) this.$store.dispatch('handLogInStatus', true);
+          else {
             this.$store.dispatch('handLogInStatus', false);
             this.$router.push('/login');
           }

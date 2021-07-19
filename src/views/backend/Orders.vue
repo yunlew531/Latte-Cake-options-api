@@ -1,12 +1,10 @@
 <template>
-  <div class="rounded bg-white shadow w-100 p-10">
+  <Modal ref="msgModal" @onDelete="deleteAllOrders"> </Modal>
+  <div class="rounded bg-white shadow w-100 p-10 position-relative">
     <Loading v-model:active="isLoading" :is-full-page="false" />
     <div class="d-flex justify-content-center">
       <h2 class="me-auto">訂單</h2>
-      <button
-        class="btn btn-primary align-self-center"
-        @click="deleteAllOrders"
-      >
+      <button class="btn btn-primary align-self-center" @click="showModal">
         刪除全部訂單
       </button>
     </div>
@@ -63,12 +61,14 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import TranslateTime from '@/mixins/TranslateTime.vue';
 import Pagination from '@/components/Pagination.vue';
+import Modal from '@/components/Modal.vue';
 import { apiDeleteAllOrders } from '@/api';
 import { useToast } from '@/methods';
 
 export default {
   components: {
     Loading,
+    Modal,
     Pagination,
   },
   mixins: [TranslateTime],
@@ -80,18 +80,30 @@ export default {
     };
   },
   methods: {
-    getOrders(page) {
+    async getOrders(page) {
       this.isLoading = true;
-      this.$store
-        .dispatch('getBackstageOrders', page)
-        .then(({ success }) => {
-          this.isLoading = false;
-          if (!success) useToast('取得訂單失敗!', 'danger');
-        })
-        .catch((err) => {
-          this.isLoading = false;
-          console.dir(err);
-        });
+      try {
+        const { success } = await this.$store.dispatch(
+          'getBackstageOrders',
+          page
+        );
+        if (!success) useToast('取得訂單失敗!', 'danger');
+      } catch (err) {
+        console.dir(err);
+      }
+      this.isLoading = false;
+    },
+    async deleteAllOrders() {
+      try {
+        const { data } = await apiDeleteAllOrders();
+        if (data.success) {
+          useToast('已刪除全部訂單!');
+          this.getOrders();
+        } else useToast(data.message, 'danger');
+      } catch (err) {
+        console.dir(err);
+      }
+      this.$refs.msgModal.hideModal();
     },
     showOrderDetail(order) {
       this.$emit('setOrderDetail', order);
@@ -100,18 +112,13 @@ export default {
     handPage(page) {
       this.getOrders(page);
     },
-    async deleteAllOrders() {
-      this.isLoading = true;
-      const { data } = await apiDeleteAllOrders();
-      this.isLoading = false;
-      if (data.success) {
-        useToast('已刪除全部訂單!');
-        this.getOrders();
-      } else useToast(data.message, 'danger');
+    showModal() {
+      const content = {
+        title: '刪除所有訂單',
+        content: '是否刪除所有訂單? 刪除後無法重新取得。',
+      };
+      this.$refs.msgModal.showModal(content);
     },
-  },
-  created() {
-    this.getOrders();
   },
   watch: {
     '$store.getters.backstageOrders': {
@@ -120,6 +127,13 @@ export default {
         this.pagination = data.pagination;
       },
     },
+  },
+  created() {
+    this.getOrders();
+  },
+  beforeRouteLeave(to, from, next) {
+    this.isLoading = false;
+    next();
   },
 };
 </script>

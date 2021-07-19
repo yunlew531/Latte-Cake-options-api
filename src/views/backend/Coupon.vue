@@ -221,13 +221,12 @@ export default {
       this.isGetCouponsLoading = true;
       try {
         const { data } = await apiGetCoupons();
-        if (data.success) {
-          this.coupons = data.coupons;
-          this.isGetCouponsLoading = false;
-        } else useToast('無法取得', 'danger');
+        if (data.success) this.coupons = data.coupons;
+        else useToast('無法取得', 'danger');
       } catch (err) {
         console.dir(err);
       }
+      this.isGetCouponsLoading = false;
     },
     cancelEdit(resetForm) {
       resetForm();
@@ -256,10 +255,10 @@ export default {
           this.getCoupons();
           this.initCouponForm();
         } else useToast(resData.message[0], 'danger');
-        this.isAddCouponLoading = false;
       } catch (err) {
         console.dir(err);
       }
+      this.isAddCouponLoading = false;
     },
     async submitEditCoupon() {
       this.isEdit = false;
@@ -274,10 +273,10 @@ export default {
           this.getCoupons();
           this.initCouponForm();
         } else useToast('發生錯誤!', 'danger');
-        this.isAddCouponLoading = false;
       } catch (err) {
         console.dir(err);
       }
+      this.isAddCouponLoading = false;
     },
     handSubmit(value, { resetForm: reset }) {
       reset();
@@ -298,7 +297,6 @@ export default {
       this.isGetCouponsLoading = true;
       try {
         const { data } = await apiDeleteCoupon(id);
-        this.isGetCouponsLoading = false;
         if (data.success) {
           useToast(data.message, 'success');
           this.getCoupons();
@@ -306,6 +304,7 @@ export default {
       } catch (err) {
         console.dir(err);
       }
+      this.isGetCouponsLoading = false;
     },
   },
   created() {

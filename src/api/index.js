@@ -11,7 +11,7 @@ import { postUploadImg, postAddProduct, putEditProduct } from './backend/AddProd
 import LogOut from './backend/shared/index';
 import { getProducts, deleteProduct } from './backend/Products';
 import { getOrders, deleteAllOrders } from './backend/Orders';
-import putEditOrder from './backend/Order';
+import { putEditOrder, delOrder } from './backend/Order';
 import { postAddCoupon, getCoupons, editCoupon, deleteCoupon } from './backend/Coupon';
 
 // frontend
@@ -41,6 +41,7 @@ export const apiPutEditProduct = putEditProduct;
 export const apiGetOrders = getOrders;
 export const apiDeleteAllOrders = deleteAllOrders;
 export const apiPutEditOrder = putEditOrder;
+export const apiDelOrder = delOrder;
 export const apiPostAddCoupon = postAddCoupon;
 export const apiGetCoupons = getCoupons;
 export const apiPutEditCoupon = editCoupon;

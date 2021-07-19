@@ -64,7 +64,10 @@ const routes = [
       {
         path: 'addProduct',
         name: 'AddProduct',
-        component: () => import('../views/backend/AddProduct.vue')
+        component: () => import('../views/backend/AddProduct.vue'),
+        props: (route) => ({
+          ...route.params
+        })
       },
       {
         path: 'products',

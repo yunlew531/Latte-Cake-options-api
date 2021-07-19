@@ -184,7 +184,6 @@ export default {
       const data = { user: this.user };
       try {
         const { data: resData } = await apiPostCheckout(data);
-        console.log(resData);
         if (resData.success) {
           useToast('訂單成立!', 'success');
           this.$store.dispatch('getCarts');
