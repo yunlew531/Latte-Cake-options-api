@@ -16,15 +16,15 @@
             <label for="orderEmail" class="form-label mb-1">Email</label>
             <Field
               id="orderEmail"
-              name="email"
+              name="Email"
               type="email"
               class="form-control"
-              :class="{ 'is-invalid': errors['email'] }"
+              :class="{ 'is-invalid': errors['Email'] }"
               placeholder="請輸入 Email"
               rules="email|required"
               v-model="user.email"
             ></Field>
-            <ErrorMessage name="email" class="invalid-feedback"></ErrorMessage>
+            <ErrorMessage name="Email" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="form-group text-black-200">
             <label for="name" class="form-label mb-1">姓名</label>
@@ -162,16 +162,16 @@
             <div class="mb-3 flex-grow-1">
               <Field
                 id="coupon"
-                name="優惠碼"
+                name="折扣碼"
                 type="text"
                 class="form-control"
-                :class="{ 'is-invalid': errors['優惠碼'] }"
-                placeholder="請輸入優惠碼"
+                :class="{ 'is-invalid': errors['折扣碼'] }"
+                placeholder="請輸入折扣碼"
                 rules="required"
                 v-model.trim="couponInput"
               ></Field>
               <ErrorMessage
-                name="優惠碼"
+                name="折扣碼"
                 class="invalid-feedback"
               ></ErrorMessage>
             </div>
@@ -183,7 +183,7 @@
           </Form>
         </div>
         <div class="rounded shadow-sm bg-white p-8 mt-8">
-          <h4 class="fs-4 mb-3">優惠碼</h4>
+          <h4 class="fs-4 mb-3">折扣碼</h4>
           <ul class="list-unstyled">
             <li
               v-for="coupon in coupons"
@@ -217,7 +217,7 @@ export default {
   },
   data() {
     return {
-      coupons: [{ title: '全面8折', code: 'abcd' }],
+      coupons: [{ title: '防疫外送優惠', code: 'pastadiscount' }],
       couponInput: '',
       cartsData: [],
       user: {},
@@ -225,7 +225,7 @@ export default {
     };
   },
   methods: {
-    async onSubmit(value, { resetForm }) {
+    async onSubmit(val, { resetForm }) {
       resetForm();
       this.$store.dispatch('handIsLoading', true);
       const data = { user: this.user };
@@ -250,7 +250,8 @@ export default {
         useToast('無法複製!');
       }
     },
-    async submitCoupon() {
+    async submitCoupon(val, { resetForm }) {
+      resetForm();
       const coupon = { data: { code: this.couponInput } };
       this.$store.dispatch('handIsLoading', true);
       try {

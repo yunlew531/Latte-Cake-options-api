@@ -1,10 +1,10 @@
 <template>
   <Carousel />
   <WhyChooseUs />
-  <Menu ref="menu" />
-  <HotSale />
+  <Menu ref="menu" @handStatus="handStatus" />
+  <HotSale @handStatus="handStatus" />
   <ImmediatelyOrder />
-  <AboutMaterialPanel />
+  <AboutMaterialPanel ref="aboutMaterialPanel" />
   <OurTeam />
   <RestaurantLightbox />
   <LocationPanel />
@@ -34,11 +34,38 @@ export default {
     RestaurantLightbox,
     LocationPanel,
   },
+  data() {
+    return {
+      ajaxStatus: {
+        isHotSaleRes: false,
+        isMenuRes: false,
+      },
+    };
+  },
   methods: {
     scrollToEl(ref) {
       const el = this.$refs[ref].$refs[ref];
       const top = el.offsetTop;
       window.scrollTo(0, top);
+    },
+    handStatus(status) {
+      this.ajaxStatus[status.title] = status.status;
+    },
+  },
+  watch: {
+    ajaxStatus: {
+      handler(status) {
+        if (
+          status.isHotSaleRes &&
+          status.isMenuRes &&
+          this.$route.params.scrollToEl
+        ) {
+          this.$nextTick(() => {
+            this.scrollToEl(this.$route.params.scrollToEl);
+          });
+        }
+      },
+      deep: true,
     },
   },
   mounted() {

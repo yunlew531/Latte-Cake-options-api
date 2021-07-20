@@ -13,7 +13,6 @@
     </h3>
     <div class="btns-group ps-md-12" :class="{ show: !playFirstAnime }">
       <Button @click="scrollToEl">瀏覽菜單</Button>
-      <Button class="ms-5">線上訂位</Button>
     </div>
   </teleport>
 </template>

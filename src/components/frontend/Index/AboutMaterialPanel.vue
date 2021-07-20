@@ -1,7 +1,10 @@
 <template>
   <section class="bg-product-info">
     <div class="bg-filter">
-      <div class="about-cake-panel container py-50">
+      <div
+        ref="aboutMaterialPanel"
+        class="about-material-panel container py-50"
+      >
         <div
           class="
             handle-heat
@@ -61,21 +64,6 @@
               精選、磨粉、篩粉、包裝經過一道道程序，<br />
               食材選用是我們不會妥協的地方。
             </p>
-            <div class="about-material d-flex justify-content-end mt-12">
-              <router-link
-                to="/aboutMaterial"
-                class="
-                  text-decoration-none
-                  duration-600
-                  d-flex
-                  align-items-center
-                  p-1
-                "
-              >
-                <h4 class="fs-6 lh-1 m-0">關於更多食材</h4>
-                <span class="material-icons ms-1"> trending_flat </span>
-              </router-link>
-            </div>
           </div>
           <div class="about-flour-img order-1 order-xl-2">
             <img
@@ -150,7 +138,7 @@ export default {
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-.about-cake-panel {
+.about-material-panel {
   overflow: hidden;
 }
 

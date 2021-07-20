@@ -70,6 +70,9 @@
 <script>
 export default {
   inject: ['scroll'],
+  emits: {
+    handStatus: (status) => typeof status.status === 'boolean',
+  },
   data() {
     return {
       products: [],
@@ -117,6 +120,7 @@ export default {
       handler(products) {
         this.products = products;
         this.setCategories();
+        this.$emit('handStatus', { title: 'isMenuRes', status: true });
       },
     },
     'displayProducts.filterProducts': {

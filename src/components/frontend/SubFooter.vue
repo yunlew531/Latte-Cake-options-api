@@ -3,8 +3,8 @@
     <div class="container py-25">
       <ul class="row gx-8 list-unstyled">
         <li class="col-md-6 mb-8 mb-md-0">
-          <router-link
-            to="/aboutMaterial"
+          <a
+            @click.prevent="handToPageMaterials"
             class="
               link-item
               text-reset text-decoration-none
@@ -24,7 +24,7 @@
             <span class="material-icons fs-5 text-danger pe-2">
               play_circle_outline
             </span>
-          </router-link>
+          </a>
         </li>
         <li class="col-md-6 mb-md-0">
           <router-link
@@ -58,6 +58,18 @@
 <script>
 export default {
   name: 'SubFooter',
+  methods: {
+    handToPageMaterials() {
+      if (this.$route.path === '/home') {
+        this.$emitter.emit('scrollToEl', 'aboutMaterialPanel');
+      } else {
+        this.$router.push({
+          name: 'Home',
+          params: { scrollToEl: 'aboutMaterialPanel' },
+        });
+      }
+    },
+  },
 };
 </script>
 
@@ -84,6 +96,7 @@ export default {
   background-image: url(~@/assets/images/street-cafe-taipei.jpg);
 }
 .link-item {
+  cursor: pointer;
   h3,
   p {
     transition: 0.2s;

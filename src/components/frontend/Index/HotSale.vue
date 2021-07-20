@@ -100,6 +100,9 @@ export default {
     SwiperSlide,
     Button,
   },
+  emits: {
+    handStatus: (status) => typeof status.status === 'boolean',
+  },
   inject: ['scroll'],
   data() {
     return {
@@ -127,6 +130,7 @@ export default {
     '$store.getters.allProducts': {
       handler(products) {
         this.products = products;
+        this.$emit('handStatus', { title: 'isHotSaleRes', status: true });
       },
     },
   },
