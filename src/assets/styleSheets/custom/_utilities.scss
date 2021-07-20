@@ -121,6 +121,7 @@ $utilities: map-merge(
       )
     ),
     'width': (
+      responsive: true,
       property: width,
       class: w,
       values: (

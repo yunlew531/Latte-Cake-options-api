@@ -34,7 +34,7 @@
             bg-white
             rounded
             shadow-sm
-            p-10
+            p-5 p-sm-10
           "
           :class="{ active: playAnime }"
         >
@@ -58,7 +58,7 @@
               v-for="product in displayData"
               :key="product.id"
               class="product-item d-flex flex-column"
-              :class="isScrollDown ? 'col-4' : 'col-3'"
+              :class="isScrollDown ? 'col-4' : 'col-sm-6 col-lg-4 col-xl-3'"
               @animationend="playAnime = false"
             >
               <router-link
@@ -159,6 +159,7 @@ export default {
       allProducts: [],
       pagination: {},
       isScrollDown: false,
+      isPhone: false,
       playAnime: false,
       searchText: '',
     };
@@ -213,13 +214,14 @@ export default {
     },
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 180) this.isScrollDown = true;
+        if (scroll.Y > 180 && !this.isPhone) this.isScrollDown = true;
         else this.isScrollDown = false;
       },
       deep: true,
     },
   },
   created() {
+    this.isPhone = document.body.offsetWidth < 1366;
     this.$store.dispatch('getProducts').then(({ success }) => {
       if (success) this.playAnime = true;
     });

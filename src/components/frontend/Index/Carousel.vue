@@ -28,7 +28,7 @@
         start-50
         translate-middle
         top-50
-        px-10
+        px-5 px-xxl-10
         z-10
       "
     >
@@ -45,10 +45,11 @@
       class="
         position-absolute
         start-0
-        top-50
+        bottom-25 bottom-sm-auto
+        top-sm-50
         z-10
         overflow-hidden
-        px-6 px-sm-12
+        px-5 px-xxl-12
       "
     ></div>
     <!-- title 動畫結束後 teleport 位置 end -->
@@ -111,7 +112,7 @@ export default {
       this.isResetAnime = true;
     },
     handTextShadow($event) {
-      if (!this.isReadyTextShadow) return;
+      if (!this.isReadyTextShadow || document.body.offsetWidth < 1366) return;
       const { offsetX, offsetY } = $event;
 
       if (

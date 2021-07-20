@@ -1,24 +1,24 @@
 <template>
   <div class="navbar-bg"></div>
   <section
-    class="container about-us-panel bg-white shadow-sm rounded mb-n12 p-12"
+    class="container about-us-panel bg-white shadow-sm rounded mb-n12"
     :class="{ active: isAnimeReset }"
   >
-    <div>
+    <div class="p-sm-12">
       <div class="row g-8">
-        <div class="col-6">
+        <div class="col-xl-6">
           <img
             src="@/assets/images/bg-banner.jpg"
             alt="spaghetti"
             class="img-fluid"
           />
         </div>
-        <div class="col-6 lh-lg">
+        <div class="col-xl-6 lh-lg">
           <h2 class="fs-3">關於我們</h2>
           <p>
             <span class="shop-name fw-bold text-danger">PastaHouse</span>
             是一家成立於 1950 年的義大利獨資公司。<br />
-            是一家新鮮義大利麵餐廳，提供熱食，如義大利麵、pizza等。
+            一家新鮮義大利麵餐廳，提供熱食，如義大利麵、pizza等。
           </p>
           <p>
             我們致力於為我們的客戶帶來全家人都會喜歡的經典義大利麵食，<br />

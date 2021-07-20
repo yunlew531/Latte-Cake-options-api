@@ -6,11 +6,12 @@
       <router-link to="/orders" class="btn btn-sm btn-outline-primary mb-3"
         >返回訂單列表</router-link
       >
-      <div class="d-flex">
-        <h3 class="fs-5 me-auto">
-          <span class="fs-6 me-2">訂單編號:</span>{{ order.id }}
-        </h3>
-        <span class="fs-5">
+      <div class="d-flex flex-wrap">
+        <p class="fs-5 me-auto mb-0">
+          <span class="fs-6 me-2">訂單編號:</span
+          ><span class="d-inline-block w-100 w-sm-auto">{{ order.id }}</span>
+        </p>
+        <span class="fs-5 d-inline-block w-100 w-md-auto mb-2 mb-md-0">
           <span class="fs-6 me-2">成立時間:</span
           >{{ translateTime(order.create_at, 'string') }}</span
         >
@@ -52,7 +53,11 @@
         </li>
       </ul>
       <ul class="list-unstyled row g-6">
-        <li v-for="product in order.products" :key="product.id" class="col-6">
+        <li
+          v-for="product in order.products"
+          :key="product.id"
+          class="col-lg-6"
+        >
           <div class="bg-white-100 border rounded p-5">
             <h2 class="fs-5 m-0 me-auto mb-2">
               <router-link
@@ -61,13 +66,13 @@
                 >{{ product.product.title }}</router-link
               >
             </h2>
-            <div class="d-flex">
+            <div class="d-flex flex-wrap">
               <img
                 :src="product.product.imageUrl || product.product.imagesUrl[0]"
                 :alt="product.product.title"
                 class="product-img rounded me-8"
               />
-              <div class="flex-grow-1">
+              <div class="flex-grow-1 mt-5 mt-sm-0">
                 <h4 class="fs-6">類別: {{ product.product.category }}</h4>
                 <p class="d-flex align-items-center mb-2">
                   <span class="text-decoration-line-through me-auto"
@@ -141,6 +146,7 @@ export default {
 <style lang="scss" scoped>
 @import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
+@import '~bootstrap/scss/mixins';
 
 .nav-bg {
   height: 300px;
@@ -163,7 +169,11 @@ export default {
 }
 .user-title {
   width: 150px;
+  flex-shrink: 0;
   background: shade-color($white, 5%);
+  @include media-breakpoint-down(sm) {
+    width: 100px;
+  }
 }
 .product-name {
   color: $primary;

@@ -12,9 +12,7 @@
       <span class="fw-bolder text-danger tracking-2 w-100">PastaHouse</span>
     </h3>
     <div class="btns-group ps-md-12" :class="{ show: !playFirstAnime }">
-      <a @click="scrollToEl">
-        <Button>瀏覽菜單</Button>
-      </a>
+      <Button @click="scrollToEl">瀏覽菜單</Button>
       <Button class="ms-5">線上訂位</Button>
     </div>
   </teleport>
@@ -102,7 +100,7 @@ export default {
   }
   @include media-breakpoint-down(sm) {
     &.first-anime {
-      font-size: 3rem;
+      font-size: 2rem;
     }
     &.second-anime {
       font-size: 2rem;

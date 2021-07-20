@@ -29,7 +29,7 @@
               v-for="product in cartsData.carts"
               :key="product.id"
             >
-              <div class="d-flex justify-content-between pb-2">
+              <div class="d-flex flex-wrap justify-content-between pb-2">
                 <div class="d-flex">
                   <p
                     class="
@@ -66,12 +66,12 @@
                     <span class="ms-1">免運費</span>
                   </p>
                 </div>
-                <span
+                <span class="pt-2 pt-sm-0"
                   >單價 NT$
                   {{ product.product.price?.toLocaleString() }} 元</span
                 >
               </div>
-              <div class="d-flex">
+              <div class="d-flex flex-wrap flex-sm-nowrap">
                 <div
                   class="product-img"
                   :style="{
@@ -85,16 +85,17 @@
                     d-flex
                     flex-column
                     justify-content-between
-                    ps-5
+                    mt-5 mt-sm-0
+                    ps-sm-5
                     flex-grow-1
                   "
                 >
-                  <div class="d-flex">
+                  <div class="d-flex flex-wrap">
                     <div class="flex-grow-1 flex-shrink-1">
                       <h2 class="fs-3 mb-2px">
                         <router-link
                           :to="`/product/${product.product.id}`"
-                          class="text-decoration-none"
+                          class="text-decoration-none text-nowrap"
                           >{{ product.product.title }}</router-link
                         >
                       </h2>
@@ -119,7 +120,9 @@
                         flex-shrink-0
                       "
                     >
-                      <span class="fs-6 text-black-200">購買數量</span>
+                      <span class="fs-6 text-black-200 py-5 py-md-0"
+                        >購買數量</span
+                      >
                       <div class="position-relative">
                         <span
                           class="
@@ -172,8 +175,10 @@
                   <p class="text-wrap tracking-2 text-black-200">
                     {{ product.product.content }}
                   </p>
-                  <div class="d-flex align-items-center">
-                    <div class="d-flex align-items-center flex-grow-1">
+                  <div class="d-flex flex-wrap align-items-center">
+                    <div
+                      class="d-flex flex-wrap align-items-center flex-grow-1"
+                    >
                       <button
                         class="
                           product-remove-btn
@@ -181,6 +186,7 @@
                           bg-transparent
                           d-flex
                           align-items-center
+                          p-0
                         "
                         type="button"
                         @click="removeCart(product.id)"
@@ -195,7 +201,9 @@
                           bg-transparent
                           d-flex
                           align-items-center
-                          ms-3
+                          p-0
+                          mt-1 mt-sm-0
+                          ms-md-3
                         "
                         type="button"
                       >
@@ -227,7 +235,7 @@
           </p>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-lg-4">
         <div class="total-price-panel position-sticky">
           <div class="rounded shadow-sm bg-white p-8">
             <p class="fs-4">總金額</p>

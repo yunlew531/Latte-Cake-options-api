@@ -1,11 +1,13 @@
 <template>
   <div class="nav-bg"></div>
   <section
-    class="product-panel bg-white rounded shadow-sm container p-10"
+    class="product-panel bg-white rounded shadow-sm container p-5 p-sm-10"
     :class="{ active: !isAnimeReset }"
   >
     <div class="row gx-12">
-      <ul class="col-6 list-unstyled mb-0">
+      <ul
+        class="product-img-list col-lg-6 list-unstyled order-2 order-lg-1 mb-0"
+      >
         <li
           v-if="product.imageUrl"
           class="product-img rounded"
@@ -24,13 +26,13 @@
           @click="showLightbox(product.imageUrl ? key + 1 : key)"
         ></li>
       </ul>
-      <div class="col-6">
+      <div class="col-lg-6 order-1 order-lg-2">
         <div class="product-content position-sticky">
-          <div class="d-flex justify-content-between pt-1">
-            <h2 class="fw-bold lh-1 overflow-hidden">
+          <div class="d-flex flex-wrap justify-content-between pt-1">
+            <h2 class="fw-bold lh-1 overflow-hidden order-2 order-sm-1">
               <span class="product-title d-block">{{ product.title }}</span>
             </h2>
-            <div class="d-flex">
+            <div class="d-flex order-1 order-sm-2 pb-5 pb-sm-0">
               <p
                 class="
                   fs-7
@@ -90,7 +92,13 @@
             {{ product.content }}
           </p>
           <div
-            class="bg-white border border-gray-300 shadow-inset rounded p-12"
+            class="
+              bg-white
+              border border-gray-300
+              shadow-inset
+              rounded
+              p-5 p-sm-12
+            "
           >
             <div class="d-flex align-items-center">
               <span class="fs-6 text-black-200">購買數量</span>
@@ -245,6 +253,7 @@ export default {
 <style lang="scss" scoped>
 @import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
+@import '~bootstrap/scss/mixins';
 
 .product-panel {
   transform: translateY(-50px);
@@ -257,6 +266,25 @@ export default {
     cursor: zoom-in;
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+  @include media-breakpoint-down(lg) {
+    .product-img-list {
+      display: flex;
+      flex-wrap: wrap;
+      padding-top: 20px;
+      padding-right: 2%;
+    }
+    .product-img {
+      width: 31.33333%;
+      height: 200px;
+      margin-right: 2%;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    .product-img {
+      width: 48%;
+      margin-right: 2%;
     }
   }
   .product-title,

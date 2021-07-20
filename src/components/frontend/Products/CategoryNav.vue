@@ -1,7 +1,7 @@
 <template>
   <teleport v-if="navTeleport" :to="navTeleport">
     <section
-      class="products-nav-panel bg-white rounded shadow-sm p-10"
+      class="products-nav-panel bg-white rounded shadow-sm p-5 p-sm-10"
       :class="{ 'drop-down': isScrollDown }"
       :style="fixedNavSticky"
     >

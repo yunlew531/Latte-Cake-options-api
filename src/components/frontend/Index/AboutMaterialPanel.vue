@@ -10,7 +10,7 @@
             align-items-center
             flex-wrap
           "
-          :class="{ active: isScrollToHeat }"
+          :class="{ active: isScrollToFirstMetarial }"
         >
           <div class="about-cake-img">
             <img
@@ -45,7 +45,7 @@
             flex-wrap
             pt-38
           "
-          :class="{ active: isScrollToMetarial }"
+          :class="{ active: isScrollToSecondMetarial }"
         >
           <div class="p-12 order-2 order-xl-1">
             <h3
@@ -96,22 +96,41 @@ export default {
   inject: ['scroll'],
   data() {
     return {
-      isScrollToHeat: false,
-      isScrollToMetarial: false,
+      isPhone: false,
+      isScrollToFirstMetarial: false,
+      isScrollToSecondMetarial: false,
     };
   },
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y >= 2900 && scroll.Y <= 3900) {
-          this.isScrollToHeat = true;
-        } else this.isScrollToHeat = false;
-        if (scroll.Y >= 3500 && scroll.Y <= 4600) {
-          this.isScrollToMetarial = true;
-        } else this.isScrollToMetarial = false;
+        if (this.isPhone) {
+          // isScrollToFirstMetarial
+          if (scroll.Y >= 3142 && scroll.Y <= 4500) {
+            this.isScrollToFirstMetarial = true;
+          } else this.isScrollToFirstMetarial = false;
+
+          // isScrollToSecondMetarial
+          if (scroll.Y >= 4000 && scroll.Y <= 5000) {
+            this.isScrollToSecondMetarial = true;
+          } else this.isScrollToSecondMetarial = false;
+        } else {
+          // isScrollToFirstMetarial
+          if (scroll.Y >= 2900 && scroll.Y <= 3900) {
+            this.isScrollToFirstMetarial = true;
+          } else this.isScrollToFirstMetarial = false;
+
+          // isScrollToSecondMetarial
+          if (scroll.Y >= 3500 && scroll.Y <= 4600) {
+            this.isScrollToSecondMetarial = true;
+          } else this.isScrollToSecondMetarial = false;
+        }
       },
       deep: true,
     },
+  },
+  created() {
+    this.isPhone = document.body.offsetWidth < 768;
   },
 };
 </script>

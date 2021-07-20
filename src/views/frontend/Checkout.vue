@@ -5,7 +5,7 @@
       <Button class="fs-6 px-5 ms-2">返回購物車</Button>
     </router-link>
     <div class="row gx-8">
-      <div class="col-6">
+      <div class="col-md-6">
         <Form
           v-slot="{ errors }"
           @submit="onSubmit"
@@ -92,7 +92,7 @@
           <Button btnType="submit" class="fs-6 px-5 ms-2">送出訂單</Button>
         </Form>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="bg-white shadow-sm rounded p-8">
           <ul class="list-unstyled">
             <li
@@ -104,16 +104,16 @@
             >
               <button
                 type="button"
-                class="btn d-flex align-items-end w-100 p-3"
+                class="btn d-flex flex-wrap align-items-end w-100 p-3"
               >
-                <h2 class="text-primary fs-5 m-0">
+                <h2 class="text-primary d-inline-block d-sm-block fs-5 m-0">
                   {{ product.product.title }}
                 </h2>
                 <span class="text-primary fs-7 ms-5">x</span>
                 <span class="text-primary fs-7 ms-5 me-auto">
                   {{ product.qty }}</span
                 >
-                <span class="text-primary fs-5"
+                <span class="text-start text-primary fs-5 w-100 w-sm-auto"
                   ><span class="fs-7">NT$</span> {{ product.total }}</span
                 >
               </button>
@@ -130,9 +130,9 @@
               </div>
             </li>
           </ul>
-          <div class="d-flex">
+          <div class="d-flex flex-wrap">
             <router-link to="/products" class="me-auto">
-              <Button class="px-5 ms-2">選購更多商品</Button>
+              <Button class="px-5 ms-0 ms-lg-2">選購更多商品</Button>
             </router-link>
             <p class="text-primary fs-5 m-0">
               總金額 NT$ <span class="fs-3">{{ cartsData.final_total }}</span>
@@ -141,9 +141,11 @@
         </div>
         <div class="rounded shadow-sm bg-white p-8 mt-8">
           <h4 class="fs-4">輸入優惠折扣碼</h4>
-          <div class="d-flex">
+          <div class="d-flex flex-wrap">
             <input type="text" class="flex-grow-1" />
-            <Button class="px-5 ms-2">送出</Button>
+            <Button class="w-100 w-lg-auto px-5 mt-2 mt-lg-0 ms-lg-2"
+              >送出</Button
+            >
           </div>
         </div>
       </div>
