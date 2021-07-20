@@ -287,12 +287,12 @@ export default {
         const { data } = await apiPutCartQty(product);
         if (data.success) {
           await this.$store.dispatch('getCarts');
-          this.$store.dispatch('handIsLoading', false);
           useToast('成功更新數量!');
         } else useToast('操作失敗!', 'danger');
       } catch (err) {
         console.dir(err);
       }
+      this.$store.dispatch('handIsLoading', false);
     },
     async removeCart(productId) {
       this.$store.dispatch('handIsLoading', true);
@@ -304,10 +304,10 @@ export default {
         } else {
           useToast('操作失敗!', 'danger');
         }
-        this.$store.dispatch('handIsLoading', false);
       } catch (err) {
         console.dir(err);
       }
+      this.$store.dispatch('handIsLoading', false);
     },
     async removeAllCarts() {
       this.$store.dispatch('handIsLoading', true);
@@ -317,10 +317,10 @@ export default {
           useToast('成功移除!');
           await this.$store.dispatch('getCarts');
         } else useToast('操作失敗!', 'danger');
-        this.$store.dispatch('handIsLoading', false);
       } catch (err) {
         console.dir(err);
       }
+      this.$store.dispatch('handIsLoading', false);
     },
     searchCategory(category) {
       this.$router.push({ path: '/products', query: { category } });

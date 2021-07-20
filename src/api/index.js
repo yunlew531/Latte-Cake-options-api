@@ -6,7 +6,7 @@ import { getCarts, putCartQty, deleteCart, deleteAllCarts, postAddCart } from '.
 import postLogin from './backend/Login';
 import { postCheck, getUser } from './backend/Backstage';
 import { getPageProducts, getAllProducts } from './frontend/Products';
-import { postCheckout } from './frontend/Checkout';
+import { postCheckout, postCoupon } from './frontend/Checkout';
 import { postUploadImg, postAddProduct, putEditProduct } from './backend/AddProduct/index';
 import LogOut from './backend/shared/index';
 import { getProducts, deleteProduct } from './backend/Products';
@@ -25,6 +25,7 @@ export const apiDeleteAllCarts = deleteAllCarts;
 export const apiPostAddCart = postAddCart;
 export const apiGetShopImg = getShopImg;
 export const apiPostCheckout = postCheckout;
+export const apiPostCoupon = postCoupon;
 export const apiGetCustOrders = getCustOrders;
 export const apiGetCustOrder = getCustOrder;
 

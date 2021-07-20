@@ -135,18 +135,70 @@
               <Button class="px-5 ms-0 ms-lg-2">選購更多商品</Button>
             </router-link>
             <p class="text-primary fs-5 m-0">
-              總金額 NT$ <span class="fs-3">{{ cartsData.final_total }}</span>
+              總金額 NT$
+              <span
+                class="fs-3 me-3"
+                :class="{
+                  'text-decoration-line-through':
+                    cartsData.final_total !== cartsData.total,
+                }"
+                >{{ cartsData.total }}</span
+              >
+              <span
+                v-if="cartsData.final_total !== cartsData.total"
+                class="fs-3"
+                >{{ cartsData.final_total }}</span
+              >
             </p>
           </div>
         </div>
         <div class="rounded shadow-sm bg-white p-8 mt-8">
-          <h4 class="fs-4">輸入優惠折扣碼</h4>
-          <div class="d-flex flex-wrap">
-            <input type="text" class="flex-grow-1" />
-            <Button class="w-100 w-lg-auto px-5 mt-2 mt-lg-0 ms-lg-2"
-              >送出</Button
+          <label for="coupon" class="form-label fs-4">輸入優惠折扣碼</label>
+          <Form
+            v-slot="{ errors }"
+            @submit="submitCoupon"
+            class="d-flex flex-wrap"
+          >
+            <div class="mb-3 flex-grow-1">
+              <Field
+                id="coupon"
+                name="優惠碼"
+                type="text"
+                class="form-control"
+                :class="{ 'is-invalid': errors['優惠碼'] }"
+                placeholder="請輸入優惠碼"
+                rules="required"
+                v-model.trim="couponInput"
+              ></Field>
+              <ErrorMessage
+                name="優惠碼"
+                class="invalid-feedback"
+              ></ErrorMessage>
+            </div>
+            <Button
+              btnType="submit"
+              class="align-self-start w-100 w-lg-auto px-5 mt-2 mt-lg-0 ms-lg-2"
+              >送出
+            </Button>
+          </Form>
+        </div>
+        <div class="rounded shadow-sm bg-white p-8 mt-8">
+          <h4 class="fs-4 mb-3">優惠碼</h4>
+          <ul class="list-unstyled">
+            <li
+              v-for="coupon in coupons"
+              :key="coupon.code"
+              @click="copyCouponCode(coupon.code)"
             >
-          </div>
+              <h3 class="fs-5 fw-light">{{ coupon.title }}</h3>
+              <div class="d-flex btn-group">
+                <p class="coupon-code btn flex-grow-1 m-0">
+                  {{ coupon.code }}
+                </p>
+                <button class="flex-grow-0 px-5 btn btn-primary">複製</button>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -154,7 +206,7 @@
 </template>
 
 <script>
-import { apiPostCheckout } from '@/api';
+import { apiPostCheckout, apiPostCoupon } from '@/api';
 import { useToast } from '@/methods';
 import Button from '@/components/frontend/Button.vue';
 
@@ -165,21 +217,14 @@ export default {
   },
   data() {
     return {
+      coupons: [{ title: '全面8折', code: 'abcd' }],
+      couponInput: '',
       cartsData: [],
       user: {},
       nowShow: [],
     };
   },
   methods: {
-    validateTel() {
-      const rule = /^(09)[0-9]{8}$/;
-      return rule.test(this.user.tel) ? true : '需要正確的電話號碼';
-    },
-    showInfo(key) {
-      const idx = this.nowShow.indexOf(key);
-      if (idx !== -1) this.nowShow.splice(idx, 1);
-      else this.nowShow.push(key);
-    },
     async onSubmit(value, { resetForm }) {
       resetForm();
       this.$store.dispatch('handIsLoading', true);
@@ -191,10 +236,43 @@ export default {
           this.$store.dispatch('getCarts');
           this.$router.push('/orders');
         } else useToast('發生錯誤!', 'danger');
-        this.$store.dispatch('handIsLoading', false);
       } catch (err) {
         console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
+      this.$store.dispatch('handIsLoading', false);
+    },
+    async copyCouponCode(code) {
+      try {
+        await navigator.clipboard.writeText(code);
+        useToast('已複製!');
+      } catch (err) {
+        useToast('無法複製!');
+      }
+    },
+    async submitCoupon() {
+      const coupon = { data: { code: this.couponInput } };
+      this.$store.dispatch('handIsLoading', true);
+      try {
+        const { data } = await apiPostCoupon(coupon);
+        if (data.success) {
+          this.$store.dispatch('getCarts');
+          useToast(data.message);
+        } else useToast(data.message, 'danger');
+      } catch (err) {
+        console.dir(err);
+        useToast('無法套用!', 'danger');
+      }
+      this.$store.dispatch('handIsLoading', false);
+    },
+    validateTel() {
+      const rule = /^(09)[0-9]{8}$/;
+      return rule.test(this.user.tel) ? true : '需要正確的電話號碼';
+    },
+    showInfo(key) {
+      const idx = this.nowShow.indexOf(key);
+      if (idx !== -1) this.nowShow.splice(idx, 1);
+      else this.nowShow.push(key);
     },
   },
   watch: {
@@ -261,5 +339,8 @@ export default {
 .product-content {
   overflow: hidden;
   max-height: 0;
+}
+.coupon-code {
+  background: rgba($black-300, 0.1);
 }
 </style>

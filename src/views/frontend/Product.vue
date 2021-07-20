@@ -215,13 +215,12 @@ export default {
       this.isLightboxShow = false;
     },
     async addCart() {
+      this.$store.dispatch('handIsLoading', true);
       const { id } = this.product;
       try {
-        this.$store.dispatch('handIsLoading', true);
         const { data } = await apiPostAddCart(id, this.productNum);
         if (data.success) {
           await this.$store.dispatch('getCarts');
-          this.$store.dispatch('handIsLoading', false);
           this.$emitter.emit('showCartCanvas', true);
           useToast('成功加入購物車!', 'success');
           this.productNum = 1;
@@ -229,6 +228,7 @@ export default {
       } catch (err) {
         console.dir(err);
       }
+      this.$store.dispatch('handIsLoading', false);
     },
   },
   created() {

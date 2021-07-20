@@ -166,12 +166,12 @@ export default {
         const { data } = await apiPutCartQty(product);
         if (data.success) {
           await this.$store.dispatch('getCarts');
-          this.$store.dispatch('handIsLoading', false);
           useToast('成功更新數量!', 'success');
         } else useToast('操作失敗!', 'danger');
       } catch (err) {
         console.dir(err);
       }
+      this.$store.dispatch('handIsLoading', false);
     },
     async removeCart(productId) {
       this.$store.dispatch('handIsLoading', true);
@@ -179,7 +179,6 @@ export default {
         const { data } = await apiDeleteCart(productId);
         if (data.success) {
           await this.$store.dispatch('getCarts');
-          this.$store.dispatch('handIsLoading', false);
           useToast('成功移除商品!', 'success');
         } else {
           useToast('操作失敗!', 'danger');
@@ -187,6 +186,7 @@ export default {
       } catch (err) {
         console.dir(err);
       }
+      this.$store.dispatch('handIsLoading', false);
     },
   },
   watch: {
