@@ -234,7 +234,7 @@ export default {
         if (resData.success) {
           useToast('訂單成立!', 'success');
           this.$store.dispatch('getCarts');
-          this.$router.push('/orders');
+          this.$router.push('/orderCompleted');
         } else useToast('發生錯誤!', 'danger');
       } catch (err) {
         console.dir(err);
