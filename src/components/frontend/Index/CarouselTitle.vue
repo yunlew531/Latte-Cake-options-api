@@ -1,7 +1,7 @@
 <template>
   <teleport v-if="titleTeleportPosition" :to="titleTeleportPosition">
     <h3
-      class="title fw-bold text-white px-12 pt-10"
+      class="title fw-bold text-white px-md-12 pt-10"
       :class="[
         { 'first-anime': playFirstAnime },
         { 'second-anime': !playFirstAnime },
@@ -11,7 +11,7 @@
     >
       <span class="fw-bolder text-danger tracking-2 w-100">PastaHouse</span>
     </h3>
-    <div class="btns-group ps-12" :class="{ show: !playFirstAnime }">
+    <div class="btns-group ps-md-12" :class="{ show: !playFirstAnime }">
       <a @click="scrollToEl">
         <Button>瀏覽菜單</Button>
       </a>
@@ -63,6 +63,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/styleSheets/custom/variables';
+@import '~bootstrap/scss/mixins';
 
 .title {
   font-family: 'Nothing You Could Do', cursive;
@@ -83,6 +84,28 @@ export default {
     animation: second-anime 0.5s forwards cubic-bezier(0.17, 0.67, 0.73, 1.16);
     &::first-letter {
       font-size: 10rem;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    &.first-anime {
+      font-size: 4rem;
+      &::first-letter {
+        font-size: 10rem;
+      }
+    }
+    &.second-anime {
+      font-size: 4rem;
+      &::first-letter {
+        font-size: 6rem;
+      }
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    &.first-anime {
+      font-size: 3rem;
+    }
+    &.second-anime {
+      font-size: 2rem;
     }
   }
 }

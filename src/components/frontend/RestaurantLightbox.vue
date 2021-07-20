@@ -22,7 +22,7 @@
           <li
             v-for="(img, key) in imgsFilter"
             :key="img"
-            class="col-4"
+            class="col-6 col-sm-4"
             @click="showLightbox(key + 1)"
           >
             <div

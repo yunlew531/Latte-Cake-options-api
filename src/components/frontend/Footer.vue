@@ -1,6 +1,14 @@
 <template>
   <footer class="py-20 text-white bg-black-100">
-    <div class="container d-flex justify-content-between align-items-center">
+    <div
+      class="
+        container
+        d-flex
+        flex-wrap
+        justify-content-between
+        align-items-center
+      "
+    >
       <div>
         <h3 class="footer-title fw-bold tracking-2 text-danger">PastaHouse</h3>
         <p class="text-black-300">110台北市信義區市府路1號</p>
@@ -42,7 +50,7 @@
         </div>
       </div>
       <div></div>
-      <div class="text-black-300">
+      <div class="text-black-300 mt-8 mt-md-0">
         <h4 class="fs-5 lh-1">訂閱電子郵件</h4>
         <p class="fw-light mt-4">
           訂閱我們的電子郵件，可以收到最新的餐廳活動，<br />得知相關優惠訊息!

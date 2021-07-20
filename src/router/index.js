@@ -16,7 +16,10 @@ const routes = [
       {
         path: 'products',
         name: 'Products',
-        component: () => import('../views/frontend/Products.vue')
+        component: () => import('../views/frontend/Products.vue'),
+        props: (route) => ({
+          ...route.query
+        })
       },
       {
         path: 'product/:id',

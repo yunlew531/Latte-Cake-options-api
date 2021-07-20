@@ -21,7 +21,7 @@
           <li
             v-for="content in cardList"
             :key="content"
-            class="col-4 card-item"
+            class="col-sm-6 col-lg-4 card-item"
           >
             <div
               class="
@@ -93,7 +93,6 @@ export default {
 .shop-name {
   font-family: 'Nothing You Could Do', cursive;
 }
-
 .why-choose-us-panel {
   transition: 1.5s cubic-bezier(0.34, 0.34, 0.32, 1);
   transform: translateY(50%);
@@ -135,7 +134,6 @@ export default {
     }
   }
 }
-
 .card-container {
   background: $white;
   transition: 0.3s 0.2s background-color ease-in;

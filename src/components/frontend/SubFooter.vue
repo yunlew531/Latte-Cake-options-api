@@ -1,8 +1,8 @@
 <template>
   <section class="subfooter-panel">
-    <div class="container px-25 py-25">
+    <div class="container py-25">
       <ul class="row gx-8 list-unstyled">
-        <li class="col-6">
+        <li class="col-md-6 mb-8 mb-md-0">
           <router-link
             to="/aboutMaterial"
             class="
@@ -26,7 +26,7 @@
             </span>
           </router-link>
         </li>
-        <li class="col-6">
+        <li class="col-md-6 mb-md-0">
           <router-link
             to="/aboutus"
             class="

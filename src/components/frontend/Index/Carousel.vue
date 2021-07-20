@@ -19,7 +19,7 @@
     </div>
     <!-- 進度條 end -->
 
-    <!-- title 原始 teleport 位置 start -->
+    <!-- title 最初 teleport 位置 start -->
     <div
       id="titleTeleportMiddle"
       class="
@@ -37,12 +37,19 @@
         :styleSheets="styleSheets"
       />
     </div>
-    <!-- title 原始 teleport 位置 end -->
+    <!-- title 最初 teleport 位置 end -->
 
     <!-- title 動畫結束後 teleport 位置 start -->
     <div
       id="titleTeleportAside"
-      class="position-absolute start-0 top-50 z-10 overflow-hidden px-12"
+      class="
+        position-absolute
+        start-0
+        top-50
+        z-10
+        overflow-hidden
+        px-6 px-sm-12
+      "
     ></div>
     <!-- title 動畫結束後 teleport 位置 end -->
 
@@ -150,6 +157,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/styleSheets/custom/variables';
+@import '~bootstrap/scss/mixins';
 
 .carousel-panel {
   &::before {
@@ -166,7 +174,6 @@ export default {
     }
   }
 }
-
 .carousel-progress {
   opacity: 0.8;
   width: 200px;
@@ -178,6 +185,12 @@ export default {
   .progress-bar {
     background-color: $danger;
   }
+  @include media-breakpoint-down(md) {
+    right: -50px;
+  }
+  @include media-breakpoint-down(sm) {
+    right: -80px;
+  }
 }
 @keyframes progress-bar {
   from {
@@ -187,11 +200,9 @@ export default {
     width: 100%;
   }
 }
-
 .carousel-content {
   overflow: hidden;
 }
-
 .carousel-item {
   height: 100vh;
   background: no-repeat center;

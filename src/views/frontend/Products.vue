@@ -36,7 +36,7 @@
             shadow-sm
             p-10
           "
-          :class="{ active: isAnimeReset }"
+          :class="{ active: playAnime }"
         >
           <div
             v-if="!displayData.length && searchText && allProducts.length"
@@ -59,7 +59,7 @@
               :key="product.id"
               class="product-item d-flex flex-column"
               :class="isScrollDown ? 'col-4' : 'col-3'"
-              @animationend="isAnimeReset = false"
+              @animationend="playAnime = false"
             >
               <router-link
                 :to="`/product/${product.id}`"
@@ -147,6 +147,11 @@ export default {
     Pagination,
   },
   inject: ['scroll'],
+  props: {
+    category: {
+      type: String,
+    },
+  },
   data() {
     return {
       nowCategory: '全部',
@@ -154,7 +159,7 @@ export default {
       allProducts: [],
       pagination: {},
       isScrollDown: false,
-      isAnimeReset: false,
+      playAnime: false,
       searchText: '',
     };
   },
@@ -186,7 +191,7 @@ export default {
   },
   watch: {
     nowCategory() {
-      this.isAnimeReset = true;
+      this.playAnime = true;
     },
     '$store.getters.pageProductsData': {
       handler(productsData) {
@@ -216,11 +221,11 @@ export default {
   },
   created() {
     this.$store.dispatch('getProducts').then(({ success }) => {
-      if (success) this.isAnimeReset = true;
+      if (success) this.playAnime = true;
     });
     this.$store.dispatch('getAllProducts');
-    if (this.$route.query.category) {
-      this.nowCategory = this.$route.query.category;
+    if (this.category) {
+      this.nowCategory = this.category;
     }
   },
   unmounted() {

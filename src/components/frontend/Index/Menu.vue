@@ -1,7 +1,7 @@
 <template>
   <section ref="menu" class="bg-info overflow-hidden">
     <div
-      class="menu-panel bg-white-100 py-25"
+      class="menu-panel bg-white-100 px-5 px-md-0 py-25"
       :class="{ active: playAnime }"
       @transitionend="playProductScale = true"
     >
@@ -11,18 +11,18 @@
           <li
             v-for="(category, key) in categories"
             :key="`category${key}`"
-            class="category-item"
+            class="category-item px-2 px-sm-5"
             :class="{ active: nowCategory === category }"
             @click="(nowCategory = category), (pages.currentPage = 1)"
           >
             {{ category }}
           </li>
         </ul>
-        <ul class="row g-8 list-unstyled">
+        <ul class="row g-5 g-md-8 list-unstyled">
           <li
             v-for="(product, key) in displayProducts.displayProducts"
             :key="product"
-            class="product-item col-6"
+            class="product-item col-md-6"
             :class="{ show: playProductScale }"
             @animationend="removeAnime(key)"
           >

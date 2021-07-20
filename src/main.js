@@ -7,6 +7,7 @@ import { required, email, min } from '@vee-validate/rules';
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 import { localize, setLocale } from '@vee-validate/i18n';
 import 'mosha-vue-toastify/dist/style.css';
+import 'bootstrap/dist/js/bootstrap.min';
 import App from './App.vue';
 import router from './router';
 import store from './store';

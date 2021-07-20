@@ -7,12 +7,12 @@
             我們的專業 <span class="fw-bold text-danger">廚師</span>
           </h3>
           <ul class="row list-unstyled g-8 pt-8">
-            <li class="col-4 chef-card position-relative">
-              <img
-                class="img-fluid"
-                src="https://images.unsplash.com/photo-1611728022556-d1475c4ce9d3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=923&q=80"
-                alt="chef"
-              />
+            <li
+              v-for="chef in chefs"
+              :key="chef.name"
+              class="col-md-6 col-lg-4 chef-card position-relative"
+            >
+              <img class="img-fluid" :src="chef.url" alt="chef" />
               <div
                 class="
                   card-content
@@ -26,82 +26,10 @@
                   p-5
                 "
               >
-                <h4 class="chef-name fs-5 pb-2 m-0">ANDERSON</h4>
-                <span class="fs-7 text-black-200 d-block py-2">主廚</span>
-                <div>
-                  <a href="javascript:;" class="link-icon">
-                    <i class="bi bi-facebook"></i>
-                  </a>
-                  <a href="javascript:;" class="link-icon ms-2">
-                    <i class="bi bi-instagram"></i>
-                  </a>
-                  <a href="javascript:;" class="link-icon ms-2">
-                    <i class="bi bi-twitter"></i>
-                  </a>
-                  <a href="javascript:;" class="link-icon ms-2">
-                    <i class="bi bi-google"></i>
-                  </a>
-                </div>
-              </div>
-            </li>
-            <li class="col-4 chef-card position-relative">
-              <img
-                class="img-fluid"
-                src="https://images.unsplash.com/photo-1614436163996-25cee5f54290?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=681&q=80"
-                alt="chef"
-              />
-              <div
-                class="
-                  card-content
-                  text-center
-                  bg-white-100
-                  position-absolute
-                  bottom-0
-                  start-50
-                  shadow
-                  rounded-1
-                  p-5
-                "
-              >
-                <h4 class="chef-name fs-5 pb-2 m-0">ESTELLA</h4>
-                <span class="fs-7 text-black-200 d-block py-2">廚師</span>
-                <div>
-                  <a href="javascript:;" class="link-icon">
-                    <i class="bi bi-facebook"></i>
-                  </a>
-                  <a href="javascript:;" class="link-icon ms-2">
-                    <i class="bi bi-instagram"></i>
-                  </a>
-                  <a href="javascript:;" class="link-icon ms-2">
-                    <i class="bi bi-twitter"></i>
-                  </a>
-                  <a href="javascript:;" class="link-icon ms-2">
-                    <i class="bi bi-google"></i>
-                  </a>
-                </div>
-              </div>
-            </li>
-            <li class="col-4 chef-card position-relative">
-              <img
-                class="img-fluid"
-                src="https://images.unsplash.com/photo-1541614101331-1a5a3a194e92?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80"
-                alt="chef"
-              />
-              <div
-                class="
-                  card-content
-                  text-center
-                  bg-white-100
-                  position-absolute
-                  bottom-0
-                  start-50
-                  shadow
-                  rounded-1
-                  p-5
-                "
-              >
-                <h4 class="chef-name fs-5 pb-2 m-0">ISRAEL</h4>
-                <span class="fs-7 text-black-200 d-block py-2">廚師</span>
+                <h4 class="chef-name fs-5 pb-2 m-0">{{ chef.name }}</h4>
+                <span class="fs-7 text-black-200 d-block py-2">{{
+                  chef.position
+                }}</span>
                 <div>
                   <a href="javascript:;" class="link-icon">
                     <i class="bi bi-facebook"></i>
@@ -130,6 +58,23 @@ export default {
   inject: ['scroll'],
   data() {
     return {
+      chefs: [
+        {
+          name: 'ANDERSON',
+          url: 'https://images.unsplash.com/photo-1611728022556-d1475c4ce9d3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=923&q=80',
+          position: '主廚',
+        },
+        {
+          name: 'ESTELLA',
+          url: 'https://images.unsplash.com/photo-1614436163996-25cee5f54290?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=681&q=80',
+          position: '廚師',
+        },
+        {
+          name: 'ISRAEL',
+          url: 'https://images.unsplash.com/photo-1541614101331-1a5a3a194e92?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80',
+          position: '廚師',
+        },
+      ],
       isScrollTo: false,
     };
   },

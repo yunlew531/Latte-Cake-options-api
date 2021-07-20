@@ -26,7 +26,7 @@
         position-fixed
         start-0
         end-0
-        px-12
+        px-sm-6 px-md-12
         py-2
         z-20
         overflow-hidden
@@ -46,48 +46,18 @@
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#carouselNabar"
+          data-bs-target="#carouselNavbar"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse ps-8" id="carouselNabar">
+        <div class="collapse navbar-collapse ps-8" id="carouselNavbar">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li>
+            <li v-for="link in navLinks" :key="link" class="nav-item">
               <router-link
-                to="/"
-                class="nav-link active px-5"
+                :to="link.url"
+                class="nav-link active px-xl-5"
                 aria-current="page"
-                >首頁</router-link
-              >
-            </li>
-            <li>
-              <router-link
-                to="/products"
-                class="nav-link d-block px-5"
-                aria-current="page"
-                href="#"
-                >商品</router-link
-              >
-            </li>
-            <li>
-              <router-link to="/aboutUs" class="nav-link d-block px-5"
-                >關於我們</router-link
-              >
-            </li>
-            <li>
-              <router-link to="/cart" class="nav-link d-block px-5"
-                >購物車</router-link
-              >
-            </li>
-            <li></li>
-            <li>
-              <router-link to="/orders" class="nav-link d-block px-5"
-                >歷史訂單</router-link
-              >
-            </li>
-            <li>
-              <router-link to="/admin" class="nav-link d-block px-5"
-                >登入</router-link
+                >{{ link.title }}</router-link
               >
             </li>
           </ul>
@@ -156,6 +126,14 @@ export default {
   inject: ['scroll'],
   data() {
     return {
+      navLinks: [
+        { title: '首頁', url: '/' },
+        { title: '商品', url: '/products' },
+        { title: '關於我們', url: '/aboutUs' },
+        { title: '購物車', url: '/cart' },
+        { title: '歷史訂單', url: '/orders' },
+        { title: '登入', url: '/login' },
+      ],
       cartsData: {},
       isScrollDown: false,
       searchText: '',
@@ -211,6 +189,7 @@ export default {
 <style lang="scss" scoped>
 @import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
+@import '~bootstrap/scss/mixins';
 
 .navbar-brand {
   font-family: 'Nothing You Could Do', cursive;
@@ -253,6 +232,13 @@ export default {
   &.scroll-down {
     top: 0;
     background-color: rgba(28, 28, 28, 0.9);
+  }
+  @include media-breakpoint-down(lg) {
+    background-color: rgba(28, 28, 28, 1);
+    padding-bottom: 100px;
+    &.scroll-down {
+      background-color: rgba(28, 28, 28, 1);
+    }
   }
 }
 

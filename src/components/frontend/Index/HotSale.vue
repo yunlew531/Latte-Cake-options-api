@@ -1,7 +1,7 @@
 <template>
   <section class="bg-info overflow-hidden">
     <div class="hot-sale-panel bg-white-100" :class="{ active: isScrollTo }">
-      <div class="container pt-12 pb-38">
+      <div class="container pt-12 pb-md-38">
         <h3
           class="
             title
@@ -17,7 +17,6 @@
         </h3>
         <h4 class="text-center fs-5 mb-12"></h4>
         <swiper
-          :slides-per-view="3"
           :space-between="50"
           :autoplay="{
             delay: 5000,
@@ -25,6 +24,20 @@
           }"
           :speed="2000"
           :loop="true"
+          :breakpoints="{
+            640: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 50,
+            },
+          }"
           @swiper="setControlledSwiper"
         >
           <swiper-slide
@@ -161,16 +174,16 @@ export default {
         width: 160%;
         height: 100%;
         background: $info;
-        left: -190%;
+        left: -205%;
         transform: skewX(30deg);
         z-index: 10;
         transition: 0.6s 2.8s cubic-bezier(0.16, 0.51, 0.83, 0.5);
       }
       &::after {
         background: $white-100;
-        width: 160%;
+        width: 200%;
         height: 100%;
-        left: -30%;
+        left: -50%;
         transform: skewX(30deg);
         transition: 0.6s 2.8s cubic-bezier(0.16, 0.51, 0.83, 0.5);
       }
