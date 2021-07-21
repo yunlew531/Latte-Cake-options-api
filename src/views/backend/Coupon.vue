@@ -130,6 +130,7 @@
               class="form-control"
               :class="{ 'is-invalid': errors['折扣'] }"
               placeholder="請輸入 折扣 ex: 80"
+              min="0"
               v-model.number="tempCoupon.percent"
             ></Field>
             <ErrorMessage name="折扣" class="invalid-feedback"></ErrorMessage>

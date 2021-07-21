@@ -226,16 +226,17 @@ export default {
   },
   methods: {
     async onSubmit(val, { resetForm }) {
+      if (!this.cartsData.carts.length) {
+        useToast('購物車沒有商品!', 'danger');
+        return;
+      }
       resetForm();
       this.$store.dispatch('handIsLoading', true);
       const data = { user: this.user };
       try {
         const { data: resData } = await apiPostCheckout(data);
-        if (resData.success) {
-          useToast('訂單成立!', 'success');
-          this.$store.dispatch('getCarts');
-          this.$router.push('/orderCompleted');
-        } else useToast('發生錯誤!', 'danger');
+        if (resData.success) this.$router.push('/orderCompleted');
+        else useToast('發生錯誤!', 'danger');
       } catch (err) {
         console.dir(err);
         useToast('發生錯誤!', 'danger');

@@ -36,14 +36,23 @@
         </h4>
         <div v-show="isEdit" class="form-check form-switch mb-0">
           <input
-            class="form-check-input"
+            class="switch-paid form-check-input"
             type="checkbox"
-            id="flexSwitchCheckDefault"
             :checked="tempOrder.is_paid"
             v-model="tempOrder.is_paid"
           />
-          <span v-show="tempOrder.is_paid" class="text-success">已付款</span>
-          <span v-show="!tempOrder.is_paid" class="text-danger">未付款</span>
+          <span
+            v-show="tempOrder.is_paid"
+            class="switch-paid text-success"
+            @click="tempOrder.is_paid = !tempOrder.is_paid"
+            >已付款</span
+          >
+          <span
+            v-show="!tempOrder.is_paid"
+            class="switch-paid text-danger"
+            @click="tempOrder.is_paid = !tempOrder.is_paid"
+            >未付款</span
+          >
         </div>
       </div>
       <ul class="list-unstyled bg-white-100 border rounded my-5">
@@ -159,6 +168,7 @@
             v-show="isEdit"
             type="number"
             class="price-input fs-3 text-end ps-2"
+            min="0"
             v-model.number="tempOrder.total"
           />
           元
@@ -307,5 +317,8 @@ export default {
   &::-webkit-inner-spin-button {
     margin-left: 5px;
   }
+}
+.switch-paid {
+  cursor: pointer;
 }
 </style>
