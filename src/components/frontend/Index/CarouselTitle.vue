@@ -12,7 +12,10 @@
       <span class="fw-bolder text-danger tracking-2 w-100">PastaHouse</span>
     </h3>
     <div class="btns-group ps-md-12" :class="{ show: !playFirstAnime }">
-      <Button @click="scrollToEl">瀏覽菜單</Button>
+      <Button @click="scrollToEl('menuPanelEl')">瀏覽菜單</Button>
+      <Button class="ms-3" @click="scrollToEl('aboutMaterialPanelEl')"
+        >關於食材</Button
+      >
     </div>
   </teleport>
 </template>
@@ -48,8 +51,8 @@ export default {
       this.titleTeleportPosition = '#titleTeleportAside';
       this.$emit('update:isReadyTextShadow', true);
     },
-    scrollToEl() {
-      this.$emitter.emit('scrollToEl', 'menu');
+    scrollToEl(ref) {
+      this.$emitter.emit('scrollToEl', ref);
     },
   },
   mounted() {

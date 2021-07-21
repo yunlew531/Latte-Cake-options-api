@@ -61,11 +61,11 @@ export default {
   methods: {
     handToPageMaterials() {
       if (this.$route.path === '/home') {
-        this.$emitter.emit('scrollToEl', 'aboutMaterialPanel');
+        this.$emitter.emit('scrollToEl', 'aboutMaterialPanelEl');
       } else {
         this.$router.push({
           name: 'Home',
-          params: { scrollToEl: 'aboutMaterialPanel' },
+          params: { scrollToEl: 'aboutMaterialPanelEl' },
         });
       }
     },

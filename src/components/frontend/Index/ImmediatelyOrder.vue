@@ -1,5 +1,9 @@
 <template>
-  <div class="immediate-order-panel bg-info" :class="{ active: playAnime }">
+  <section
+    ref="immediateOrderPanelEl"
+    class="immediate-order-panel bg-info"
+    :class="{ active: isScrollTo }"
+  >
     <div class="container position-relative py-8 py-md-16 mt-50">
       <img
         class="
@@ -36,7 +40,7 @@
         </p>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -49,13 +53,20 @@ export default {
   inject: ['scroll'],
   data() {
     return {
-      playAnime: false,
+      isScrollTo: false,
     };
   },
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 2500 && scroll.Y < 3300) this.playAnime = true;
+        const { immediateOrderPanelEl } = this.$refs;
+        const { offsetTop, clientHeight } = immediateOrderPanelEl;
+        if (
+          scroll.Y > offsetTop - window.innerHeight * 0.8 &&
+          scroll.Y < offsetTop + clientHeight * 0.67
+        ) {
+          this.isScrollTo = true;
+        }
       },
       deep: true,
     },

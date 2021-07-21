@@ -1,8 +1,9 @@
 <template>
   <section class="bg-info overflow-hidden">
     <div
+      ref="whyChooseUsPanelEl"
       class="why-choose-us-panel bg-white-100"
-      :class="{ active: playAnime }"
+      :class="{ active: isScrollTo }"
     >
       <div class="container overflow-hidden pt-38">
         <h3 class="title text-center">
@@ -72,13 +73,20 @@ export default {
             '對待客人像對待自己的朋友一樣善待他們。無論您是誰，我們都提供無可挑剔的服務。',
         },
       ],
-      playAnime: false,
+      isScrollTo: false,
     };
   },
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 150 && scroll.Y < 1500) this.playAnime = true;
+        const { whyChooseUsPanelEl } = this.$refs;
+        const { offsetTop, clientHeight } = whyChooseUsPanelEl;
+        if (
+          scroll.Y > offsetTop - window.innerHeight * 0.67 &&
+          scroll.Y < offsetTop + clientHeight * 0.67
+        ) {
+          this.isScrollTo = true;
+        }
       },
       deep: true,
     },

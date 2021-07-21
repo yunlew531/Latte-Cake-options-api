@@ -1,10 +1,10 @@
 <template>
   <Carousel />
   <WhyChooseUs />
-  <Menu ref="menu" @handStatus="handStatus" />
+  <Menu ref="menuPanelEl" @handStatus="handStatus" />
   <HotSale @handStatus="handStatus" />
   <ImmediatelyOrder />
-  <AboutMaterialPanel ref="aboutMaterialPanel" />
+  <AboutMaterialPanel ref="aboutMaterialPanelEl" />
   <OurTeam />
   <RestaurantLightbox />
   <LocationPanel />
@@ -45,8 +45,8 @@ export default {
   methods: {
     scrollToEl(ref) {
       const el = this.$refs[ref].$refs[ref];
-      const top = el.offsetTop;
-      window.scrollTo(0, top);
+      const position = el.offsetTop;
+      window.scrollTo(0, position);
     },
     handStatus(status) {
       this.ajaxStatus[status.title] = status.status;

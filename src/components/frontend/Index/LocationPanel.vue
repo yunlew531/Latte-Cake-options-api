@@ -1,7 +1,7 @@
 <template>
   <section class="bg-info overflow-hidden">
     <div
-      ref="carouselDom"
+      ref="locationPanelEl"
       id="carouselLocation"
       class="location-panel carousel slide"
       :class="{ active: isScrollTo }"
@@ -133,7 +133,7 @@ export default {
   },
   methods: {
     setCarousel() {
-      this.carousel = new Carousel(this.$refs.carouselDom, {
+      this.carousel = new Carousel(this.$refs.locationPanelEl, {
         interval: 8000,
         ride: 'carousel',
       });
@@ -146,7 +146,12 @@ export default {
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 5700 && scroll.Y < 7000) {
+        const { locationPanelEl } = this.$refs;
+        const { offsetTop, clientHeight } = locationPanelEl;
+        if (
+          scroll.Y > offsetTop - window.innerHeight * 0.67 &&
+          scroll.Y < offsetTop + clientHeight * 0.67
+        ) {
           this.isScrollTo = true;
           this.carousel.cycle();
         }

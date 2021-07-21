@@ -1,6 +1,10 @@
 <template>
   <section class="bg-info overflow-hidden">
-    <div class="hot-sale-panel bg-white-100" :class="{ active: isScrollTo }">
+    <div
+      ref="hotSalePanelEl"
+      class="hot-sale-panel bg-white-100"
+      :class="{ active: isScrollTo }"
+    >
       <div class="container pt-12 pb-md-38">
         <h3
           class="
@@ -123,7 +127,14 @@ export default {
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 1600 && scroll.Y < 2700) this.isScrollTo = true;
+        const { hotSalePanelEl } = this.$refs;
+        const { offsetTop, clientHeight } = hotSalePanelEl;
+        if (
+          scroll.Y > offsetTop - window.innerHeight * 0.67 &&
+          scroll.Y < offsetTop + clientHeight * 0.67
+        ) {
+          this.isScrollTo = true;
+        }
       },
       deep: true,
     },

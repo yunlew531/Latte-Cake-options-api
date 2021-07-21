@@ -1,8 +1,8 @@
 <template>
-  <section ref="menu" class="bg-info overflow-hidden">
+  <section ref="menuPanelEl" class="bg-info overflow-hidden">
     <div
       class="menu-panel bg-white-100 px-5 px-md-0 py-25"
-      :class="{ active: playPanelAnime }"
+      :class="{ active: isScrollTo }"
     >
       <div class="container">
         <div
@@ -122,7 +122,7 @@ export default {
         currentPage: 1,
         totalPage: 1,
       },
-      playPanelAnime: false,
+      isScrollTo: false,
       playProductsListAnime: false,
     };
   },
@@ -165,7 +165,14 @@ export default {
     },
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 1000 && scroll.Y < 2000) this.playPanelAnime = true;
+        const { menuPanelEl } = this.$refs;
+        const { offsetTop, clientHeight } = menuPanelEl;
+        if (
+          scroll.Y > offsetTop - window.innerHeight * 0.67 &&
+          scroll.Y < offsetTop + clientHeight * 0.67
+        ) {
+          this.isScrollTo = true;
+        }
       },
       deep: true,
     },

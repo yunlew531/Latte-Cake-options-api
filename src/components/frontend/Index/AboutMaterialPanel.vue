@@ -2,7 +2,7 @@
   <section class="bg-product-info">
     <div class="bg-filter">
       <div
-        ref="aboutMaterialPanel"
+        ref="aboutMaterialPanelEl"
         class="about-material-panel container py-50"
       >
         <div
@@ -94,20 +94,27 @@ export default {
     scroll: {
       handler(scroll) {
         const { eggImgEl } = this.$refs;
+        const { offsetTop: eggElOffsetTop, clientHeight: eggElClientHeight } =
+          eggImgEl;
+
         const { flourImgEl } = this.$refs;
+        const {
+          offsetTop: flourElOffsetTop,
+          clientHeight: flourElClientHeight,
+        } = flourImgEl;
 
         // eggImgEl fade in
         if (
-          scroll.Y > eggImgEl.offsetTop - window.innerHeight * 0.67 &&
-          scroll.Y < eggImgEl.offsetTop + eggImgEl.clientHeight * 0.67
+          scroll.Y > eggElOffsetTop - window.innerHeight * 0.8 &&
+          scroll.Y < eggElOffsetTop + eggElClientHeight * 0.67
         ) {
           this.isScrollToFirstMetarial = true;
         } else this.isScrollToFirstMetarial = false;
 
         // flourImgEl fade in
         if (
-          scroll.Y > flourImgEl.offsetTop - window.innerHeight * 0.67 &&
-          scroll.Y < flourImgEl.offsetTop + flourImgEl.clientHeight * 0.67
+          scroll.Y > flourElOffsetTop - window.innerHeight * 0.8 &&
+          scroll.Y < flourElOffsetTop + flourElClientHeight * 0.67
         ) {
           this.isScrollToSecondMetarial = true;
         } else this.isScrollToSecondMetarial = false;

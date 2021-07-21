@@ -1,6 +1,6 @@
 <template>
   <section class="bg-info overflow-hidden">
-    <div class="our-team" :class="{ active: isScrollTo }">
+    <div ref="ourTeamEl" class="our-team" :class="{ active: isScrollTo }">
       <div class="bg-filter">
         <div class="container py-25">
           <h3 class="title text-center text-white">
@@ -81,7 +81,14 @@ export default {
   watch: {
     scroll: {
       handler(scroll) {
-        if (scroll.Y > 4200 && scroll.Y < 5600) this.isScrollTo = true;
+        const { ourTeamEl } = this.$refs;
+        const { offsetTop, clientHeight } = ourTeamEl;
+        if (
+          scroll.Y > offsetTop - window.innerHeight * 0.67 &&
+          scroll.Y < offsetTop + clientHeight * 0.67
+        ) {
+          this.isScrollTo = true;
+        }
       },
       deep: true,
     },
