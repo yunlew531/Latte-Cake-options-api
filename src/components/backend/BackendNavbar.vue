@@ -27,18 +27,20 @@
           type="search"
           placeholder="搜尋商品"
           aria-label="Search"
-          v-model="searchText"
+          v-model.trim="search"
+          @keyup.enter="searchProduct"
         />
         <button
           class="search-btn btn position-absolute end-0 bottom-n1"
           type="button"
+          @click="searchProduct"
         >
           <span class="material-icons"> search </span>
         </button>
       </form>
       <button
         type="button"
-        class="align-self-start btn btn-primary mt-2 ms-0 ms-xm-5"
+        class="align-self-start btn btn-primary mt-2 ms-0 ms-sm-5"
         @click="logOut"
       >
         登出
@@ -85,15 +87,11 @@ export default {
   },
   data() {
     return {
-      searchText: '',
+      search: '',
       isSearchFocus: false,
     };
   },
   methods: {
-    calcNameSize(length) {
-      if (length > 15) return 'fs-6';
-      return 'fs-5';
-    },
     async logOut() {
       const { data } = await apiLogOut();
       if (data.success) {
@@ -102,14 +100,33 @@ export default {
         this.$router.push('/login');
       }
     },
+    calcNameSize(length) {
+      if (length > 15) return 'fs-6';
+      return 'fs-5';
+    },
+    searchProduct() {
+      if (this.$route.name === 'BackendProducts') {
+        this.$emitter.emit('handSearch', this.search);
+      } else {
+        this.$router.push({
+          name: 'BackendProducts',
+          query: { search: this.search },
+        });
+      }
+    },
   },
   watch: {
-    searchText(searchText) {
-      if (searchText) {
+    search(search) {
+      if (search) {
         this.isSearchFocus = true;
       } else {
         this.isSearchFocus = false;
       }
+    },
+    '$route.path': {
+      handler() {
+        this.search = '';
+      },
     },
   },
 };

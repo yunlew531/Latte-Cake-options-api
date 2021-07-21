@@ -80,7 +80,10 @@ const routes = [
       {
         path: 'products',
         name: 'BackendProducts',
-        component: () => import('../views/backend/Products.vue')
+        component: () => import('../views/backend/Products.vue'),
+        props: (route) => ({
+          ...route.query
+        })
       },
       {
         path: 'orders',

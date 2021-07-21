@@ -1,7 +1,36 @@
 <template>
   <div class="rounded bg-white shadow w-100 p-10">
     <Loading v-model:active="isLoading" :is-full-page="false" />
-    <h2>商品列表</h2>
+    <div class="d-flex align-items-center">
+      <h2>商品列表</h2>
+      <div v-if="searchText" class="d-flex align-items-center">
+        <div
+          class="
+            d-flex
+            align-items-center
+            text-white
+            bg-danger
+            rounded
+            border
+            shadow
+            ms-5
+          "
+        >
+          <span
+            class="cancel-search-btn material-icons-outlined mt-1px"
+            @click="searchText = ''"
+          >
+            close
+          </span>
+          <span class="px-1">{{ searchText }}</span>
+        </div>
+        <span class="ps-5"
+          >搜尋到
+          <span class="fs-4 text-danger">{{ displayProducts.length }} </span>
+          樣有關 <span class="fs-4 text-danger"> {{ searchText }} </span> 的商品
+        </span>
+      </div>
+    </div>
     <div class="table-panel">
       <table class="table">
         <thead>
@@ -17,7 +46,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(product, key) in products" :key="product.id">
+          <tr v-for="(product, key) in displayProducts" :key="product.id">
             <th scope="row">{{ key + 1 }}</th>
             <td class="pe-10">
               <div
@@ -62,13 +91,22 @@
           </tr>
         </tbody>
       </table>
-      <Pagination class="mt-8" :pages="pagination" @handPage="handPage" />
+      <Pagination
+        v-if="!searchText"
+        class="mt-8"
+        :pages="pagination"
+        @handPage="handPage"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { apiGetProducts, apiDeleteProduct } from '@/api';
+import {
+  apiGetProducts,
+  apiGetAllAdminProducts,
+  apiDeleteProduct,
+} from '@/api';
 import { useToast } from '@/methods';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -76,6 +114,11 @@ import Pagination from '@/components/Pagination.vue';
 
 export default {
   name: 'BackendProducts',
+  props: {
+    search: {
+      type: String,
+    },
+  },
   emits: {
     handStatus: (status) => status.status === '編輯',
   },
@@ -87,7 +130,9 @@ export default {
     return {
       isLoading: false,
       products: [],
+      allProducts: [],
       pagination: {},
+      searchText: '',
     };
   },
   methods: {
@@ -104,12 +149,21 @@ export default {
       }
       this.isLoading = false;
     },
-    editProduct(product) {
-      const tempProduct = JSON.stringify(product);
-      this.$router.push({
-        name: 'AddProduct',
-        params: { boardStatus: '編輯', tempProduct },
-      });
+    async getAllProducts() {
+      try {
+        const { data } = await apiGetAllAdminProducts();
+        if (data.success) {
+          const keysArr = Object.keys(data.products);
+          const valuesArr = Object.values(data.products);
+          const products = keysArr.map((id, key) => ({
+            id,
+            ...valuesArr[key],
+          }));
+          this.allProducts = products;
+        }
+      } catch (err) {
+        console.dir(err);
+      }
     },
     async deleteProduct(productId) {
       this.isLoading = true;
@@ -124,9 +178,36 @@ export default {
       }
       this.isLoading = false;
     },
+    editProduct(product) {
+      const tempProduct = JSON.stringify(product);
+      this.$router.push({
+        name: 'AddProduct',
+        params: { boardStatus: '編輯', tempProduct },
+      });
+    },
+    handSearch(text) {
+      this.searchText = text;
+    },
+  },
+  computed: {
+    displayProducts() {
+      let products = null;
+      if (this.searchText) {
+        products = this.allProducts.filter((product) =>
+          product.title.match(this.searchText)
+        );
+      } else products = this.products;
+      return products;
+    },
   },
   created() {
     this.handPage();
+    this.getAllProducts();
+    this.handSearch(this.search);
+    this.$emitter.on('handSearch', this.handSearch);
+  },
+  unmounted() {
+    this.$emitter.off('handSearch', this.handSearch);
   },
   beforeRouteLeave(to, from, next) {
     this.isLoading = false;
@@ -146,7 +227,6 @@ export default {
 .table {
   min-width: 1200px;
 }
-
 tbody {
   th,
   td {
@@ -163,5 +243,8 @@ tbody {
 }
 tr:last-child {
   border-bottom: 1px solid $black;
+}
+.cancel-search-btn {
+  cursor: pointer;
 }
 </style>
