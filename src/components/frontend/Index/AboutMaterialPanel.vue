@@ -6,8 +6,9 @@
         class="about-material-panel container py-50"
       >
         <div
+          ref="eggImgEl"
           class="
-            handle-heat
+            material-egg
             d-flex
             justify-content-between
             align-items-center
@@ -15,7 +16,7 @@
           "
           :class="{ active: isScrollToFirstMetarial }"
         >
-          <div class="about-cake-img">
+          <div class="about-egg-img">
             <img
               class="img-fluid"
               src="@/assets/images/image-cake-2.jpg"
@@ -40,8 +41,9 @@
         </div>
 
         <div
+          ref="flourImgEl"
           class="
-            hold-materials
+            material-flour
             d-flex
             justify-content-between
             align-items-center
@@ -84,7 +86,6 @@ export default {
   inject: ['scroll'],
   data() {
     return {
-      isPhone: false,
       isScrollToFirstMetarial: false,
       isScrollToSecondMetarial: false,
     };
@@ -92,33 +93,27 @@ export default {
   watch: {
     scroll: {
       handler(scroll) {
-        if (this.isPhone) {
-          // isScrollToFirstMetarial
-          if (scroll.Y >= 3142 && scroll.Y <= 4500) {
-            this.isScrollToFirstMetarial = true;
-          } else this.isScrollToFirstMetarial = false;
+        const { eggImgEl } = this.$refs;
+        const { flourImgEl } = this.$refs;
 
-          // isScrollToSecondMetarial
-          if (scroll.Y >= 4000 && scroll.Y <= 5000) {
-            this.isScrollToSecondMetarial = true;
-          } else this.isScrollToSecondMetarial = false;
-        } else {
-          // isScrollToFirstMetarial
-          if (scroll.Y >= 2900 && scroll.Y <= 3900) {
-            this.isScrollToFirstMetarial = true;
-          } else this.isScrollToFirstMetarial = false;
+        // eggImgEl fade in
+        if (
+          scroll.Y > eggImgEl.offsetTop - window.innerHeight * 0.67 &&
+          scroll.Y < eggImgEl.offsetTop + eggImgEl.clientHeight * 0.67
+        ) {
+          this.isScrollToFirstMetarial = true;
+        } else this.isScrollToFirstMetarial = false;
 
-          // isScrollToSecondMetarial
-          if (scroll.Y >= 3500 && scroll.Y <= 4600) {
-            this.isScrollToSecondMetarial = true;
-          } else this.isScrollToSecondMetarial = false;
-        }
+        // flourImgEl fade in
+        if (
+          scroll.Y > flourImgEl.offsetTop - window.innerHeight * 0.67 &&
+          scroll.Y < flourImgEl.offsetTop + flourImgEl.clientHeight * 0.67
+        ) {
+          this.isScrollToSecondMetarial = true;
+        } else this.isScrollToSecondMetarial = false;
       },
       deep: true,
     },
-  },
-  created() {
-    this.isPhone = document.body.offsetWidth < 768;
   },
 };
 </script>
@@ -149,7 +144,7 @@ export default {
   transform: translateY(100px);
 }
 
-.about-cake-img {
+.about-egg-img {
   transform: translateX(-100%);
 }
 
@@ -171,10 +166,10 @@ export default {
   }
 }
 
-.handle-heat,
-.hold-materials {
+.material-egg,
+.material-flour {
   &.active {
-    .about-cake-img,
+    .about-egg-img,
     .about-flour-img {
       opacity: 1;
       transform: translateX(0);
@@ -182,7 +177,7 @@ export default {
     .paragraph-title,
     .paragraph-content-1,
     .paragraph-content-2 {
-      animation: handle-heat-ani 0.5s forwards;
+      animation: material-egg-ani 0.5s forwards;
     }
     .paragraph-title {
       animation-delay: 0.3s;
@@ -194,7 +189,7 @@ export default {
       animation-delay: 1.3s;
     }
   }
-  .about-cake-img,
+  .about-egg-img,
   .about-flour-img {
     opacity: 0;
     max-width: 700px;
@@ -233,7 +228,7 @@ export default {
   }
 }
 
-@keyframes handle-heat-ani {
+@keyframes material-egg-ani {
   to {
     opacity: 1;
     transform: translateY(0);
