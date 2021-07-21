@@ -235,7 +235,7 @@ export default {
     },
     async deleteOrder() {
       try {
-        const { data } = await apiDelOrder();
+        const { data } = await apiDelOrder(this.order.id);
         if (data.success) {
           useToast('已刪除訂單!');
           this.$router.push('/admin/orders');
