@@ -1,6 +1,4 @@
-import frontReq from '@/api/frontReq';
-
-const PATH = process.env.VUE_APP_PATH;
+import frontReq, { PATH } from '@/api/frontReq';
 
 export const getPageProducts = (page) => frontReq.get(`api/${PATH}/products?page=${page}`);
 

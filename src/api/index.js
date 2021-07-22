@@ -1,8 +1,14 @@
 import getCustOrders from './frontend/Orders';
 import getCustOrder from './frontend/Order';
-import { getShopImg } from './frontend/AboutUs';
-import { getProductInfo } from './frontend/Product';
-import { getCarts, putCartQty, deleteCart, deleteAllCarts, postAddCart } from './frontend/shared';
+import getShopImgs from './frontend/AboutUs';
+import getProductInfo from './frontend/Product';
+import {
+  getCarts,
+  putCartQty,
+  deleteCart,
+  deleteAllCarts,
+  postAddCart,
+} from './frontend/shared';
 import postLogin from './backend/Login';
 import { postCheck, getUser } from './backend/Backstage';
 import { getPageProducts, getAllProducts } from './frontend/Products';
@@ -12,7 +18,12 @@ import LogOut from './backend/shared/index';
 import { getProducts, getAllAdminProducts, deleteProduct } from './backend/Products';
 import { getOrders, deleteAllOrders } from './backend/Orders';
 import { putEditOrder, delOrder } from './backend/Order';
-import { postAddCoupon, getCoupons, editCoupon, deleteCoupon } from './backend/Coupon';
+import {
+  postAddCoupon,
+  getCoupons,
+  editCoupon,
+  deleteCoupon,
+} from './backend/Coupon';
 
 // frontend
 export const apiGetProductInfo = getProductInfo;
@@ -23,7 +34,7 @@ export const apiPutCartQty = putCartQty;
 export const apiDeleteCart = deleteCart;
 export const apiDeleteAllCarts = deleteAllCarts;
 export const apiPostAddCart = postAddCart;
-export const apiGetShopImg = getShopImg;
+export const apiGetShopImg = getShopImgs;
 export const apiPostCheckout = postCheckout;
 export const apiPostCoupon = postCoupon;
 export const apiGetCustOrders = getCustOrders;
