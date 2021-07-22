@@ -177,15 +177,11 @@ export default {
     displayData() {
       let displayData = null;
       if (this.searchText && this.allProducts.length) {
-        displayData = this.allProducts.filter((product) =>
-          product.title.match(this.searchText)
-        );
+        displayData = this.allProducts.filter((product) => product.title.match(this.searchText));
       } else if (this.nowCategory === '全部' || this.nowCategory === '搜尋') {
         displayData = this.pageProductsData;
       } else {
-        displayData = this.allProducts.filter(
-          (product) => product.category === this.nowCategory
-        );
+        displayData = this.allProducts.filter((product) => product.category === this.nowCategory);
       }
       return displayData;
     },

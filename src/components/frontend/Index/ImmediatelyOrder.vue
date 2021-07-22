@@ -62,8 +62,8 @@ export default {
         const { immediateOrderPanelEl } = this.$refs;
         const { offsetTop, clientHeight } = immediateOrderPanelEl;
         if (
-          scroll.Y > offsetTop - window.innerHeight * 0.8 &&
-          scroll.Y < offsetTop + clientHeight * 0.67
+          scroll.Y > offsetTop - window.innerHeight * 0.8
+          && scroll.Y < offsetTop + clientHeight * 0.67
         ) {
           this.isScrollTo = true;
         }

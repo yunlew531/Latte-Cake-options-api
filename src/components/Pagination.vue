@@ -72,8 +72,8 @@ export default {
         if (this.pagination.current_page === num) return;
         page = num;
       } else if (
-        this.pagination.current_page + num >=
-        this.pagination.total_pages
+        this.pagination.current_page + num
+        >= this.pagination.total_pages
       ) {
         page = this.pagination.total_pages;
       }

@@ -46,7 +46,7 @@ export default {
     setHeaders() {
       const token = document.cookie.replace(
         /(?:(?:^|.*;\s*)LatteCake\s*=\s*([^;]*).*$)|^.*$/,
-        '$1'
+        '$1',
       );
       backReq.defaults.headers.common.Authorization = token;
     },

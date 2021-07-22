@@ -56,9 +56,9 @@ export default {
     ajaxStatus: {
       handler(status) {
         if (
-          status.isHotSaleRes &&
-          status.isMenuRes &&
-          this.$route.params.scrollToEl
+          status.isHotSaleRes
+          && status.isMenuRes
+          && this.$route.params.scrollToEl
         ) {
           this.$nextTick(() => {
             this.scrollToEl(this.$route.params.scrollToEl);

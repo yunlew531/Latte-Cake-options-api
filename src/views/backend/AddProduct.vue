@@ -261,8 +261,8 @@ export default {
       if (!this.product.imgsTemp) {
         useToast('請輸入網址!', 'danger');
       } else if (
-        (this.product.imageUrl && this.product.imagesUrl.length >= 4) ||
-        (!this.product.imageUrl && this.product.imagesUrl.length >= 5)
+        (this.product.imageUrl && this.product.imagesUrl.length >= 4)
+        || (!this.product.imageUrl && this.product.imagesUrl.length >= 5)
       ) {
         useToast('已達圖片上限!', 'danger');
       } else this.product.imagesUrl.push(this.product.imgsTemp);
@@ -283,15 +283,14 @@ export default {
         imagesUrl: this.product.imagesUrl,
         freeDelivery: this.product.freeDelivery,
       };
-      const method =
-        this.boardStatus === '新增' ? apiPostAddProduct : apiPutEditProduct;
+      const method = this.boardStatus === '新增' ? apiPostAddProduct : apiPutEditProduct;
       const { id } = this.product;
       try {
         const { data } = await method(productData, id);
         if (data.success) {
           useToast(
             this.boardStatus === '新增' ? '新增成功!' : '完成更新!',
-            'success'
+            'success',
           );
           this.$router.push('/admin/products');
         } else useToast('發生錯誤!', 'danger');

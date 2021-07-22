@@ -116,8 +116,8 @@ export default {
       const { offsetX, offsetY } = $event;
 
       if (
-        $event.target !== this.$refs.carouselPanel ||
-        !this.isMouseInCarousel
+        $event.target !== this.$refs.carouselPanel
+        || !this.isMouseInCarousel
       ) {
         this.styleSheets.title = {
           transition: '1s',
@@ -126,12 +126,8 @@ export default {
         return;
       }
 
-      const lengthX =
-        ((offsetX / this.$refs.carouselPanel.offsetWidth).toFixed(2) * 2 - 1) *
-        -1;
-      const lengthY =
-        ((offsetY / this.$refs.carouselPanel.offsetHeight).toFixed(2) * 2 - 1) *
-        -1;
+      const lengthX = ((offsetX / this.$refs.carouselPanel.offsetWidth).toFixed(2) * 2 - 1) * -1;
+      const lengthY = ((offsetY / this.$refs.carouselPanel.offsetHeight).toFixed(2) * 2 - 1) * -1;
 
       this.styleSheets.title = {
         textShadow: `
@@ -144,13 +140,13 @@ export default {
     this.handCarousel();
     this.$refs.carouselDom.addEventListener(
       'slide.bs.carousel',
-      this.handProgressBar
+      this.handProgressBar,
     );
   },
   beforeUnmount() {
     this.$refs.carouselDom.removeEventListener(
       'slide.bs.carousel',
-      this.handProgressBar
+      this.handProgressBar,
     );
   },
 };

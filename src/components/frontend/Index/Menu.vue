@@ -139,13 +139,12 @@ export default {
       if (this.nowCategory === '全部') filterProducts = this.products;
       else {
         filterProducts = this.products.filter(
-          (product) => product.category === this.nowCategory
+          (product) => product.category === this.nowCategory,
         );
       }
       displayProducts = filterProducts.filter(
-        (product, key) =>
-          key >= (this.pages.currentPage - 1) * 8 &&
-          key <= this.pages.currentPage * 8 - 1
+        (product, key) => key >= (this.pages.currentPage - 1) * 8
+          && key <= this.pages.currentPage * 8 - 1,
       );
       return { filterProducts, displayProducts };
     },
@@ -168,8 +167,8 @@ export default {
         const { menuPanelEl } = this.$refs;
         const { offsetTop, clientHeight } = menuPanelEl;
         if (
-          scroll.Y > offsetTop - window.innerHeight * 0.67 &&
-          scroll.Y < offsetTop + clientHeight * 0.67
+          scroll.Y > offsetTop - window.innerHeight * 0.67
+          && scroll.Y < offsetTop + clientHeight * 0.67
         ) {
           this.isScrollTo = true;
         }

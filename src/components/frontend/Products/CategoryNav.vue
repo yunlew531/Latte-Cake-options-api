@@ -115,9 +115,9 @@ export default {
     fixedNavSticky() {
       let style = null;
       if (
-        this.displayData.length <= 3 &&
-        this.isScrollDown &&
-        this.navTeleport === '#navbarTeleportAside'
+        this.displayData.length <= 3
+        && this.isScrollDown
+        && this.navTeleport === '#navbarTeleportAside'
       ) {
         style = {
           position: 'absolute',

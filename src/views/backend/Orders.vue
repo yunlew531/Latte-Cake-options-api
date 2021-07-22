@@ -85,7 +85,7 @@ export default {
       try {
         const { success } = await this.$store.dispatch(
           'getBackstageOrders',
-          page
+          page,
         );
         if (!success) useToast('取得訂單失敗!', 'danger');
       } catch (err) {

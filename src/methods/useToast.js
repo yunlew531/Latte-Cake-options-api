@@ -12,6 +12,6 @@ export default (text, type = 'success') => {
     transition: 'zoom',
     showIcon: true,
     toastBackgroundColor: color,
-    type
+    type,
   });
 };

@@ -193,9 +193,7 @@ export default {
     displayProducts() {
       let products = null;
       if (this.searchText) {
-        products = this.allProducts.filter((product) =>
-          product.title.match(this.searchText)
-        );
+        products = this.allProducts.filter((product) => product.title.match(this.searchText));
       } else products = this.products;
       return products;
     },

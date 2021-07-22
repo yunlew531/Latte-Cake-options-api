@@ -82,8 +82,8 @@ export default {
         const { whyChooseUsPanelEl } = this.$refs;
         const { offsetTop, clientHeight } = whyChooseUsPanelEl;
         if (
-          scroll.Y > offsetTop - window.innerHeight * 0.67 &&
-          scroll.Y < offsetTop + clientHeight * 0.67
+          scroll.Y > offsetTop - window.innerHeight * 0.67
+          && scroll.Y < offsetTop + clientHeight * 0.67
         ) {
           this.isScrollTo = true;
         }

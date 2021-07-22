@@ -11,57 +11,57 @@ const routes = [
       {
         path: 'home',
         name: 'Home',
-        component: () => import('../views/frontend/Home.vue')
+        component: () => import('../views/frontend/Home.vue'),
       },
       {
         path: 'products',
         name: 'Products',
         component: () => import('../views/frontend/Products.vue'),
         props: (route) => ({
-          ...route.query
-        })
+          ...route.query,
+        }),
       },
       {
         path: 'product/:id',
         name: 'Product',
-        component: () => import('../views/frontend/Product.vue')
+        component: () => import('../views/frontend/Product.vue'),
       },
       {
         path: 'cart',
         name: 'Cart',
-        component: () => import('../views/frontend/Cart.vue')
+        component: () => import('../views/frontend/Cart.vue'),
       },
       {
         path: 'aboutUs',
         name: 'AboutUs',
-        component: () => import('../views/frontend/AboutUs.vue')
+        component: () => import('../views/frontend/AboutUs.vue'),
       },
       {
         path: 'checkout',
         name: 'Checkout',
-        component: () => import('../views/frontend/Checkout.vue')
+        component: () => import('../views/frontend/Checkout.vue'),
       },
       {
         path: 'orderCompleted',
         name: 'OrderCompleted',
-        component: () => import('../views/frontend/OrderCompleted.vue')
+        component: () => import('../views/frontend/OrderCompleted.vue'),
       },
       {
         path: 'orders',
         name: 'Orders',
-        component: () => import('../views/frontend/Orders.vue')
+        component: () => import('../views/frontend/Orders.vue'),
       },
       {
         path: 'order/:id',
         name: 'Order',
-        component: () => import('../views/frontend/Order.vue')
-      }
-    ]
+        component: () => import('../views/frontend/Order.vue'),
+      },
+    ],
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/backend/Login.vue')
+    component: () => import('../views/backend/Login.vue'),
   },
   {
     path: '/admin',
@@ -74,35 +74,35 @@ const routes = [
         name: 'AddProduct',
         component: () => import('../views/backend/AddProduct.vue'),
         props: (route) => ({
-          ...route.params
-        })
+          ...route.params,
+        }),
       },
       {
         path: 'products',
         name: 'BackendProducts',
         component: () => import('../views/backend/Products.vue'),
         props: (route) => ({
-          ...route.query
-        })
+          ...route.query,
+        }),
       },
       {
         path: 'orders',
         name: 'BackendOrders',
-        component: () => import('../views/backend/Orders.vue')
+        component: () => import('../views/backend/Orders.vue'),
       },
       {
         path: 'order/:id',
         name: 'BackendOrder',
-        component: () => import('../views/backend/Order.vue')
+        component: () => import('../views/backend/Order.vue'),
       },
       {
         path: 'coupon',
         name: 'Coupon',
-        component: () => import('../views/backend/Coupon.vue')
-      }
-    ]
+        component: () => import('../views/backend/Coupon.vue'),
+      },
+    ],
   },
-  { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('../views/NotFound.vue') }
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('../views/NotFound.vue') },
 ];
 
 const router = createRouter({
@@ -111,9 +111,9 @@ const router = createRouter({
   scrollBehavior() {
     return {
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     };
-  }
+  },
 });
 
 router.beforeEach((to, from, next) => {

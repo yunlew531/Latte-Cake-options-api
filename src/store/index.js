@@ -1,5 +1,10 @@
 import { createStore } from 'vuex';
-import { apiGetCarts, apiGetPageProducts, apiGetOrders, apiGetAllProducts } from '@/api';
+import {
+  apiGetCarts,
+  apiGetPageProducts,
+  apiGetOrders,
+  apiGetAllProducts,
+} from '@/api';
 
 export default createStore({
   state: {
@@ -10,7 +15,7 @@ export default createStore({
     pageProductsData: [],
     allProducts: [],
     backstageOrders: {},
-    navSearchText: ''
+    navSearchText: '',
   },
   mutations: {
     setCarts(state, payload) {
@@ -36,7 +41,7 @@ export default createStore({
     },
     setNavSearchText(state, text) {
       state.navSearchText = text;
-    }
+    },
   },
   actions: {
     async getCarts({ commit }) {
@@ -88,7 +93,7 @@ export default createStore({
     },
     handNavSearchText({ commit }, text) {
       commit('setNavSearchText', text);
-    }
+    },
   },
   modules: {},
   getters: {
@@ -99,6 +104,6 @@ export default createStore({
     backstageOrders: (state) => state.backstageOrders,
     allProducts: (state) => state.allProducts,
     isLogIn: (state) => state.isLogIn,
-    navSearchText: (state) => state.navSearchText
-  }
+    navSearchText: (state) => state.navSearchText,
+  },
 });
