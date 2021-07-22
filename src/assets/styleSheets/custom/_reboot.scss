@@ -1,18 +1,23 @@
-html {
-  overflow-y: scroll;
-}
-
-:root {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-:root body {
-  position: absolute;
-}
+@import '~bootstrap/scss/mixins';
 
 body {
-  width: 100vw;
-  overflow: hidden;
   letter-spacing: $letter-spacing;
+}
+@include media-breakpoint-down(xxl) {
+  html {
+    overflow-y: scroll;
+  }
+  
+  :root {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  :root body {
+    position: absolute;
+  }
+  body {
+    width: 100vw;
+    overflow: hidden;
+  }
 }
