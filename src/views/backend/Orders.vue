@@ -8,50 +8,52 @@
         刪除全部訂單
       </button>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">訂單編號</th>
-          <th scope="col">成立時間</th>
-          <th scope="col">狀態</th>
-          <th scope="col">金額</th>
-          <th width="80" scope="col">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(order, key) in backstageOrders" :key="order.id + key">
-          <th scope="row">
-            {{ (pagination.current_page - 1) * 10 + key + 1 }}
-          </th>
-          <td>{{ order.id }}</td>
-          <td>{{ translateTime(order?.create_at, 'string') }}</td>
-          <td>
-            <p
-              v-if="order.is_paid"
-              class="text-success d-flex align-items-center m-0"
-            >
-              <span class="material-icons-outlined"> check </span>
-              <span>已付款</span>
-            </p>
-            <p v-else class="text-primary d-flex align-items-center m-0">
-              <span class="material-icons-outlined"> close </span>
-              <span>未付款</span>
-            </p>
-          </td>
-          <td>NT$ {{ order.total?.toLocaleString() }}</td>
-          <td>
-            <button
-              type="button"
-              class="btn btn-outline-primary"
-              @click="showOrderDetail(order)"
-            >
-              詳細
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-panel">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">訂單編號</th>
+            <th scope="col">成立時間</th>
+            <th scope="col">狀態</th>
+            <th scope="col">金額</th>
+            <th width="80" scope="col">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(order, key) in backstageOrders" :key="order.id + key">
+            <th scope="row">
+              {{ (pagination.current_page - 1) * 10 + key + 1 }}
+            </th>
+            <td>{{ order.id }}</td>
+            <td>{{ translateTime(order?.create_at, 'string') }}</td>
+            <td>
+              <p
+                v-if="order.is_paid"
+                class="text-success d-flex align-items-center m-0"
+              >
+                <span class="material-icons-outlined"> check </span>
+                <span>已付款</span>
+              </p>
+              <p v-else class="text-primary d-flex align-items-center m-0">
+                <span class="material-icons-outlined"> close </span>
+                <span>未付款</span>
+              </p>
+            </td>
+            <td>NT$ {{ order.total?.toLocaleString() }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                @click="showOrderDetail(order)"
+              >
+                詳細
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+     </div>
     <Pagination :pages="pagination" @handPage="handPage" class="pt-5" />
   </div>
 </template>
@@ -140,7 +142,13 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/assets/styleSheets/custom/variables';
-
+.table-panel {
+  overflow: scroll;
+  padding-bottom: 30px;
+}
+.table {
+  min-width: 1200px;
+}
 tbody {
   th,
   td {

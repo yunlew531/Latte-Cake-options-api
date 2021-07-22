@@ -8,7 +8,7 @@
         class="btn btn-sm btn-outline-primary mb-3"
         >返回訂單列表</router-link
       >
-      <div class="d-flex">
+      <div class="d-flex flex-wrap">
         <h3 class="fs-5 me-auto">
           <span class="fs-6 me-2">訂單編號:</span>{{ order.id }}
         </h3>
@@ -65,7 +65,7 @@
           ><span class="px-5 py-2">{{ order.user.tel }}</span>
         </li>
         <li class="user-item d-flex">
-          <span class="user-title px-5 py-2">信箱</span
+          <span class="user-title px-5 py-2 ">信箱</span
           ><span class="px-5 py-2">{{ order.user.email }}</span>
         </li>
         <li class="user-item d-flex">
@@ -74,9 +74,9 @@
         </li>
       </ul>
       <ul class="list-unstyled row g-6">
-        <li v-for="product in order.products" :key="product.id" class="col-6">
+        <li v-for="product in order.products" :key="product.id" class="col-lg-6">
           <div class="bg-white-100 border rounded p-5">
-            <div class="d-flex align-items-center mb-3">
+            <div class="d-flex flex-wrap align-items-center mb-3">
               <h2 class="fs-5 m-0 me-auto">
                 <router-link
                   :to="`/product/${product.product.id}`"
@@ -88,15 +88,15 @@
                 >id: <span class="fs-6">{{ product.product.id }}</span>
               </span>
             </div>
-            <div class="d-flex">
+            <div class="d-flex flex-wrap">
               <img
                 :src="product.product.imageUrl || product.product.imagesUrl[0]"
                 :alt="product.product.title"
                 class="product-img rounded me-8"
               />
-              <div class="flex-grow-1">
+              <div class="flex-grow-1 mt-5 mt-sm-0">
                 <h4 class="fs-6">類別: {{ product.product.category }}</h4>
-                <p class="d-flex align-items-center mb-2">
+                <p class="d-flex flex-wrap align-items-center mb-2">
                   <span class="me-auto"
                     >原價:
                     {{ product.product.origin_price?.toLocaleString() }}</span
@@ -118,8 +118,8 @@
           </div>
         </li>
       </ul>
-      <div class="d-flex align-items-center">
-        <div class="me-auto">
+      <div class="d-flex flex-wrap align-items-center">
+        <div>
           <button
             v-show="!isEdit"
             type="button"
@@ -139,7 +139,7 @@
           <button
             v-show="isEdit"
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary me-3"
             @click="saveEditOrder(order.id)"
           >
             儲存
@@ -150,16 +150,14 @@
           type="button"
           class="
             btn btn-primary
-            position-absolute
-            start-50
-            translate-middle-x
             px-10
+            me-auto
           "
           @click="showModal"
         >
           刪除
         </button>
-        <p class="fs-6 m-0">
+        <p class="fs-6 ms-3 mb-0">
           總計: NT$
           <span v-show="!isEdit" class="fs-3"
             >{{ order.total?.toLocaleString() }}
@@ -167,7 +165,7 @@
           <input
             v-show="isEdit"
             type="number"
-            class="price-input fs-3 text-end ps-2"
+            class="price-input fs-3 text-end ps-2 mt-5 mt-sm-0"
             min="0"
             v-model.number="tempOrder.total"
           />
@@ -281,8 +279,10 @@ export default {
 <style lang="scss" scoped>
 @import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
+@import '~bootstrap/scss/mixins';
 
 .user-item {
+  flex-wrap: wrap;
   border-top: $gray-300 solid 1px;
   border-bottom: $gray-300 solid 1px;
   margin-bottom: -1px;
@@ -293,25 +293,25 @@ export default {
     border-bottom: 0;
   }
 }
-
 .user-title {
+  flex-shrink: 0;
   width: 150px;
   background: shade-color($white, 5%);
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+  }
 }
-
 .product-name {
   color: $primary;
   &:hover {
     color: tint-color($primary, 30%);
   }
 }
-
 .product-img {
   width: 150px;
   height: 150px;
   object-fit: cover;
 }
-
 .price-input {
   width: 150px;
   &::-webkit-inner-spin-button {
