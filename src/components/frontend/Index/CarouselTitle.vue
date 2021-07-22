@@ -86,6 +86,20 @@ export default {
       font-size: 10rem;
     }
   }
+  @include media-breakpoint-down(xxl) {
+    &.first-anime {
+      font-size: 6rem;
+      &::first-letter {
+        font-size: 8rem;
+      }
+    }
+    &.second-anime {
+      font-size: 4rem;
+      &::first-letter {
+        font-size: 6rem;
+      }
+    }
+  }
   @include media-breakpoint-down(md) {
     &.first-anime {
       font-size: 4rem;
