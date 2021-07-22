@@ -3,7 +3,7 @@
 body {
   letter-spacing: $letter-spacing;
 }
-@include media-breakpoint-down(xxl) {
+@include media-breakpoint-down(xl) {
   html {
     overflow-y: scroll;
   }
