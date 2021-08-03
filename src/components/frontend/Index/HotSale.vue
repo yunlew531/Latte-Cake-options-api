@@ -1,10 +1,6 @@
 <template>
   <section class="bg-info overflow-hidden">
-    <div
-      ref="hotSalePanelEl"
-      class="hot-sale-panel bg-white-100"
-      :class="{ active: isScrollTo }"
-    >
+    <div ref="hotSalePanelEl" class="hot-sale-panel bg-white-100" :class="{ active: isScrollTo }">
       <div class="container pt-12 pb-md-38">
         <h3
           class="
@@ -54,9 +50,7 @@
               :to="`/product/${product.id}`"
               class="swiper-img d-block"
               :style="{
-                'background-image': `url(${
-                  product.imageUrl || product.imagesUrl[0]
-                })`,
+                'background-image': `url(${product.imageUrl || product.imagesUrl[0]})`,
               }"
             >
               <div
@@ -64,10 +58,10 @@
                   swiper-content
                   position-absolute
                   text-white
-                  bottom-0
-                  h-25
+                  h-100
                   w-100
-                  px-12
+                  d-flex align-items-end
+                  px-5
                 "
               >
                 <div class="text-reset text-decoration-none">
@@ -168,11 +162,8 @@ export default {
     h2,
     p {
       opacity: 0;
-      padding-top: 100px;
+      transform: translateY(100%);
       transition: 0.3s;
-    }
-    p {
-      transition-delay: 0.1s;
     }
   }
   .swiper-slide:nth-of-type(1),
@@ -222,15 +213,11 @@ export default {
         h2,
         p {
           opacity: 1;
-          padding-top: 0;
+          transform: translateY(0);
         }
       }
       &::before {
-        background-image: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0),
-          rgba(0, 0, 0, 0.8)
-        );
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
       }
     }
   }

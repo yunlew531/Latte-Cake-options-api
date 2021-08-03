@@ -273,7 +273,6 @@ export default {
     return {
       productNum: 1,
       isQtyLoad: false,
-      isRemoveLoad: false,
       cartsData: [],
     };
   },

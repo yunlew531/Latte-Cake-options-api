@@ -34,7 +34,7 @@
       :class="{ 'scroll-down': isScrollDown }"
     >
       <div class="container-fluid">
-        <h1 class="m-0 lh-1">
+        <h1 class="lh-1 mb-0 me-auto">
           <router-link
             to="/home"
             class="navbar-brand fw-bolder text-danger d-block p-0"
@@ -42,6 +42,36 @@
             >PastaHouse
           </router-link>
         </h1>
+        <button
+          type="button"
+          class="
+              cart-btn
+              lh-1
+              bg-transparent
+              border-0
+              bottom-n1
+              position-relative
+              d-block d-lg-none
+              me-3
+            "
+          @click="showCartCanvas"
+        >
+          <span class="material-icons h-100 w-100"> shopping_cart </span>
+          <span
+            class="
+                fs-7
+                text-white
+                bg-danger
+                p-1
+                rounded-pill
+                position-absolute
+                top-0
+                end-0
+                translate-middle-y
+              "
+            >{{ cartsData.carts?.length }}</span
+          >
+        </button>
         <button
           class="navbar-toggler"
           type="button"
@@ -53,12 +83,9 @@
         <div class="collapse navbar-collapse ps-8" id="carouselNavbar">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li v-for="link in navLinks" :key="link" class="nav-item">
-              <router-link
-                :to="link.url"
-                class="nav-link active px-xl-5"
-                aria-current="page"
-                >{{ link.title }}</router-link
-              >
+              <router-link :to="link.url" class="nav-link active px-xl-5" aria-current="page">
+                {{ link.title }}
+              </router-link>
             </li>
           </ul>
           <button
@@ -70,6 +97,7 @@
               border-0
               bottom-n1
               position-relative
+              d-none d-lg-block
             "
             @click="showCartCanvas"
           >
@@ -89,7 +117,7 @@
               >{{ cartsData.carts?.length }}</span
             >
           </button>
-          <div class="d-flex position-relative ms-3">
+          <div class="d-flex position-relative ms-lg-3">
             <input
               class="
                 search-input

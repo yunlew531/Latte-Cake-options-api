@@ -19,8 +19,10 @@
       ></button>
     </div>
     <div class="px-4 m-0 d-flex align-items-center">
-      <span class="me-auto">{{ cartsData.carts?.length }} 個品項</span>
-      <Button class="py-1" @click="goToPage('cart')"> 詳細購物車 </Button>
+      <span class="me-auto" :class="{ invisible: !cartsData.carts.length }">
+        {{ cartsData.carts?.length }} 個品項
+      </span>
+      <Button class="py-1" @click="goToPage('cart')">詳細購物車</Button>
     </div>
     <div class="px-4 py-3 border-bottom">
       <div
@@ -31,7 +33,16 @@
         <div class="progress-bar" role="progressbar"></div>
       </div>
     </div>
-    <ul class="offcanvas-body list-unstyled mb-0">
+    <div
+      v-if="!cartsData.carts.length"
+      class="offcanvas-body d-flex flex-column justify-content-center align-items-center"
+    >
+      <h3>購物車沒有餐點!</h3>
+      <router-link to="/products">
+        <Button class="py-1">立即前往購物</Button>
+      </router-link>
+    </div>
+    <ul v-else class="offcanvas-body list-unstyled mb-0">
       <li
         class="product-item border border-black-300 mb-3"
         v-for="product in cartsData.carts"
@@ -42,22 +53,16 @@
             <div
               class="product-img"
               :style="{
-                'background-image': `url(${
-                  product.product.imageUrl || product.product.imagesUrl[0]
-                })`,
+                'background-image': `url(${product.product.imageUrl ||
+                  product.product.imagesUrl[0]})`,
               }"
             ></div>
             <div class="p-3 flex-grow-1">
-              <h3
-                class="product-title fs-6"
-                @click="goToPage('product', product.product.id)"
-              >
+              <h3 class="product-title fs-6" @click="goToPage('product', product.product.id)">
                 {{ product.product.title }}
               </h3>
               <div class="d-flex">
-                <span class="flex-grow-1">
-                  NT$ {{ product.product.price?.toLocaleString() }}
-                </span>
+                <span class="flex-grow-1"> NT$ {{ product.product.price?.toLocaleString() }} </span>
                 <span>x {{ product.qty }} 個</span>
               </div>
               <div class="d-flex">
@@ -68,13 +73,8 @@
                 >
               </div>
               <div class="d-flex align-items-center mt-1">
-                <div
-                  class="d-flex align-items-center position-relative me-auto"
-                >
-                  <span
-                    class="qty-btn material-icons"
-                    @click="handQty(product, -1)"
-                  >
+                <div class="d-flex align-items-center position-relative me-auto">
+                  <span class="qty-btn material-icons" @click="handQty(product, -1)">
                     remove
                   </span>
                   <span
@@ -87,10 +87,7 @@
                     "
                     >{{ product.qty }}</span
                   >
-                  <span
-                    class="qty-btn material-icons"
-                    @click="handQty(product, 1)"
-                  >
+                  <span class="qty-btn material-icons" @click="handQty(product, 1)">
                     add
                   </span>
                 </div>
@@ -104,9 +101,7 @@
       </li>
     </ul>
     <div class="d-flex align-items-center border-top px-4 py-4">
-      <span class="fs-5 ms-auto"
-        >總金額 NT$ {{ cartsData.total?.toLocaleString() }} 元</span
-      >
+      <span class="fs-5 ms-auto">總金額 NT$ {{ cartsData.total?.toLocaleString() }} 元</span>
     </div>
   </section>
 </template>
