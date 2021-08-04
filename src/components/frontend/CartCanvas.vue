@@ -19,7 +19,7 @@
       ></button>
     </div>
     <div class="px-4 m-0 d-flex align-items-center">
-      <span class="me-auto" :class="{ invisible: !cartsData.carts.length }">
+      <span class="me-auto" :class="{ invisible: !cartsData.carts?.length }">
         {{ cartsData.carts?.length }} 個品項
       </span>
       <Button class="py-1" @click="goToPage('cart')">詳細購物車</Button>
@@ -34,7 +34,7 @@
       </div>
     </div>
     <div
-      v-if="!cartsData.carts.length"
+      v-if="!cartsData.carts?.length"
       class="offcanvas-body d-flex flex-column justify-content-center align-items-center"
     >
       <h3>購物車沒有餐點!</h3>
@@ -164,7 +164,7 @@ export default {
           useToast('成功更新數量!', 'success');
         } else useToast('操作失敗!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('操作失敗!', 'danger');
       }
       this.$store.dispatch('handIsLoading', false);
     },
@@ -179,7 +179,7 @@ export default {
           useToast('操作失敗!', 'danger');
         }
       } catch (err) {
-        console.dir(err);
+        useToast('操作失敗!', 'danger');
       }
       this.$store.dispatch('handIsLoading', false);
     },

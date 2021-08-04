@@ -16,32 +16,18 @@
                 placeholder="輸入圖片網址"
                 v-model.trim="product.imgsTemp"
               />
-              <button
-                type="button"
-                class="text-black btn btn-outline-secondary"
-                @click="addImg"
-              >
+              <button type="button" class="text-black btn btn-outline-secondary" @click="addImg">
                 新增
               </button>
             </div>
           </div>
           <div class="mb-3">
             <label for="img" class="form-label mb-1">圖片上傳</label>
-            <input
-              ref="fileInput"
-              @change="upLoadImg"
-              type="file"
-              class="form-control"
-            />
+            <input ref="fileInput" @change="upLoadImg" type="file" class="form-control" />
           </div>
-          <ul
-            class="product-img-list d-flex flex-wrap list-unstyled py-sm-5 m-0"
-          >
-            <li
-              v-if="product.imageUrl"
-              class="product-img position-relative mb-2"
-            >
-              <img :src="product.imageUrl" class="img-fluid" />
+          <ul class="product-img-list d-flex flex-wrap list-unstyled py-sm-5 m-0">
+            <li v-if="product.imageUrl" class="product-img position-relative mb-2">
+              <img :src="product.imageUrl" class="img-fluid" :alt="product.title" />
               <button
                 type="button"
                 class="img-close-btn btn p-0 lh-1 position-absolute end-0 top-0"
@@ -55,7 +41,7 @@
               :key="img + key"
               class="product-img position-relative mb-2"
             >
-              <img :src="img" class="img-fluid" />
+              <img :src="img" class="img-fluid" :alt="product.title" />
               <button
                 type="button"
                 class="img-close-btn btn p-0 lh-1 position-absolute end-0 top-0"
@@ -95,10 +81,7 @@
                   rules="required"
                   v-model.trim="product.category"
                 ></Field>
-                <ErrorMessage
-                  name="分類"
-                  class="invalid-feedback"
-                ></ErrorMessage>
+                <ErrorMessage name="分類" class="invalid-feedback"></ErrorMessage>
               </div>
             </div>
             <div class="col-6">
@@ -114,10 +97,7 @@
                   rules="required"
                   v-model.trim="product.unit"
                 ></Field>
-                <ErrorMessage
-                  name="單位"
-                  class="invalid-feedback"
-                ></ErrorMessage>
+                <ErrorMessage name="單位" class="invalid-feedback"></ErrorMessage>
               </div>
             </div>
           </div>
@@ -136,10 +116,7 @@
                   min="0"
                   v-model.number="product.origin_price"
                 ></Field>
-                <ErrorMessage
-                  name="原價"
-                  class="invalid-feedback"
-                ></ErrorMessage>
+                <ErrorMessage name="原價" class="invalid-feedback"></ErrorMessage>
               </div>
             </div>
             <div class="col-6">
@@ -156,10 +133,7 @@
                   min="0"
                   v-model.number="product.price"
                 ></Field>
-                <ErrorMessage
-                  name="售價"
-                  class="invalid-feedback"
-                ></ErrorMessage>
+                <ErrorMessage name="售價" class="invalid-feedback"></ErrorMessage>
               </div>
             </div>
           </div>
@@ -196,9 +170,7 @@
                 class="form-check-input"
                 v-model="product.freeDelivery"
               />
-              <label for="freeDelivery" class="ms-2 me-10 me-sm-0"
-                >免運費</label
-              >
+              <label for="freeDelivery" class="ms-2 me-10 me-sm-0">免運費</label>
               <input
                 id="is_enabled"
                 type="checkbox"
@@ -288,14 +260,11 @@ export default {
       try {
         const { data } = await method(productData, id);
         if (data.success) {
-          useToast(
-            this.boardStatus === '新增' ? '新增成功!' : '完成更新!',
-            'success',
-          );
+          useToast(this.boardStatus === '新增' ? '新增成功!' : '完成更新!', 'success');
           this.$router.push('/admin/products');
         } else useToast('發生錯誤!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.isLoading = false;
     },
@@ -314,7 +283,7 @@ export default {
           useToast('成功上傳!', 'success');
         } else useToast(data.message, 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.isLoading = false;
     },

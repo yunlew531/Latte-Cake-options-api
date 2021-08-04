@@ -4,7 +4,7 @@
     <Loading v-model:active="isLoading" :is-full-page="false" />
     <div class="d-flex justify-content-center">
       <h2 class="me-auto">訂單</h2>
-      <button class="btn btn-primary align-self-center" @click="showModal">
+      <button class="btn btn-primary align-self-center" type="button" @click="showModal">
         刪除全部訂單
       </button>
     </div>
@@ -28,10 +28,7 @@
             <td>{{ order.id }}</td>
             <td>{{ translateTime(order?.create_at, 'string') }}</td>
             <td>
-              <p
-                v-if="order.is_paid"
-                class="text-success d-flex align-items-center m-0"
-              >
+              <p v-if="order.is_paid" class="text-success d-flex align-items-center m-0">
                 <span class="material-icons-outlined"> check </span>
                 <span>已付款</span>
               </p>
@@ -42,18 +39,14 @@
             </td>
             <td>NT$ {{ order.total?.toLocaleString() }}</td>
             <td>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                @click="showOrderDetail(order)"
-              >
+              <button type="button" class="btn btn-outline-primary" @click="showOrderDetail(order)">
                 詳細
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-     </div>
+    </div>
     <Pagination :pages="pagination" @handPage="handPage" class="pt-5" />
   </div>
 </template>
@@ -85,13 +78,10 @@ export default {
     async getOrders(page) {
       this.isLoading = true;
       try {
-        const { success } = await this.$store.dispatch(
-          'getBackstageOrders',
-          page,
-        );
+        const { success } = await this.$store.dispatch('getBackstageOrders', page);
         if (!success) useToast('取得訂單失敗!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.isLoading = false;
     },
@@ -103,7 +93,7 @@ export default {
           this.getOrders();
         } else useToast(data.message, 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.$refs.msgModal.hideModal();
     },

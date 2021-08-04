@@ -15,9 +15,7 @@
           order-1
           overflow-hidden
         "
-        :class="
-          navTeleport === '#navbarTeleportAside' ? 'flex-wrap' : 'flex-nowrap'
-        "
+        :class="navTeleport === '#navbarTeleportAside' ? 'flex-wrap' : 'flex-nowrap'"
       >
         <li
           v-for="category in categoryList"
@@ -87,7 +85,6 @@ export default {
       let position = 0;
       let sizeDirection = null;
       let zeroDirection = null;
-      // 有 hover nav 時動畫停在 hover 元素，反之動畫停在 nowCategory 元素
       if (this.nowHoverCategory) {
         this.categoryList.forEach((item, idx) => {
           if (item === this.nowHoverCategory) position = idx * percent;
@@ -97,7 +94,6 @@ export default {
           if (item === this.nowCategory) position = idx * percent;
         });
       }
-      // isScrollDown 判斷 navbar 是水平或是垂直
       if (this.isScrollDown) {
         sizeDirection = 'height';
         zeroDirection = 'top';
@@ -105,13 +101,9 @@ export default {
         sizeDirection = 'width';
         zeroDirection = 'left';
       }
-      style = [
-        { [sizeDirection]: `${percent}%` },
-        { [zeroDirection]: `${position}%` },
-      ];
+      style = [{ [sizeDirection]: `${percent}%` }, { [zeroDirection]: `${position}%` }];
       return style;
     },
-    // 品項只有一排時，稱不開 div position sticky 樣式的 top， 改用 absolute
     fixedNavSticky() {
       let style = null;
       if (
@@ -129,7 +121,6 @@ export default {
   },
   watch: {
     isScrollDown(down) {
-      // isScrollDown 會觸發css動畫，動畫跑完再 teleport
       if (down) {
         this.teleportTopToAsideTimeout = setTimeout(() => {
           this.navTeleport = '#navbarTeleportAside';
@@ -139,7 +130,6 @@ export default {
         this.navTeleport = '#navbarTeleportTop';
       }
     },
-    // 搜尋時 navbar 增加"搜尋"選項
     '$store.getters.navSearchText': {
       handler(val) {
         if (val && this.categoryList[0] !== '搜尋') {

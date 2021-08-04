@@ -12,6 +12,7 @@
 
 <script>
 import { apiGetUser, apiPostCheck } from '@/api';
+import { useToast } from '@/methods';
 import BackendNavbar from '@/components/backend/BackendNavbar.vue';
 import Sidebar from '@/components/backend/Sidebar.vue';
 import backReq from '@/api/backReq';
@@ -61,11 +62,12 @@ export default {
           }
           return data;
         })
+        .catch()
         .then(({ success }) => {
           if (success) this.getUser();
         })
-        .catch((err) => {
-          console.dir(err);
+        .catch(() => {
+          useToast('無法取得使用者資料!', 'danger');
         });
     },
   },

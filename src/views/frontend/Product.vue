@@ -5,9 +5,7 @@
     :class="{ active: !isAnimeReset }"
   >
     <div class="row gx-12">
-      <ul
-        class="product-img-list col-lg-6 list-unstyled order-2 order-lg-1 mb-0"
-      >
+      <ul class="product-img-list col-lg-6 list-unstyled order-2 order-lg-1 mb-0">
         <li
           v-if="product.imageUrl"
           class="product-img rounded"
@@ -118,6 +116,7 @@
                   >{{ productNum }}</span
                 >
                 <button
+                  type="button"
                   class="
                     quntity-btn
                     h-50
@@ -132,6 +131,7 @@
                   <span class="material-icons"> arrow_drop_up </span>
                 </button>
                 <button
+                  type="button"
                   class="
                     quntity-btn
                     h-50
@@ -202,9 +202,9 @@ export default {
           this.lightboxImgs = data.product.imageUrl
             ? [data.product.imageUrl, ...(data.product.imagesUrl || [])]
             : data.product.imagesUrl || [];
-        }
+        } else useToast('無法取得資料!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('無法取得資料!', 'danger');
       }
     },
     showLightbox(idx) {
@@ -224,9 +224,9 @@ export default {
           this.$emitter.emit('showCartCanvas', true);
           useToast('成功加入購物車!', 'success');
           this.productNum = 1;
-        } else useToast('操作失敗!', 'danger');
+        } else useToast('發生錯誤!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.$store.dispatch('handIsLoading', false);
     },

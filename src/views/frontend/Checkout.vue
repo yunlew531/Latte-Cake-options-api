@@ -102,17 +102,12 @@
               :class="{ show: nowShow.includes(key) }"
               @click="showInfo(key)"
             >
-              <button
-                type="button"
-                class="btn d-flex flex-wrap align-items-end w-100 p-3"
-              >
+              <button type="button" class="btn d-flex flex-wrap align-items-end w-100 p-3">
                 <h2 class="text-primary d-inline-block d-sm-block fs-5 m-0">
                   {{ product.product.title }}
                 </h2>
                 <span class="text-primary fs-7 ms-5">x</span>
-                <span class="text-primary fs-7 ms-5 me-auto">
-                  {{ product.qty }}</span
-                >
+                <span class="text-primary fs-7 ms-5 me-auto"> {{ product.qty }}</span>
                 <span class="text-start text-primary fs-5 w-100 w-sm-auto"
                   ><span class="fs-7">NT$</span> {{ product.total }}</span
                 >
@@ -139,26 +134,19 @@
               <span
                 class="fs-3 me-3"
                 :class="{
-                  'text-decoration-line-through':
-                    cartsData.final_total !== cartsData.total,
+                  'text-decoration-line-through': cartsData.final_total !== cartsData.total,
                 }"
                 >{{ cartsData.total }}</span
               >
-              <span
-                v-if="cartsData.final_total !== cartsData.total"
-                class="fs-3"
-                >{{ cartsData.final_total }}</span
-              >
+              <span v-if="cartsData.final_total !== cartsData.total" class="fs-3">{{
+                cartsData.final_total
+              }}</span>
             </p>
           </div>
         </div>
         <div class="rounded shadow-sm bg-white p-8 mt-8">
           <label for="coupon" class="form-label fs-4">輸入優惠折扣碼</label>
-          <Form
-            v-slot="{ errors }"
-            @submit="submitCoupon"
-            class="d-flex flex-wrap"
-          >
+          <Form v-slot="{ errors }" @submit="submitCoupon" class="d-flex flex-wrap">
             <div class="mb-3 flex-grow-1">
               <Field
                 id="coupon"
@@ -170,10 +158,7 @@
                 rules="required"
                 v-model.trim="couponInput"
               ></Field>
-              <ErrorMessage
-                name="折扣碼"
-                class="invalid-feedback"
-              ></ErrorMessage>
+              <ErrorMessage name="折扣碼" class="invalid-feedback"></ErrorMessage>
             </div>
             <Button
               btnType="submit"
@@ -185,17 +170,13 @@
         <div class="rounded shadow-sm bg-white p-8 mt-8">
           <h4 class="fs-4 mb-3">折扣碼</h4>
           <ul class="list-unstyled">
-            <li
-              v-for="coupon in coupons"
-              :key="coupon.code"
-              @click="copyCouponCode(coupon.code)"
-            >
+            <li v-for="coupon in coupons" :key="coupon.code" @click="copyCouponCode(coupon.code)">
               <h3 class="fs-5 fw-light">{{ coupon.title }}</h3>
               <div class="d-flex btn-group">
                 <p class="coupon-code btn flex-grow-1 m-0">
                   {{ coupon.code }}
                 </p>
-                <button class="flex-grow-0 px-5 btn btn-primary">複製</button>
+                <button type="button" class="flex-grow-0 px-5 btn btn-primary">複製</button>
               </div>
             </li>
           </ul>
@@ -238,7 +219,6 @@ export default {
         if (resData.success) this.$router.push('/orderCompleted');
         else useToast('發生錯誤!', 'danger');
       } catch (err) {
-        console.dir(err);
         useToast('發生錯誤!', 'danger');
       }
       this.$store.dispatch('handIsLoading', false);
@@ -262,7 +242,6 @@ export default {
           useToast(data.message);
         } else useToast(data.message, 'danger');
       } catch (err) {
-        console.dir(err);
         useToast('無法套用!', 'danger');
       }
       this.$store.dispatch('handIsLoading', false);

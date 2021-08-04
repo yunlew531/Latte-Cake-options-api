@@ -2,11 +2,7 @@
   <div class="row">
     <div class="col-8">
       <div class="rounded bg-white shadow w-100 p-10 position-relative">
-        <Loading
-          v-model:active="isGetCouponsLoading"
-          :is-full-page="false"
-          :opacity="0.9"
-        />
+        <Loading v-model:active="isGetCouponsLoading" :is-full-page="false" :opacity="0.9" />
         <h2 class="mb-3">優惠券</h2>
         <ul class="list-unstyled">
           <li
@@ -47,19 +43,14 @@
                 text-center
               "
             >
-              <div
-                class="d-flex flex-column justify-content-center flex-grow-1"
-              >
-                <span class="fs-6 text-black-200 d-block mb-1"
-                  >編號: {{ coupon.id }}</span
-                >
+              <div class="d-flex flex-column justify-content-center flex-grow-1">
+                <span class="fs-6 text-black-200 d-block mb-1">編號: {{ coupon.id }}</span>
                 <span class="fs-6 d-block">到期日</span>
                 <span class="fs-2 d-block">
                   {{ translateTime(coupon.due_date, 'string').split(' ')[0] }}
                 </span>
                 <div class="fs-5">
-                  <span v-if="coupon.is_enabled" class="text-success"
-                    >已啟用</span
+                  <span v-if="coupon.is_enabled" class="text-success">已啟用</span
                   ><span v-else class="text-danger">未啟用</span>
                 </div>
               </div>
@@ -150,9 +141,7 @@
             <ErrorMessage name="優惠碼" class="invalid-feedback"></ErrorMessage>
           </div>
           <div class="mb-3">
-            <label for="coupon-date" class="form-label d-block mb-1"
-              >到期日</label
-            >
+            <label for="coupon-date" class="form-label d-block mb-1">到期日</label>
             <input id="oupon-date" type="date" v-model="tempCoupon.due_date" />
           </div>
           <div class="d-flex align-items-center">
@@ -164,9 +153,7 @@
                 :true-value="1"
                 :false-value="0"
               />
-              <label for="coupon-enabled" class="form-label m-0 ms-2"
-                >啟用</label
-              >
+              <label for="coupon-enabled" class="form-label m-0 ms-2">啟用</label>
             </div>
             <button v-show="!isEdit" class="btn btn-primary" type="submit">
               新增
@@ -191,10 +178,7 @@
 
 <script>
 import {
-  apiPostAddCoupon,
-  apiGetCoupons,
-  apiPutEditCoupon,
-  apiDeleteCoupon,
+  apiPostAddCoupon, apiGetCoupons, apiPutEditCoupon, apiDeleteCoupon,
 } from '@/api';
 import { useToast } from '@/methods';
 import Loading from 'vue-loading-overlay';
@@ -225,7 +209,7 @@ export default {
         if (data.success) this.coupons = data.coupons;
         else useToast('無法取得', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('無法取得', 'danger');
       }
       this.isGetCouponsLoading = false;
     },
@@ -252,12 +236,12 @@ export default {
       try {
         const { data: resData } = await apiPostAddCoupon(data);
         if (resData.success) {
-          useToast('成功新增', 'success');
+          useToast('成功新增');
           this.getCoupons();
           this.initCouponForm();
         } else useToast(resData.message[0], 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('無法取得', 'danger');
       }
       this.isAddCouponLoading = false;
     },
@@ -270,12 +254,12 @@ export default {
       try {
         const { data } = await apiPutEditCoupon(temp.id, temp);
         if (data.success) {
-          useToast('成功更新', 'success');
+          useToast('成功更新');
           this.getCoupons();
           this.initCouponForm();
         } else useToast('發生錯誤!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.isAddCouponLoading = false;
     },
@@ -299,11 +283,11 @@ export default {
       try {
         const { data } = await apiDeleteCoupon(id);
         if (data.success) {
-          useToast(data.message, 'success');
+          useToast(data.message);
           this.getCoupons();
         } else useToast(data.message, 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.isGetCouponsLoading = false;
     },

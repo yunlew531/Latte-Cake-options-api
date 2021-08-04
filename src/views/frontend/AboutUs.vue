@@ -7,11 +7,7 @@
     <div class="p-sm-12">
       <div class="row g-8">
         <div class="col-xl-6">
-          <img
-            src="@/assets/images/bg-banner.jpg"
-            alt="spaghetti"
-            class="img-fluid"
-          />
+          <img src="@/assets/images/bg-banner.jpg" alt="spaghetti" class="img-fluid" />
         </div>
         <div class="col-xl-6 lh-lg">
           <h2 class="fs-3">關於我們</h2>
@@ -39,7 +35,7 @@
       <ul class="d-flex list-unstyled">
         <li class="flex-grow-1">
           <button
-            type="button "
+            type="button"
             class="city-btn btn text-white w-100 rounded-0 shadow-none"
             :class="{ active: shopPosition === 'Taipei' }"
             @click="setShopPosition('Taipei')"
@@ -49,7 +45,7 @@
         </li>
         <li class="flex-grow-1">
           <button
-            type="button "
+            type="button"
             class="city-btn btn text-white w-100 rounded-0 shadow-none"
             :class="{ active: shopPosition === 'Taichung' }"
             @click="setShopPosition('Taichung')"
@@ -59,7 +55,7 @@
         </li>
         <li class="flex-grow-1">
           <button
-            type="button "
+            type="button"
             class="city-btn btn text-white w-100 rounded-0 shadow-none"
             :class="{ active: shopPosition === 'Kaohsiung' }"
             @click="setShopPosition('Kaohsiung')"

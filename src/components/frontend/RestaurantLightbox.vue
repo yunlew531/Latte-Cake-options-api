@@ -25,10 +25,7 @@
             class="col-6 col-sm-4"
             @click="showLightbox(key + 1)"
           >
-            <div
-              :style="{ 'background-image': `url(${img})` }"
-              class="shop-img w-100 h-100"
-            ></div>
+            <div :style="{ 'background-image': `url(${img})` }" class="shop-img w-100 h-100"></div>
           </li>
         </ul>
       </div>
@@ -37,8 +34,9 @@
 </template>
 
 <script>
-import VueEasyLightbox from 'vue-easy-lightbox';
 import { apiGetShopImg } from '@/api';
+import VueEasyLightbox from 'vue-easy-lightbox';
+import { useToast } from '@/methods';
 
 export default {
   components: {
@@ -64,7 +62,7 @@ export default {
         const res = await apiGetShopImg();
         if (res.status === 200) this.imgs = res.data.map((img) => img.url);
       } catch (err) {
-        console.dir(err);
+        useToast('無法取得圖片!', 'danger');
       }
     },
   },

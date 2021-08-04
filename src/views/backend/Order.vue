@@ -3,15 +3,11 @@
   <section class="rounded bg-white shadow w-100 p-10">
     <Loading v-model:active="isLoading" :is-full-page="false" />
     <div>
-      <router-link
-        to="/admin/orders"
-        class="btn btn-sm btn-outline-primary mb-3"
+      <router-link to="/admin/orders" class="btn btn-sm btn-outline-primary mb-3"
         >返回訂單列表</router-link
       >
       <div class="d-flex flex-wrap">
-        <h3 class="fs-5 me-auto">
-          <span class="fs-6 me-2">訂單編號:</span>{{ order.id }}
-        </h3>
+        <h3 class="fs-5 me-auto"><span class="fs-6 me-2">訂單編號:</span>{{ order.id }}</h3>
         <span class="fs-5">
           <span class="fs-6 me-2">成立時間:</span
           >{{ translateTime(order.create_at, 'string') }}</span
@@ -21,10 +17,7 @@
         <h4 class="fs-6 d-flex align-items-center m-0 me-2">
           狀態:
           <span v-show="!isEdit">
-            <span
-              v-if="order.is_paid"
-              class="text-success d-flex align-items-center"
-            >
+            <span v-if="order.is_paid" class="text-success d-flex align-items-center">
               <span class="material-icons-outlined"> done </span>
               <span>已付款</span>
             </span>
@@ -98,20 +91,15 @@
                 <h4 class="fs-6">類別: {{ product.product.category }}</h4>
                 <p class="d-flex flex-wrap align-items-center mb-2">
                   <span class="me-auto"
-                    >原價:
-                    {{ product.product.origin_price?.toLocaleString() }}</span
+                    >原價: {{ product.product.origin_price?.toLocaleString() }}</span
                   >
-                  <span
-                    >售價: {{ product.product.price?.toLocaleString() }}</span
-                  >
+                  <span>售價: {{ product.product.price?.toLocaleString() }}</span>
                 </p>
                 <p class="mb-2">數量: {{ product.qty }}</p>
                 <p class="mb-2">金額: {{ product.total?.toLocaleString() }}</p>
                 <p class="mb-2">
                   折扣後金額:
-                  <span class="fs-5">{{
-                    product.final_total?.toLocaleString()
-                  }}</span>
+                  <span class="fs-5">{{ product.final_total?.toLocaleString() }}</span>
                 </p>
               </div>
             </div>
@@ -120,12 +108,7 @@
       </ul>
       <div class="d-flex flex-wrap align-items-center">
         <div>
-          <button
-            v-show="!isEdit"
-            type="button"
-            class="btn btn-primary"
-            @click="editOrder"
-          >
+          <button v-show="!isEdit" type="button" class="btn btn-primary" @click="editOrder">
             編輯
           </button>
           <button
@@ -159,9 +142,7 @@
         </button>
         <p class="fs-6 ms-3 mb-0">
           總計: NT$
-          <span v-show="!isEdit" class="fs-3"
-            >{{ order.total?.toLocaleString() }}
-          </span>
+          <span v-show="!isEdit" class="fs-3">{{ order.total?.toLocaleString() }} </span>
           <input
             v-show="isEdit"
             type="number"
@@ -178,7 +159,7 @@
 
 <script>
 import { useToast } from '@/methods';
-import { apiPutEditOrder, apiDelOrder } from '@/api';
+import { apiGetCustOrder, apiPutEditOrder, apiDelOrder } from '@/api';
 import TranslateTime from '@/mixins/TranslateTime.vue';
 import Modal from '@/components/Modal.vue';
 import Loading from 'vue-loading-overlay';
@@ -202,16 +183,14 @@ export default {
     async getOrder(orderId) {
       this.isLoading = true;
       try {
-        await this.$store.dispatch('getBackstageOrders');
-        const { orders } = this.$store.getters.backstageOrders;
-        const orderData = orders.filter((order) => order.id === orderId);
-        if (orderData.length) [this.order] = orderData;
+        const { data } = await apiGetCustOrder(orderId);
+        if (data.success) this.order = data.order;
         else {
           useToast('找不到訂單!', 'danger');
           this.$router.push('/admin/orders');
         }
       } catch (err) {
-        console.dir(err);
+        useToast('找不到訂單!', 'danger');
       }
       this.isLoading = false;
     },
@@ -227,7 +206,7 @@ export default {
           this.isEdit = false;
         } else useToast(data.message, 'dnager');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.isLoading = false;
     },
@@ -239,7 +218,7 @@ export default {
           this.$router.push('/admin/orders');
         } else useToast(data.message, 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.$refs.msgModal.hideModal();
     },

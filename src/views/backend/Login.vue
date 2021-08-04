@@ -45,9 +45,7 @@
           </div>
         </div>
         <div class="d-flex align-items-center">
-          <router-link
-            to="/home"
-            class="text-white fw-lighter text-decoration-none me-auto"
+          <router-link to="/home" class="text-white fw-lighter text-decoration-none me-auto"
             >返回前台</router-link
           >
           <Button btnType="submit"> 登入 </Button>
@@ -89,7 +87,7 @@ export default {
           useToast('登入失敗!', 'danger');
         }
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
     },
   },

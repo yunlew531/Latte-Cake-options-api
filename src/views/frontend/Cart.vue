@@ -4,31 +4,17 @@
     <div class="row g-8">
       <div class="col-lg-8">
         <div class="rounded shadow-sm bg-white p-8">
-          <div
-            v-if="cartsData.carts?.length !== 0"
-            class="d-flex align-items-center"
-          >
-            <span class="fs-4 me-auto"
-              >{{ cartsData.carts?.length }} 件商品</span
-            >
-            <Button @click="removeAllCarts" class="remove-all-products-btn"
-              >移除所有商品
-            </Button>
+          <div v-if="cartsData.carts?.length !== 0" class="d-flex align-items-center">
+            <span class="fs-4 me-auto">{{ cartsData.carts?.length }} 件商品</span>
+            <Button @click="removeAllCarts" class="remove-all-products-btn">移除所有商品 </Button>
           </div>
-          <div
-            v-else
-            class="d-flex justify-content-center align-content-center"
-          >
+          <div v-else class="d-flex justify-content-center align-content-center">
             <router-link to="/products">
               <Button class="px-5 py-2">立即前往購物 </Button>
             </router-link>
           </div>
           <ul class="list-unstyled">
-            <li
-              class="product-item py-8"
-              v-for="product in cartsData.carts"
-              :key="product.id"
-            >
+            <li class="product-item py-8" v-for="product in cartsData.carts" :key="product.id">
               <div class="d-flex flex-wrap justify-content-between pb-2">
                 <div class="d-flex">
                   <p
@@ -67,17 +53,15 @@
                   </p>
                 </div>
                 <span class="pt-2 pt-sm-0"
-                  >單價 NT$
-                  {{ product.product.price?.toLocaleString() }} 元</span
+                  >單價 NT$ {{ product.product.price?.toLocaleString() }} 元</span
                 >
               </div>
               <div class="d-flex flex-wrap flex-sm-nowrap">
                 <div
                   class="product-img"
                   :style="{
-                    'background-image': `url(${
-                      product.product.imageUrl || product.product.imagesUrl[0]
-                    })`,
+                    'background-image': `url(${product.product.imageUrl ||
+                      product.product.imagesUrl[0]})`,
                   }"
                 ></div>
                 <div
@@ -104,10 +88,7 @@
                       </h4>
                       <h4 class="fs-7 text-black-200">
                         分類:
-                        <a
-                          href="javascript:;"
-                          @click="searchCategory(product.product.category)"
-                        >
+                        <a href="javascript:;" @click="searchCategory(product.product.category)">
                           {{ product.product.category }}
                         </a>
                       </h4>
@@ -120,9 +101,7 @@
                         flex-shrink-0
                       "
                     >
-                      <span class="fs-6 text-black-200 py-5 py-md-0"
-                        >購買數量</span
-                      >
+                      <span class="fs-6 text-black-200 py-5 py-md-0">購買數量</span>
                       <div class="position-relative">
                         <span
                           class="
@@ -139,6 +118,7 @@
                           >{{ product.qty }}</span
                         >
                         <button
+                          type="button"
                           class="
                             quntity-btn
                             h-50
@@ -153,6 +133,7 @@
                           <span class="material-icons"> arrow_drop_up </span>
                         </button>
                         <button
+                          type="button"
                           class="
                             quntity-btn
                             h-50
@@ -176,10 +157,9 @@
                     {{ product.product.content }}
                   </p>
                   <div class="d-flex flex-wrap align-items-center">
-                    <div
-                      class="d-flex flex-wrap align-items-center flex-grow-1"
-                    >
+                    <div class="d-flex flex-wrap align-items-center flex-grow-1">
                       <button
+                        type="button"
                         class="
                           product-remove-btn
                           border-0
@@ -188,13 +168,13 @@
                           align-items-center
                           p-0
                         "
-                        type="button"
                         @click="removeCart(product.id)"
                       >
                         <span class="text-danger material-icons"> delete </span>
                         <span class="ms-1">移除商品</span>
                       </button>
                       <button
+                        type="button"
                         class="
                           product-remove-btn
                           border-0
@@ -205,7 +185,6 @@
                           mt-1 mt-sm-0
                           ms-md-3
                         "
-                        type="button"
                       >
                         <span class="material-icons heart-border">
                           favorite_border
@@ -216,9 +195,7 @@
                         <span class="btn-text ms-1">移動到想要清單</span>
                       </button>
                     </div>
-                    <span class="fs-4"
-                      >NT$ {{ product.total?.toLocaleString() }} 元</span
-                    >
+                    <span class="fs-4">NT$ {{ product.total?.toLocaleString() }} 元</span>
                   </div>
                 </div>
               </div>
@@ -246,10 +223,7 @@
             <p class="d-flex text-black-400">
               <span class="flex-grow-1">運費</span><span>NT$ 100 元</span>
             </p>
-            <router-link
-              v-if="cartsData.carts?.length"
-              to="/checkout"
-              class="d-inline-block w-100"
+            <router-link v-if="cartsData.carts?.length" to="/checkout" class="d-inline-block w-100"
               ><Button class="fs-5 w-100 py-3">結帳 </Button>
             </router-link>
           </div>
@@ -287,9 +261,9 @@ export default {
         if (data.success) {
           await this.$store.dispatch('getCarts');
           useToast('成功更新數量!');
-        } else useToast('操作失敗!', 'danger');
+        } else useToast('發生錯誤!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.$store.dispatch('handIsLoading', false);
     },
@@ -301,10 +275,10 @@ export default {
           await this.$store.dispatch('getCarts');
           useToast('成功移除商品!');
         } else {
-          useToast('操作失敗!', 'danger');
+          useToast('發生錯誤!', 'danger');
         }
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.$store.dispatch('handIsLoading', false);
     },
@@ -315,9 +289,9 @@ export default {
         if (data.success) {
           useToast('成功移除!');
           await this.$store.dispatch('getCarts');
-        } else useToast('操作失敗!', 'danger');
+        } else useToast('發生錯誤!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.$store.dispatch('handIsLoading', false);
     },

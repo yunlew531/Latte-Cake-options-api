@@ -31,8 +31,8 @@
           @keyup.enter="searchProduct"
         />
         <button
-          class="search-btn btn position-absolute end-0 bottom-n1"
           type="button"
+          class="search-btn btn position-absolute end-0 bottom-n1"
           @click="searchProduct"
         >
           <span class="material-icons"> search </span>
@@ -63,11 +63,9 @@
         class="user-photo rounded-pill border overflow-hiddden"
       ></div>
       <p class="m-0 ms-3">
-        <span
-          class="d-block fs-5"
-          :class="calcNameSize(user.username?.length)"
-          >{{ user.username }}</span
-        >
+        <span class="d-block fs-5" :class="calcNameSize(user.username?.length)">{{
+          user.username
+        }}</span>
         <span class="fs-7 text-black-300">管理員</span>
       </p>
     </div>

@@ -16,10 +16,7 @@
             ms-5
           "
         >
-          <span
-            class="cancel-search-btn material-icons-outlined mt-1px"
-            @click="searchText = ''"
-          >
+          <span class="cancel-search-btn material-icons-outlined mt-1px" @click="searchText = ''">
             close
           </span>
           <span class="px-1">{{ searchText }}</span>
@@ -51,9 +48,7 @@
             <td class="pe-10">
               <div
                 :style="{
-                  'background-image': `url(${
-                    product.imageUrl || product.imagesUrl[0]
-                  })`,
+                  'background-image': `url(${product.imageUrl || product.imagesUrl[0]})`,
                 }"
                 class="product-img"
               ></div>
@@ -73,40 +68,23 @@
             <td class="text-nowrap">NT$ {{ product.origin_price }}</td>
             <td class="text-nowrap">NT$ {{ product.price }}</td>
             <td class="text-nowrap">
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                @click="editProduct(product)"
-              >
+              <button type="button" class="btn btn-outline-primary" @click="editProduct(product)">
                 編輯
               </button>
-              <button
-                type="button"
-                class="btn btn-primary ms-2"
-                @click="deleteProduct(product.id)"
-              >
+              <button type="button" class="btn btn-primary ms-2" @click="deleteProduct(product.id)">
                 刪除
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <Pagination
-        v-if="!searchText"
-        class="mt-8"
-        :pages="pagination"
-        @handPage="handPage"
-      />
+      <Pagination v-if="!searchText" class="mt-8" :pages="pagination" @handPage="handPage" />
     </div>
   </div>
 </template>
 
 <script>
-import {
-  apiGetProducts,
-  apiGetAllAdminProducts,
-  apiDeleteProduct,
-} from '@/api';
+import { apiGetProducts, apiGetAllAdminProducts, apiDeleteProduct } from '@/api';
 import { useToast } from '@/methods';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -143,9 +121,9 @@ export default {
         if (data.success) {
           this.products = data.products;
           this.pagination = data.pagination;
-        }
+        } else useToast('發生錯誤!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.isLoading = false;
     },
@@ -162,7 +140,7 @@ export default {
           this.allProducts = products;
         }
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
     },
     async deleteProduct(productId) {
@@ -174,7 +152,7 @@ export default {
           this.handPage();
         } else useToast('發生錯誤!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('發生錯誤!', 'danger');
       }
       this.isLoading = false;
     },

@@ -1,10 +1,7 @@
 <template>
   <section class="bg-product-info">
     <div class="bg-filter">
-      <div
-        ref="aboutMaterialPanelEl"
-        class="about-material-panel container py-50"
-      >
+      <div ref="aboutMaterialPanelEl" class="about-material-panel container py-50">
         <div
           ref="eggImgEl"
           class="
@@ -17,16 +14,10 @@
           :class="{ active: isScrollToFirstMetarial }"
         >
           <div class="about-egg-img">
-            <img
-              class="img-fluid"
-              src="@/assets/images/image-cake-2.jpg"
-              alt="cake"
-            />
+            <img class="img-fluid" src="@/assets/images/image-cake-2.jpg" alt="Paria-France-egg" />
           </div>
           <div class="p-12">
-            <h3
-              class="paragraph-title text-primary fs-4 fw-bold tracking-2 mb-5"
-            >
+            <h3 class="paragraph-title text-primary fs-4 fw-bold tracking-2 mb-5">
               雞蛋
             </h3>
             <p class="paragraph-content-1 fs-6 lh-lg">
@@ -53,9 +44,7 @@
           :class="{ active: isScrollToSecondMetarial }"
         >
           <div class="p-12 order-2 order-xl-1">
-            <h3
-              class="paragraph-title text-primary fs-4 fw-bold tracking-2 mb-5"
-            >
+            <h3 class="paragraph-title text-primary fs-4 fw-bold tracking-2 mb-5">
               麵粉
             </h3>
             <p class="paragraph-content-1 fs-6 lh-lg">
@@ -68,11 +57,7 @@
             </p>
           </div>
           <div class="about-flour-img order-1 order-xl-2">
-            <img
-              class="img-fluid"
-              src="@/assets/images/image-flour-2.jpg"
-              alt="flour"
-            />
+            <img class="img-fluid" src="@/assets/images/image-flour-2.jpg" alt="Danmark-flour" />
           </div>
         </div>
       </div>
@@ -97,10 +82,7 @@ export default {
         const { offsetTop: eggElOffsetTop, clientHeight: eggElClientHeight } = eggImgEl;
 
         const { flourImgEl } = this.$refs;
-        const {
-          offsetTop: flourElOffsetTop,
-          clientHeight: flourElClientHeight,
-        } = flourImgEl;
+        const { offsetTop: flourElOffsetTop, clientHeight: flourElClientHeight } = flourImgEl;
 
         // eggImgEl fade in
         if (

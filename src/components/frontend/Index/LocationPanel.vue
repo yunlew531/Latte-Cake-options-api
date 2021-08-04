@@ -13,16 +13,8 @@
           data-bs-slide-to="0"
           class="active"
         ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselLocation"
-          data-bs-slide-to="1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselLocation"
-          data-bs-slide-to="2"
-        ></button>
+        <button type="button" data-bs-target="#carouselLocation" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#carouselLocation" data-bs-slide-to="2"></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -99,8 +91,8 @@
         </div>
       </div>
       <button
-        class="carousel-control-prev"
         type="button"
+        class="carousel-control-prev"
         data-bs-target="#carouselLocation"
         data-bs-slide="prev"
       >
@@ -108,8 +100,8 @@
         <span class="visually-hidden">Previous</span>
       </button>
       <button
-        class="carousel-control-next"
         type="button"
+        class="carousel-control-next"
         data-bs-target="#carouselLocation"
         data-bs-slide="next"
       >
@@ -120,7 +112,7 @@
   </section>
 </template>
 
-<script >
+<script>
 import Carousel from 'bootstrap/js/dist/carousel';
 
 export default {

@@ -12,7 +12,7 @@
               :key="chef.name"
               class="col-md-6 col-lg-4 chef-card position-relative"
             >
-              <img class="img-fluid" :src="chef.url" alt="chef" />
+              <img class="img-fluid" :src="chef.url" :alt="chef.name" />
               <div
                 class="
                   card-content
@@ -27,9 +27,7 @@
                 "
               >
                 <h4 class="chef-name fs-5 pb-2 m-0">{{ chef.name }}</h4>
-                <span class="fs-7 text-black-200 d-block py-2">{{
-                  chef.position
-                }}</span>
+                <span class="fs-7 text-black-200 d-block py-2">{{ chef.position }}</span>
                 <div>
                   <a href="javascript:;" class="link-icon">
                     <i class="bi bi-facebook"></i>
@@ -61,17 +59,20 @@ export default {
       chefs: [
         {
           name: 'ANDERSON',
-          url: 'https://images.unsplash.com/photo-1611728022556-d1475c4ce9d3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=923&q=80',
+          url:
+            'https://images.unsplash.com/photo-1611728022556-d1475c4ce9d3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=923&q=80',
           position: '主廚',
         },
         {
           name: 'ESTELLA',
-          url: 'https://images.unsplash.com/photo-1614436163996-25cee5f54290?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=681&q=80',
+          url:
+            'https://images.unsplash.com/photo-1614436163996-25cee5f54290?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=681&q=80',
           position: '廚師',
         },
         {
           name: 'ISRAEL',
-          url: 'https://images.unsplash.com/photo-1541614101331-1a5a3a194e92?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80',
+          url:
+            'https://images.unsplash.com/photo-1541614101331-1a5a3a194e92?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80',
           position: '廚師',
         },
       ],

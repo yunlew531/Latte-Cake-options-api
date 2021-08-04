@@ -1,9 +1,6 @@
 <template>
   <section ref="menuPanelEl" class="bg-info overflow-hidden">
-    <div
-      class="menu-panel bg-white-100 px-5 px-md-0 py-25"
-      :class="{ active: isScrollTo }"
-    >
+    <div class="menu-panel bg-white-100 px-5 px-md-0 py-25" :class="{ active: isScrollTo }">
       <div class="container">
         <div
           class="
@@ -30,7 +27,7 @@
                 </li>
               </ul>
             </div>
-            <img src="@/assets/images/pasta.png" class="pasta-img img-fluid" />
+            <img src="@/assets/images/pasta.png" class="pasta-img img-fluid" alt="pasta-macaroni" />
           </div>
           <ul
             class="
@@ -58,9 +55,7 @@
                   </router-link>
                 </h2>
                 <div class="dash-line flex-grow-1 mx-5"></div>
-                <span class="fs-6"
-                  >NT${{ product.price?.toLocaleString() }}</span
-                >
+                <span class="fs-6">NT${{ product.price?.toLocaleString() }}</span>
               </div>
               <p class="fs-6 text-black-300 fw-light m-0">
                 {{ product.description }}
@@ -100,6 +95,7 @@
           <img
             src="@/assets/images/fork.png"
             class="fork-img img-fluid position-absolute"
+            alt="pasta-fork"
           />
         </div>
       </div>
@@ -138,13 +134,11 @@ export default {
       let displayProducts = null;
       if (this.nowCategory === '全部') filterProducts = this.products;
       else {
-        filterProducts = this.products.filter(
-          (product) => product.category === this.nowCategory,
-        );
+        filterProducts = this.products.filter((product) => product.category === this.nowCategory);
       }
+      const { currentPage } = this.pages;
       displayProducts = filterProducts.filter(
-        (product, key) => key >= (this.pages.currentPage - 1) * 8
-          && key <= this.pages.currentPage * 8 - 1,
+        (product, key) => key >= (currentPage - 1) * 8 && key <= currentPage * 8 - 1,
       );
       return { filterProducts, displayProducts };
     },
