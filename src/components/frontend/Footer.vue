@@ -12,40 +12,24 @@
       <div>
         <h3 class="footer-title fw-bold tracking-2 text-danger">PastaHouse</h3>
         <p class="text-black-300">110台北市信義區市府路1號</p>
-        <a
-          href="tel:+886-2-22885566"
-          class="text-black-300 text-decoration-none"
+        <a href="tel:+886-2-22885566" class="text-black-300 text-decoration-none"
           >電話: 02-22885566</a
         >
-        <a
-          href="mailto:spaghetti@gmail.com"
-          class="text-black-300 text-decoration-none d-block"
+        <a href="mailto:spaghetti@gmail.com" class="text-black-300 text-decoration-none d-block"
           >電子郵件： pastahouse@gmail.com</a
         >
         <div class="mt-4">
-          <a
-            href="javascript:;"
-            class="link-icon d-inline-block fs-3 rounded-pill"
-          >
-            <i class="bi bi-facebook"></i>
+          <a href="javascript:;" class="link-icon d-inline-block fs-3 rounded-pill">
+            <i class="bi bi-facebook" />
           </a>
-          <a
-            href="javascript:;"
-            class="link-icon d-inline-block fs-3 rounded-pill ms-5"
-          >
-            <i class="bi bi-instagram"></i>
+          <a href="javascript:;" class="link-icon d-inline-block fs-3 rounded-pill ms-5">
+            <i class="bi bi-instagram" />
           </a>
-          <a
-            href="javascript:;"
-            class="link-icon d-inline-block fs-3 rounded-pill ms-5"
-          >
-            <i class="bi bi-twitter"></i>
+          <a href="javascript:;" class="link-icon d-inline-block fs-3 rounded-pill ms-5">
+            <i class="bi bi-twitter" />
           </a>
-          <a
-            href="javascript:;"
-            class="link-icon d-inline-block fs-3 rounded-pill ms-5"
-          >
-            <i class="bi bi-google"></i>
+          <a href="javascript:;" class="link-icon d-inline-block fs-3 rounded-pill ms-5">
+            <i class="bi bi-google" />
           </a>
         </div>
       </div>
@@ -55,11 +39,7 @@
         <p class="fw-light mt-4">
           訂閱我們的電子郵件，可以收到最新的餐廳活動，<br />得知相關優惠訊息!
         </p>
-        <Form
-          v-slot="{ errors }"
-          @submit="submitSubscribe"
-          class="position-relative"
-        >
+        <Form v-slot="{ errors }" @submit="submitSubscribe" class="position-relative">
           <Field
             id="email"
             name="Email"
@@ -76,9 +56,8 @@
             placeholder="請輸入 Email"
             rules="email|required"
             v-model="email"
-          >
-          </Field>
-          <ErrorMessage name="Email" class="invalid-feedback"></ErrorMessage>
+          />
+          <ErrorMessage name="Email" class="invalid-feedback" />
           <button
             type="submit"
             class="

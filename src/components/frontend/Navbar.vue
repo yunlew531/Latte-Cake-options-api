@@ -73,8 +73,8 @@
           >
         </button>
         <button
-          class="navbar-toggler"
           type="button"
+          class="navbar-toggler"
           data-bs-toggle="collapse"
           data-bs-target="#carouselNavbar"
         >
@@ -144,7 +144,6 @@
         </div>
       </div>
     </nav>
-    <slot name="content"></slot>
   </header>
 </template>
 

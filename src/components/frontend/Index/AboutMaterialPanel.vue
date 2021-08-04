@@ -30,7 +30,6 @@
             </p>
           </div>
         </div>
-
         <div
           ref="flourImgEl"
           class="

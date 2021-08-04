@@ -1,8 +1,8 @@
 <template>
   <Carousel />
   <WhyChooseUs />
-  <Menu ref="menuPanelEl" @handStatus="handStatus" />
-  <HotSale @handStatus="handStatus" />
+  <Menu ref="menuPanelEl" />
+  <HotSale />
   <ImmediatelyOrder />
   <AboutMaterialPanel ref="aboutMaterialPanelEl" />
   <OurTeam />
@@ -36,10 +36,7 @@ export default {
   },
   data() {
     return {
-      ajaxStatus: {
-        isHotSaleRes: false,
-        isMenuRes: false,
-      },
+      isAjaxResponse: false,
     };
   },
   methods: {
@@ -48,27 +45,22 @@ export default {
       const position = el.offsetTop;
       window.scrollTo(0, position);
     },
-    handStatus(status) {
-      this.ajaxStatus[status.title] = status.status;
-    },
   },
   watch: {
-    ajaxStatus: {
+    isAjaxResponse: {
       handler(status) {
-        if (
-          status.isHotSaleRes
-          && status.isMenuRes
-          && this.$route.params.scrollToEl
-        ) {
+        if (status && this.$route.params.scrollToEl) {
           this.$nextTick(() => {
             this.scrollToEl(this.$route.params.scrollToEl);
           });
         }
       },
-      deep: true,
     },
   },
-  mounted() {
+  created() {
+    this.$store.dispatch('getAllProducts').then(({ success }) => {
+      if (success) this.isAjaxResponse = true;
+    });
     this.$emitter.on('scrollToEl', this.scrollToEl);
   },
   unmounted() {

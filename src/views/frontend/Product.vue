@@ -166,7 +166,7 @@
     :imgs="lightboxImgs"
     :index="lightboxIndex"
     @hide="hideLightbox"
-  ></VueEasyLightbox>
+  />
 </template>
 
 <script>

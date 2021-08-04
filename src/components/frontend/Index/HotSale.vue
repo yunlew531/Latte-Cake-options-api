@@ -15,7 +15,6 @@
         >
           熱銷商品
         </h3>
-        <h4 class="text-center fs-5 mb-12"></h4>
         <swiper
           :space-between="50"
           :autoplay="{
@@ -98,9 +97,6 @@ export default {
     SwiperSlide,
     Button,
   },
-  emits: {
-    handStatus: (status) => typeof status.status === 'boolean',
-  },
   inject: ['scroll'],
   data() {
     return {
@@ -135,7 +131,6 @@ export default {
     '$store.getters.allProducts': {
       handler(products) {
         this.products = products;
-        this.$emit('handStatus', { title: 'isHotSaleRes', status: true });
       },
     },
   },

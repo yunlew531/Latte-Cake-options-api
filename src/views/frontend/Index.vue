@@ -8,8 +8,9 @@
   >
     <template v-slot:default class="position-absolute">
       <div class="loading"></div>
-      <div class="cup-hand position-relative"></div> </template
-  ></Loading>
+      <div class="cup-hand position-relative"></div>
+    </template>
+  </Loading>
   <Navbar />
   <main>
     <router-view />

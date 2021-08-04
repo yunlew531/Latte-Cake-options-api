@@ -1,10 +1,8 @@
 import { createStore } from 'vuex';
 import {
-  apiGetCarts,
-  apiGetPageProducts,
-  apiGetOrders,
-  apiGetAllProducts,
+  apiGetCarts, apiGetPageProducts, apiGetOrders, apiGetAllProducts,
 } from '@/api';
+import { useToast } from '@/methods';
 
 export default createStore({
   state: {
@@ -48,8 +46,9 @@ export default createStore({
       try {
         const { data } = await apiGetCarts();
         if (data.success) commit('setCarts', data.data);
+        else useToast('無法取得購物車!', 'danger');
       } catch (err) {
-        console.dir(err);
+        useToast('無法取得購物車!', 'danger');
       }
     },
     async getProducts({ commit }, page) {
@@ -58,17 +57,19 @@ export default createStore({
         ({ data } = await apiGetPageProducts(page));
         if (data.success) commit('setPageProductsData', data);
       } catch (err) {
-        console.dir(err);
+        data = err;
       }
       return data;
     },
     async getAllProducts({ commit }) {
+      let data = null;
       try {
-        const { data } = await apiGetAllProducts();
+        ({ data } = await apiGetAllProducts());
         if (data.success) commit('setAllProducts', data.products);
       } catch (err) {
-        console.dir(err);
+        data = err;
       }
+      return data;
     },
     async getBackstageOrders({ commit }, page) {
       let data = null;
@@ -78,7 +79,7 @@ export default createStore({
           commit('setBackstageOrders', data);
         }
       } catch (err) {
-        console.dir(err);
+        data = err;
       }
       return data;
     },

@@ -7,7 +7,6 @@
     @mouseenter="isMouseInCarousel = true"
     @mouseleave="(isMouseInCarousel = false), handTextShadow($event)"
   >
-    <!-- 進度條 start -->
     <div class="progress carousel-progress position-absolute">
       <div
         class="progress-bar"
@@ -17,9 +16,6 @@
         aria-valuemax="100"
       ></div>
     </div>
-    <!-- 進度條 end -->
-
-    <!-- title 最初 teleport 位置 start -->
     <div
       id="titleTeleportMiddle"
       class="
@@ -32,14 +28,8 @@
         z-10
       "
     >
-      <CarouselTitle
-        v-model:isReadyTextShadow="isReadyTextShadow"
-        :styleSheets="styleSheets"
-      />
+      <CarouselTitle v-model:isReadyTextShadow="isReadyTextShadow" :styleSheets="styleSheets" />
     </div>
-    <!-- title 最初 teleport 位置 end -->
-
-    <!-- title 動畫結束後 teleport 位置 start -->
     <div
       id="titleTeleportAside"
       class="
@@ -51,9 +41,7 @@
         overflow-hidden
         px-5 px-xxl-12
       "
-    ></div>
-    <!-- title 動畫結束後 teleport 位置 end -->
-
+    />
     <div ref="carouselDom" class="carousel slide carousel-fade">
       <ul class="carousel-inner m-0 p-0">
         <li
@@ -63,7 +51,7 @@
           :class="{ active: key === 0 }"
           :style="{ 'background-image': `url(${image})` }"
           @animationend="isResetAnime = false"
-        ></li>
+        />
       </ul>
     </div>
     <div class="scroll-btn position-absolute bottom-0 start-50 z-10">
@@ -115,10 +103,7 @@ export default {
       if (!this.isReadyTextShadow || document.body.offsetWidth < 1366) return;
       const { offsetX, offsetY } = $event;
 
-      if (
-        $event.target !== this.$refs.carouselPanel
-        || !this.isMouseInCarousel
-      ) {
+      if ($event.target !== this.$refs.carouselPanel || !this.isMouseInCarousel) {
         this.styleSheets.title = {
           transition: '1s',
           textShadow: '-0.1rem 0.1rem 0.5rem white',
@@ -138,16 +123,10 @@ export default {
   },
   mounted() {
     this.handCarousel();
-    this.$refs.carouselDom.addEventListener(
-      'slide.bs.carousel',
-      this.handProgressBar,
-    );
+    this.$refs.carouselDom.addEventListener('slide.bs.carousel', this.handProgressBar);
   },
   beforeUnmount() {
-    this.$refs.carouselDom.removeEventListener(
-      'slide.bs.carousel',
-      this.handProgressBar,
-    );
+    this.$refs.carouselDom.removeEventListener('slide.bs.carousel', this.handProgressBar);
   },
 };
 </script>
