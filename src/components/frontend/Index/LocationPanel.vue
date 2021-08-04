@@ -12,13 +12,13 @@
           data-bs-target="#carouselLocation"
           data-bs-slide-to="0"
           class="active"
-        ></button>
-        <button type="button" data-bs-target="#carouselLocation" data-bs-slide-to="1"></button>
-        <button type="button" data-bs-target="#carouselLocation" data-bs-slide-to="2"></button>
+        />
+        <button type="button" data-bs-target="#carouselLocation" data-bs-slide-to="1" />
+        <button type="button" data-bs-target="#carouselLocation" data-bs-slide-to="2" />
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <div class="shop-taipei"></div>
+          <div class="shop-taipei" />
           <div
             class="
               carousel-caption
@@ -42,7 +42,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="shop-taichung"></div>
+          <div class="shop-taichung" />
           <div
             class="
               carousel-caption
@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="shop-kausheng"></div>
+          <div class="shop-kausheng" />
           <div
             class="
               carousel-caption
@@ -96,7 +96,7 @@
         data-bs-target="#carouselLocation"
         data-bs-slide="prev"
       >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="carousel-control-prev-icon" aria-hidden="true" />
         <span class="visually-hidden">Previous</span>
       </button>
       <button
@@ -105,7 +105,7 @@
         data-bs-target="#carouselLocation"
         data-bs-slide="next"
       >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="carousel-control-next-icon" aria-hidden="true" />
         <span class="visually-hidden">Next</span>
       </button>
     </div>

@@ -146,11 +146,9 @@ export default {
     goToPage(page, id) {
       if (page === 'product') this.$router.push(`/${page}/${id}`);
       else this.$router.push(`/${page}`);
-      this.cartCanvas.hide();
     },
     goToCart() {
       this.$router.push('/cart');
-      this.cartCanvas.hide();
     },
     async handQty(item, num) {
       const product = { ...item };
@@ -190,6 +188,11 @@ export default {
         this.cartsData = val;
       },
       immediate: true,
+    },
+    '$route.path': {
+      handler() {
+        this.hideCartCanvas();
+      },
     },
   },
   created() {

@@ -162,12 +162,9 @@ import { useToast } from '@/methods';
 import { apiGetCustOrder, apiPutEditOrder, apiDelOrder } from '@/api';
 import TranslateTime from '@/mixins/TranslateTime.vue';
 import Modal from '@/components/Modal.vue';
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   components: {
-    Loading,
     Modal,
   },
   mixins: [TranslateTime],

@@ -61,7 +61,7 @@
       <div
         :style="{ 'background-image': `url(${user.photo})` }"
         class="user-photo rounded-pill border overflow-hiddden"
-      ></div>
+      />
       <p class="m-0 ms-3">
         <span class="d-block fs-5" :class="calcNameSize(user.username?.length)">{{
           user.username

@@ -1,16 +1,16 @@
 <template>
-  <section class="navbar-bg"></section>
+  <div class="navbar-bg" />
   <section class="container cart-panel mb-12">
     <div class="row g-8">
       <div class="col-lg-8">
         <div class="rounded shadow-sm bg-white p-8">
           <div v-if="cartsData.carts?.length !== 0" class="d-flex align-items-center">
             <span class="fs-4 me-auto">{{ cartsData.carts?.length }} 件商品</span>
-            <Button @click="removeAllCarts" class="remove-all-products-btn">移除所有商品 </Button>
+            <Button @click="removeAllCarts" class="remove-all-products-btn">移除所有商品</Button>
           </div>
           <div v-else class="d-flex justify-content-center align-content-center">
             <router-link to="/products">
-              <Button class="px-5 py-2">立即前往購物 </Button>
+              <Button class="px-5 py-2">立即前往購物</Button>
             </router-link>
           </div>
           <ul class="list-unstyled">

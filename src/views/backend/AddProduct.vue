@@ -201,14 +201,9 @@
 <script>
 import { useToast } from '@/methods';
 import { apiPostUploadImg, apiPostAddProduct, apiPutEditProduct } from '@/api';
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'AddProduct',
-  components: {
-    Loading,
-  },
   props: {
     boardStatus: {
       type: String,

@@ -14,11 +14,9 @@
           <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">
             取消
           </button>
-          <slot name="button">
-            <button type="button" class="btn btn-primary" @click="onDelete">
-              刪除
-            </button>
-          </slot>
+          <button type="button" class="btn btn-primary" @click="onDelete">
+            刪除
+          </button>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="msgModal" @onDelete="deleteAllOrders"> </Modal>
+  <Modal ref="msgModal" @onDelete="deleteAllOrders" />
   <div class="rounded bg-white shadow w-100 p-10 position-relative">
     <Loading v-model:active="isLoading" :is-full-page="false" />
     <div class="d-flex justify-content-center">
@@ -52,8 +52,6 @@
 </template>
 
 <script>
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
 import TranslateTime from '@/mixins/TranslateTime.vue';
 import Pagination from '@/components/Pagination.vue';
 import Modal from '@/components/Modal.vue';
@@ -62,7 +60,6 @@ import { useToast } from '@/methods';
 
 export default {
   components: {
-    Loading,
     Modal,
     Pagination,
   },

@@ -181,14 +181,9 @@ import {
   apiPostAddCoupon, apiGetCoupons, apiPutEditCoupon, apiDeleteCoupon,
 } from '@/api';
 import { useToast } from '@/methods';
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
 import TranslateTime from '../../mixins/TranslateTime.vue';
 
 export default {
-  components: {
-    Loading,
-  },
   mixins: [TranslateTime],
   data() {
     return {

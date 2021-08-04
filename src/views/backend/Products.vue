@@ -1,4 +1,5 @@
 <template>
+  <Modal ref="msgModal" @onDelete="deleteProduct" />
   <div class="rounded bg-white shadow w-100 p-10">
     <Loading v-model:active="isLoading" :is-full-page="false" />
     <div class="d-flex align-items-center">
@@ -71,7 +72,7 @@
               <button type="button" class="btn btn-outline-primary" @click="editProduct(product)">
                 編輯
               </button>
-              <button type="button" class="btn btn-primary ms-2" @click="deleteProduct(product.id)">
+              <button type="button" class="btn btn-primary ms-2" @click="showModal">
                 刪除
               </button>
             </td>
@@ -86,8 +87,7 @@
 <script>
 import { apiGetProducts, apiGetAllAdminProducts, apiDeleteProduct } from '@/api';
 import { useToast } from '@/methods';
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
+import Modal from '@/components/Modal.vue';
 import Pagination from '@/components/Pagination.vue';
 
 export default {
@@ -101,7 +101,7 @@ export default {
     handStatus: (status) => status.status === '編輯',
   },
   components: {
-    Loading,
+    Modal,
     Pagination,
   },
   data() {
@@ -165,6 +165,12 @@ export default {
     },
     handSearch(text) {
       this.searchText = text;
+    },
+    showModal() {
+      this.$refs.msgModal.showModal({
+        title: '刪除訂單',
+        content: '是否刪除訂單? 刪除後無法恢復。',
+      });
     },
   },
   computed: {

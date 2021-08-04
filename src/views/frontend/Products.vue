@@ -1,11 +1,11 @@
 <template>
-  <div class="nav-bg"></div>
+  <div class="nav-bg" />
   <section class="products-panel container mb-12">
     <div
       id="navbarTeleportTop"
       class="teleport-container-top duration-600 mb-8"
       :class="isScrollDown ? 'w-0' : 'w-100'"
-    ></div>
+    />
     <div class="row">
       <CategoryNav
         v-model:nowCategory="nowCategory"
@@ -16,7 +16,7 @@
         id="navbarTeleportAside"
         class="teleport-container-aside duration-500 position-relative"
         :class="isScrollDown ? 'col-2' : 'w-0'"
-      ></div>
+      />
       <div
         class="products-panel-container duration-500"
         :class="isScrollDown ? 'col-10' : 'col-12'"
@@ -83,18 +83,14 @@
                       align-items-center
                     "
                     :style="{
-                      'background-image': `url(${
-                        product.imageUrl || product.imagesUrl[0]
-                      })`,
+                      'background-image': `url(${product.imageUrl || product.imagesUrl[0]})`,
                     }"
                   >
                     <p class="more-info-text text-white duration-500">
                       商品詳細
                     </p>
                   </div>
-                  <div
-                    class="product-content d-flex justify-content-between mt-2"
-                  >
+                  <div class="product-content d-flex justify-content-between mt-2">
                     <div>
                       <h2 class="fs-5 mb-0 duration-200">
                         {{ product.title }}
@@ -117,9 +113,7 @@
                 <p class="d-flex justify-content-between m-0">
                   <span class="text-decoration-line-through"
                     >原價: NT${{ product.origin_price?.toLocaleString() }}</span
-                  ><span class="fs-5"
-                    >售價: NT${{ product.price.toLocaleString() }}</span
-                  >
+                  ><span class="fs-5">售價: NT${{ product.price.toLocaleString() }}</span>
                 </p>
               </router-link>
             </li>

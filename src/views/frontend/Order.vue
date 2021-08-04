@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-bg"></div>
+  <div class="nav-bg" />
   <section class="order-panel bg-white rounded shadow-sm container p-10">
     <Loading v-model:active="isLoading" :is-full-page="false" />
     <div v-if="order.id">
@@ -20,10 +20,7 @@
         <h4 class="fs-6 d-flex align-items-center m-0 me-2">
           狀態:
           <span>
-            <span
-              v-if="order.is_paid"
-              class="text-success d-flex align-items-center"
-            >
+            <span v-if="order.is_paid" class="text-success d-flex align-items-center">
               <span class="material-icons-outlined"> done </span>
               <span>已付款</span>
             </span>
@@ -53,11 +50,7 @@
         </li>
       </ul>
       <ul class="list-unstyled row g-6">
-        <li
-          v-for="product in order.products"
-          :key="product.id"
-          class="col-lg-6"
-        >
+        <li v-for="product in order.products" :key="product.id" class="col-lg-6">
           <div class="bg-white-100 border rounded p-5">
             <h2 class="fs-5 m-0 me-auto mb-2">
               <router-link
@@ -76,14 +69,11 @@
                 <h4 class="fs-6">類別: {{ product.product.category }}</h4>
                 <p class="d-flex align-items-center mb-2">
                   <span class="text-decoration-line-through me-auto"
-                    >原價:
-                    {{ product.product.origin_price?.toLocaleString() }}</span
+                    >原價: {{ product.product.origin_price?.toLocaleString() }}</span
                   >
                   <span
                     >售價:
-                    <span class="text-danger">{{
-                      product.product.price?.toLocaleString()
-                    }}</span>
+                    <span class="text-danger">{{ product.product.price?.toLocaleString() }}</span>
                   </span>
                 </p>
                 <p class="mb-2">數量: {{ product.qty }}</p>
@@ -92,9 +82,7 @@
                 </p>
                 <p class="mb-2">
                   折扣後金額:
-                  <span class="text-danger fs-5">{{
-                    product.final_total?.toLocaleString()
-                  }}</span>
+                  <span class="text-danger fs-5">{{ product.final_total?.toLocaleString() }}</span>
                 </p>
               </div>
             </div>

@@ -1,5 +1,5 @@
 <template>
-  <section class="nav-bg"></section>
+  <div class="nav-bg" />
   <section class="checkout-panel container position-relative mb-12">
     <router-link to="/cart" class="position-absolute start-0 top-n16">
       <Button class="fs-6 px-5 ms-2">返回購物車</Button>

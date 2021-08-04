@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-bg"></div>
+  <div class="navbar-bg" />
   <section
     class="container about-us-panel bg-white shadow-sm rounded mb-n12"
     :class="{ active: isAnimeReset }"

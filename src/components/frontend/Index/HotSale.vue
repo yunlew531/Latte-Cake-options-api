@@ -15,7 +15,7 @@
         >
           熱銷商品
         </h3>
-        <swiper
+        <Swiper
           :space-between="50"
           :autoplay="{
             delay: 5000,
@@ -39,7 +39,7 @@
           }"
           @swiper="setControlledSwiper"
         >
-          <swiper-slide
+          <SwiperSlide
             v-for="(product, key) in products"
             :key="key"
             class="rounded overflow-hidden bg-info"
@@ -69,8 +69,8 @@
                 </div>
               </div>
             </router-link>
-          </swiper-slide>
-        </swiper>
+          </SwiperSlide>
+        </Swiper>
         <div class="text-center mt-12">
           <router-link to="/products" class="d-block">
             <Button hoverBgColor="white" class="all-products-btn px-12 py-2"

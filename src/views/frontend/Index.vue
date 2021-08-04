@@ -7,8 +7,8 @@
     :opacity="0.7"
   >
     <template v-slot:default class="position-absolute">
-      <div class="loading"></div>
-      <div class="cup-hand position-relative"></div>
+      <div class="loading" />
+      <div class="cup-hand position-relative" />
     </template>
   </Loading>
   <Navbar />
@@ -26,12 +26,9 @@ import SubFooter from '@/components/frontend/SubFooter.vue';
 import Footer from '@/components/frontend/Footer.vue';
 import CartCanvas from '@/components/frontend/CartCanvas.vue';
 import GetScrollY from '@/mixins/GetScrollY.vue';
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   components: {
-    Loading,
     Navbar,
     SubFooter,
     Footer,
@@ -53,7 +50,6 @@ export default {
       handler() {
         this.isLoading = this.$store.getters.isLoading;
       },
-      immediate: true,
     },
   },
 };

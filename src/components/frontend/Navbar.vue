@@ -1,9 +1,10 @@
 <template>
   <header class="d-block position-absolute z-999 top-0 start-0 end-0 p-0">
-    <p
+    <ul
       class="
         container
         fs-7
+        list-unstyled
         fw-light
         text-white
         d-flex
@@ -13,11 +14,15 @@
         mb-0
       "
     >
-      <span class="fs-6 material-icons text-danger"> phone_iphone </span
-      ><span class="ps-1">02-23164516</span>
-      <span class="fs-6 material-icons text-danger ps-5"> schedule </span>
-      <span class="ps-1">每日早上8點 ~ 晚上10點</span>
-    </p>
+      <li class="d-flex align-items-center">
+        <span class="fs-6 material-icons text-danger"> phone_iphone </span>
+        <span class="ps-1">02-23164516</span>
+      </li>
+      <li class="d-flex align-items-center">
+        <span class="fs-6 material-icons text-danger ps-5"> schedule </span>
+        <span class="ps-1">每日早上8點 ~ 晚上10點</span>
+      </li>
+    </ul>
     <nav
       class="
         navbar navbar-expand-lg navbar-light
@@ -78,9 +83,9 @@
           data-bs-toggle="collapse"
           data-bs-target="#carouselNavbar"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon" />
         </button>
-        <div class="collapse navbar-collapse ps-8" id="carouselNavbar">
+        <div class="collapse navbar-collapse ps-8" id="carouselNavbar" ref="carouselNavbar">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li v-for="link in navLinks" :key="link" class="nav-item">
               <router-link :to="link.url" class="nav-link active px-xl-5" aria-current="page">
@@ -207,6 +212,7 @@ export default {
     '$route.path': {
       handler(path) {
         if (path !== '/products') this.$store.dispatch('handNavSearchText', '');
+        this.$refs.carouselNavbar.classList.remove('show');
       },
     },
   },
@@ -235,7 +241,6 @@ export default {
     }
   }
 }
-
 .navbar-nav {
   transform: translateY(-150%) rotate3d(0, 1, 0, 45deg);
   animation: navbar-nav 0.8s forwards cubic-bezier(0.17, 0.67, 0.71, 1.26);
@@ -245,14 +250,12 @@ export default {
     transform: translateY(0) rotate3d(0, 0, 0, 45deg);
   }
 }
-
 .cart-btn {
   color: $white;
   &:hover {
     color: shade-color($white, 20%);
   }
 }
-
 .navbar {
   background-color: rgba(28, 28, 28, 0.6);
   top: $spacer * 1.75;
@@ -268,7 +271,6 @@ export default {
     }
   }
 }
-
 .search-input {
   caret-color: $white;
   background-color: transparent;

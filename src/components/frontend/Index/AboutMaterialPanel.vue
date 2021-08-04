@@ -1,8 +1,8 @@
 <template>
   <section class="bg-product-info">
     <div class="bg-filter">
-      <div ref="aboutMaterialPanelEl" class="about-material-panel container py-50">
-        <div
+      <ul ref="aboutMaterialPanelEl" class="about-material-panel container list-unstyled py-50">
+        <li
           ref="eggImgEl"
           class="
             material-egg
@@ -29,8 +29,8 @@
               得到了眾多重要的意大利和歐洲認證的證明。
             </p>
           </div>
-        </div>
-        <div
+        </li>
+        <li
           ref="flourImgEl"
           class="
             material-flour
@@ -58,8 +58,8 @@
           <div class="about-flour-img order-1 order-xl-2">
             <img class="img-fluid" src="@/assets/images/image-flour-2.jpg" alt="Danmark-flour" />
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </section>
 </template>
