@@ -12,53 +12,30 @@
         />
       </div>
       <div class="col-sm-3">
-        <router-link :to="`/order/${orderCode}`" class="d-block">
-          <Button class="w-100 h-100 mt-2 mt-sm-0">查詢</Button>
-        </router-link>
+        <Button class="w-100 h-100 mt-2 mt-sm-0" @click="searchOrder" :disabled="!orderCode"
+          >查詢</Button
+        >
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { apiGetCustOrders } from '@/api';
-import TranslateTime from '@/mixins/TranslateTime.vue';
-import { useToast } from '@/methods';
 import Button from '@/components/frontend/Button.vue';
-import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
-  mixins: [TranslateTime],
   components: {
     Button,
   },
   data() {
     return {
-      isLoading: false,
-      orders: [],
-      pagination: {},
       orderCode: '',
     };
   },
   methods: {
-    async getOrders(page) {
-      this.isLoading = true;
-      const { data } = await apiGetCustOrders(page);
-      if (data.success) {
-        this.orders = data.orders;
-        this.pagination = data.pagination;
-      } else useToast('無法取得訂單!', 'danger');
-      this.isLoading = false;
+    searchOrder() {
+      if (this.orderCode) this.$router.push(`/order/${this.orderCode}`);
     },
-    showOrderDetail(order) {
-      this.$router.push(`/order/${order.id}`);
-    },
-    handPage(page) {
-      this.getOrders(page);
-    },
-  },
-  created() {
-    this.getOrders();
   },
 };
 </script>
