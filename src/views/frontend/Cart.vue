@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-bg" />
+  <div class="navbar-bg"></div>
   <section class="container cart-panel mb-12">
     <div class="row g-8">
       <div class="col-lg-8">

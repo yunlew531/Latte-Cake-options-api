@@ -14,7 +14,7 @@
         aria-valuenow="75"
         aria-valuemin="0"
         aria-valuemax="100"
-      />
+      ></div>
     </div>
     <div
       id="titleTeleportMiddle"
@@ -41,7 +41,7 @@
         overflow-hidden
         px-5 px-xxl-12
       "
-    />
+    ></div>
     <div ref="carouselDom" class="carousel slide carousel-fade">
       <ul class="carousel-inner m-0 p-0">
         <li
@@ -51,7 +51,7 @@
           :class="{ active: key === 0 }"
           :style="{ 'background-image': `url(${image})` }"
           @animationend="isResetAnime = false"
-        />
+        ></li>
       </ul>
     </div>
     <div class="scroll-btn position-absolute bottom-0 start-50 z-10">

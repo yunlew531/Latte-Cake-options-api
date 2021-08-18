@@ -149,7 +149,7 @@
               v-model.trim="product.description"
               cols="30"
               rows="3"
-            />
+            ></textarea>
           </div>
           <div class="mb-3">
             <label for="content" class="form-label mb-1">產品內容</label>
@@ -161,7 +161,7 @@
               v-model.trim="product.content"
               cols="30"
               rows="3"
-            />
+            ></textarea>
           </div>
           <div class="d-flex align-items-center mt-4">
             <div class="me-auto">

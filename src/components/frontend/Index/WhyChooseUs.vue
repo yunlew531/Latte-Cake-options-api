@@ -8,22 +8,17 @@
       <div class="container overflow-hidden pt-38">
         <h3 class="title text-center">
           為什麼選擇
-          <span class="shop-name fs-2 text-danger fw-bold px-1"
-            >PastaHouse</span
-          >
+          <span class="shop-name fs-2 text-danger fw-bold px-1">PastaHouse</span>
           ?
         </h3>
         <p class="paragraph text-center fs-6 fw-light pt-3">
           我們的功夫源自於義大利威尼斯，代代相傳並由
-          <span class="shop-name text-danger fw-bold px-1">PastaHouse</span
-          >使用最好的原料，<br />讓您以簡單的方式品嘗到健康而正宗的傳統風味。
+          <span class="shop-name text-danger fw-bold px-1">PastaHouse</span>
+          使用最好的原料，<br />
+          讓您以簡單的方式品嘗到健康而正宗的傳統風味。
         </p>
         <ul class="row list-unstyled g-8 py-8">
-          <li
-            v-for="content in cardList"
-            :key="content"
-            class="col-sm-6 col-lg-4 card-item"
-          >
+          <li v-for="content in cardList" :key="content" class="col-sm-6 col-lg-4 card-item">
             <div
               class="
                 card-container
@@ -59,18 +54,15 @@ export default {
       cardList: [
         {
           title: '品質',
-          content:
-            '從尚未加工的原材料開始：蔬菜經過清潔，肉經過研磨、調味和煮熟，雞蛋手工破碎。',
+          content: '從尚未加工的原材料開始：蔬菜經過清潔，肉經過研磨、調味和煮熟，雞蛋手工破碎。',
         },
         {
           title: '烹飪',
-          content:
-            '我們不斷學習，主動嘗試最新烹飪趨勢，以符合客人對我們的期待。',
+          content: '我們不斷學習，主動嘗試最新烹飪趨勢，以符合客人對我們的期待。',
         },
         {
           title: '服務',
-          content:
-            '對待客人像對待自己的朋友一樣善待他們。無論您是誰，我們都提供無可挑剔的服務。',
+          content: '對待客人像對待自己的朋友一樣善待他們。無論您是誰，我們都提供無可挑剔的服務。',
         },
       ],
       isScrollTo: false,

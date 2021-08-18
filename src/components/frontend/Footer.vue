@@ -20,16 +20,16 @@
         >
         <div class="mt-4">
           <a href="javascript:;" class="link-icon d-inline-block fs-3 rounded-pill">
-            <i class="bi bi-facebook" />
+            <i class="bi bi-facebook"></i>
           </a>
           <a href="javascript:;" class="link-icon d-inline-block fs-3 rounded-pill ms-5">
-            <i class="bi bi-instagram" />
+            <i class="bi bi-instagram"></i>
           </a>
           <a href="javascript:;" class="link-icon d-inline-block fs-3 rounded-pill ms-5">
-            <i class="bi bi-twitter" />
+            <i class="bi bi-twitter"></i>
           </a>
           <a href="javascript:;" class="link-icon d-inline-block fs-3 rounded-pill ms-5">
-            <i class="bi bi-google" />
+            <i class="bi bi-google"></i>
           </a>
         </div>
       </div>

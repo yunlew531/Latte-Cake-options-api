@@ -5,7 +5,12 @@
         <Loading v-model:active="isLoading" :is-full-page="false" />
         <div class="modal-header">
           <h5 class="modal-title">{{ msg.title }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <p>{{ msg.content }}</p>

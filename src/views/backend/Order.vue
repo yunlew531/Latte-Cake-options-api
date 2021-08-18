@@ -58,7 +58,7 @@
           ><span class="px-5 py-2">{{ order.user.tel }}</span>
         </li>
         <li class="user-item d-flex">
-          <span class="user-title px-5 py-2 ">信箱</span
+          <span class="user-title px-5 py-2">信箱</span
           ><span class="px-5 py-2">{{ order.user.email }}</span>
         </li>
         <li class="user-item d-flex">

@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-bg" />
+  <div class="nav-bg"></div>
   <section class="orders-panel bg-white rounded shadow-sm container p-10">
     <Loading v-model:active="isLoading" :is-full-page="false" />
     <div v-if="!isLoading">
@@ -24,10 +24,7 @@
               <td>{{ order.id }}</td>
               <td>{{ translateTime(order?.create_at, 'string') }}</td>
               <td>
-                <p
-                  v-if="order.is_paid"
-                  class="text-success d-flex align-items-center m-0"
-                >
+                <p v-if="order.is_paid" class="text-success d-flex align-items-center m-0">
                   <span class="material-icons-outlined"> check </span>
                   <span>已付款</span>
                 </p>

@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-bg" />
+  <div class="nav-bg"></div>
   <section class="order-panel bg-white rounded shadow-sm container p-10">
     <Loading v-model:active="isLoading" :is-full-page="false" />
     <div v-if="order.id">
@@ -63,7 +63,7 @@
               <img
                 :src="product.product.imageUrl || product.product.imagesUrl[0]"
                 :alt="product.product.title"
-                class="product-img rounded me-8"
+                class="product-img rounded"
               />
               <div class="flex-grow-1 mt-5 mt-sm-0">
                 <h4 class="fs-6">類別: {{ product.product.category }}</h4>
@@ -145,6 +145,7 @@ export default {
   transform: translateY(-50px);
 }
 .user-item {
+  flex-wrap: wrap;
   border-top: $gray-300 solid 1px;
   border-bottom: $gray-300 solid 1px;
   margin-bottom: -1px;
@@ -156,11 +157,11 @@ export default {
   }
 }
 .user-title {
-  width: 150px;
   flex-shrink: 0;
+  width: 150px;
   background: shade-color($white, 5%);
   @include media-breakpoint-down(sm) {
-    width: 100px;
+    width: 100%;
   }
 }
 .product-name {
@@ -173,6 +174,12 @@ export default {
   width: 150px;
   height: 150px;
   object-fit: cover;
+  margin-left: 32px;
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+    height: 200px;
+    margin: 0;
+  }
 }
 .price-input {
   width: 150px;

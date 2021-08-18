@@ -30,16 +30,16 @@
                 <span class="fs-7 text-black-200 d-block py-2">{{ chef.position }}</span>
                 <div>
                   <a href="javascript:;" class="link-icon">
-                    <i class="bi bi-facebook" />
+                    <i class="bi bi-facebook"></i>
                   </a>
                   <a href="javascript:;" class="link-icon ms-2">
-                    <i class="bi bi-instagram" />
+                    <i class="bi bi-instagram"></i>
                   </a>
                   <a href="javascript:;" class="link-icon ms-2">
-                    <i class="bi bi-twitter" />
+                    <i class="bi bi-twitter"></i>
                   </a>
                   <a href="javascript:;" class="link-icon ms-2">
-                    <i class="bi bi-google" />
+                    <i class="bi bi-google"></i>
                   </a>
                 </div>
               </div>

@@ -14,7 +14,7 @@
           :style="{ 'background-image': `url(${imgFilter})` }"
           class="shop-img w-100 h-100"
           @click="showLightbox(0)"
-        />
+        ></div>
       </div>
       <div class="small-shop-imgs col-lg-8">
         <ul class="row gx-6 gy-6 h-100 mt-6 mt-lg-0 list-unstyled">

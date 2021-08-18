@@ -83,7 +83,7 @@
           data-bs-toggle="collapse"
           data-bs-target="#carouselNavbar"
         >
-          <span class="navbar-toggler-icon" />
+          <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse ps-8" id="carouselNavbar" ref="carouselNavbar">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
