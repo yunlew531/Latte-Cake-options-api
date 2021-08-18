@@ -95,7 +95,7 @@
               border border-gray-300
               shadow-inset
               rounded
-              p-5 p-sm-12
+              p-5 p-sm-10
             "
           >
             <div class="d-flex align-items-center">
@@ -156,10 +156,103 @@
               >加入購物車
             </Button>
           </div>
+          <div
+            class="
+              bg-white
+              border border-gray-300
+              shadow-inset
+              rounded
+              px-5 px-sm-10 py-8
+              mt-5
+            "
+          >
+            <table class="table table-hover w-100">
+              <thead>
+                <tr>
+                  <th>熱量</th>
+                  <th>每份</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>熱量 (Kcal):</td>
+                  <td>{{ product.calories }}</td>
+                </tr>
+                <tr>
+                  <td>蛋白質 (g):</td>
+                  <td>{{ product.protein }}</td>
+                </tr>
+                <tr>
+                  <td>脂肪 (g):</td>
+                  <td>{{ product.fat }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </section>
+  <section class="product-panel bg-white rounded shadow-sm container p-5 p-sm-10 my-10">
+    <h2 class="fs-4 text-primary mb-6">您可能感興趣的商品</h2>
+    <Swiper
+      :space-between="50"
+      :autoplay="{
+        delay: 5000,
+        disableOnInteraction: false,
+      }"
+      :speed="2000"
+      :loop="true"
+      :breakpoints="{
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 50,
+        },
+      }"
+      @swiper="setControlledSwiper"
+    >
+      <SwiperSlide
+        v-for="(product, key) in products"
+        :key="key"
+        class="rounded overflow-hidden bg-info"
+      >
+        <router-link :to="`/product/${product.id}`" class="swiper-item position-relative d-block">
+          <div
+            class="swiper-img"
+            :style="{
+              'background-image': `url(${product.imageUrl || product.imagesUrl[0]})`,
+            }"
+          ></div>
+          <div
+            class="
+              swiper-content
+              position-absolute
+              text-white
+              bottom-0
+              h-50
+              w-100
+              d-flex align-items-end
+              px-5
+            "
+          >
+            <div class="text-reset text-decoration-none">
+              <h2>{{ product.title }}</h2>
+              <p>{{ product.description }}</p>
+            </div>
+          </div>
+        </router-link>
+      </SwiperSlide>
+    </Swiper>
+  </section>
+
   <VueEasyLightbox
     moveDisabled
     :visible="isLightboxShow"
@@ -173,12 +266,19 @@
 import { apiPostAddCart, apiGetProductInfo } from '@/api';
 import { useToast } from '@/methods';
 import VueEasyLightbox from 'vue-easy-lightbox';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import SwiperCore, { Autoplay } from 'swiper';
+import 'swiper/swiper.scss';
 import Button from '@/components/frontend/Button.vue';
+
+SwiperCore.use(Autoplay);
 
 export default {
   name: 'Product',
   components: {
     VueEasyLightbox,
+    Swiper,
+    SwiperSlide,
     Button,
   },
   data() {
@@ -189,6 +289,7 @@ export default {
       productNum: 1,
       product: {},
       isAnimeReset: false,
+      products: {},
     };
   },
   methods: {
@@ -230,14 +331,24 @@ export default {
       }
       this.$store.dispatch('handIsLoading', false);
     },
+    setControlledSwiper(swiper) {
+      this.swiper = swiper;
+      swiper.autoplay.start();
+    },
   },
   created() {
     this.getProductInfo(this.$route.params.id);
+    this.$store.dispatch('getAllProducts');
   },
   watch: {
     '$route.params.id': {
       handler(id) {
         if (this.$route.name === 'Product') this.getProductInfo(id);
+      },
+    },
+    '$store.getters.allProducts': {
+      handler(products) {
+        this.products = products;
       },
     },
   },
@@ -361,5 +472,23 @@ export default {
     transform: translateY(100px);
     opacity: 0;
   }
+}
+.swiper-item {
+  cursor: pointer;
+  &:hover {
+    .swiper-img {
+      transform: scale(1);
+    }
+  }
+}
+.swiper-img {
+  transition: 0.5s;
+  transform: scale(1.1);
+  height: 400px;
+  background: center no-repeat;
+  background-size: cover;
+}
+.swiper-content {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
 }
 </style>

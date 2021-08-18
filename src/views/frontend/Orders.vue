@@ -1,53 +1,21 @@
 <template>
   <div class="nav-bg"></div>
   <section class="orders-panel bg-white rounded shadow-sm container p-10">
-    <Loading v-model:active="isLoading" :is-full-page="false" />
-    <div v-if="!isLoading">
-      <h2>訂單</h2>
-      <div class="table-panel">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">訂單編號</th>
-              <th scope="col">成立時間</th>
-              <th scope="col">狀態</th>
-              <th scope="col">金額</th>
-              <th width="80" scope="col">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(order, key) in orders" :key="order.id">
-              <th scope="row">
-                {{ (pagination.current_page - 1) * 10 + key + 1 }}
-              </th>
-              <td>{{ order.id }}</td>
-              <td>{{ translateTime(order?.create_at, 'string') }}</td>
-              <td>
-                <p v-if="order.is_paid" class="text-success d-flex align-items-center m-0">
-                  <span class="material-icons-outlined"> check </span>
-                  <span>已付款</span>
-                </p>
-                <p v-else class="text-primary d-flex align-items-center m-0">
-                  <span class="material-icons-outlined"> close </span>
-                  <span>未付款</span>
-                </p>
-              </td>
-              <td>NT$ {{ order.total?.toLocaleString() }}</td>
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-outline-primary"
-                  @click="showOrderDetail(order)"
-                >
-                  詳細
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <h2 class="mb-3">訂單查詢</h2>
+    <div class="row align-items-center">
+      <div class="col-sm-9">
+        <input
+          type="text"
+          class="w-100 rounded px-2 py-1"
+          placeholder="請輸入訂單編號"
+          v-model="orderCode"
+        />
       </div>
-      <Pagination :pages="pagination" @handPage="handPage" class="pt-5" />
+      <div class="col-sm-3">
+        <router-link :to="`/order/${orderCode}`" class="d-block">
+          <Button class="w-100 h-100 mt-2 mt-sm-0">查詢</Button>
+        </router-link>
+      </div>
     </div>
   </section>
 </template>
@@ -55,22 +23,21 @@
 <script>
 import { apiGetCustOrders } from '@/api';
 import TranslateTime from '@/mixins/TranslateTime.vue';
-import Pagination from '@/components/Pagination.vue';
 import { useToast } from '@/methods';
-import Loading from 'vue-loading-overlay';
+import Button from '@/components/frontend/Button.vue';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   mixins: [TranslateTime],
   components: {
-    Loading,
-    Pagination,
+    Button,
   },
   data() {
     return {
       isLoading: false,
       orders: [],
       pagination: {},
+      orderCode: '',
     };
   },
   methods: {
@@ -105,6 +72,7 @@ export default {
   background-size: cover;
 }
 .orders-panel {
+  max-width: 800px;
   transform: translateY(-50px);
 }
 .table-panel {

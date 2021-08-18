@@ -137,6 +137,42 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-4">
+              <label class="form-label">
+                熱量
+                <input
+                  type="text"
+                  class="form-control mt-1"
+                  placeholder="請輸入 熱量"
+                  v-model.number="product.calories"
+                />
+              </label>
+            </div>
+            <div class="col-4">
+              <label class="form-label">
+                蛋白質
+                <input
+                  type="text"
+                  class="form-control mt-1"
+                  placeholder="請輸入 蛋白質"
+                  v-model.number="product.protein"
+                />
+              </label>
+            </div>
+            <div class="col-4">
+              <label class="form-label">
+                脂肪
+                <input
+                  type="text"
+                  class="form-control mt-1"
+                  placeholder="請輸入 脂肪"
+                  v-model.number="product.fat"
+                />
+              </label>
+            </div>
+          </div>
+
           <div class="dropdown-divider my-5"></div>
           <div class="mb-3">
             <label for="description" class="form-label mb-1">產品描述</label>
@@ -250,6 +286,9 @@ export default {
         imageUrl: this.product.imageUrl,
         imagesUrl: this.product.imagesUrl,
         freeDelivery: this.product.freeDelivery,
+        calories: this.product.calories,
+        protein: this.product.protein,
+        fat: this.product.fat,
       };
       const method = this.boardStatus === '新增' ? apiPostAddProduct : apiPutEditProduct;
       const { id } = this.product;

@@ -4,7 +4,7 @@
     class="immediate-order-panel bg-info"
     :class="{ active: isScrollTo }"
   >
-    <div class="container position-relative py-8 py-md-16 mt-50">
+    <div class="container position-relative py-8 py-md-16 mt-16 mt-sm-50">
       <img
         class="
           spaggetti-img

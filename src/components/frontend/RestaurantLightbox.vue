@@ -16,7 +16,7 @@
           @click="showLightbox(0)"
         ></div>
       </div>
-      <div class="small-shop-imgs col-lg-8">
+      <div class="col-lg-8 small-shop-imgs">
         <ul class="row gx-6 gy-6 h-100 mt-6 mt-lg-0 list-unstyled">
           <li
             v-for="(img, key) in imgsFilter"

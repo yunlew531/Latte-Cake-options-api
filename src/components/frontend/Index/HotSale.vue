@@ -1,7 +1,7 @@
 <template>
   <section class="bg-info overflow-hidden">
     <div ref="hotSalePanelEl" class="hot-sale-panel bg-white-100" :class="{ active: isScrollTo }">
-      <div class="container pt-12 pb-md-38">
+      <div class="container pt-10 pb-md-38">
         <h3
           class="
             title

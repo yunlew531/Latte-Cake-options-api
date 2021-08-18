@@ -62,7 +62,6 @@ export default {
           }
           return data;
         })
-        .catch()
         .then(({ success }) => {
           if (success) this.getUser();
         })

@@ -1,6 +1,9 @@
 <template>
   <section ref="menuPanelEl" class="bg-info overflow-hidden">
-    <div class="menu-panel bg-white-100 px-5 px-md-0 py-25" :class="{ active: isScrollTo }">
+    <div
+      class="menu-panel bg-white-100 px-5 px-md-0 py-10 py-sm-25"
+      :class="{ active: isScrollTo }"
+    >
       <div class="container">
         <div
           class="
@@ -9,6 +12,7 @@
             overflow-hidden
             position-relative
             px-3 px-sm-10
+            pt-3
             pb-16
           "
         >

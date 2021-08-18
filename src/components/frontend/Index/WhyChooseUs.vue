@@ -5,7 +5,7 @@
       class="why-choose-us-panel bg-white-100"
       :class="{ active: isScrollTo }"
     >
-      <div class="container overflow-hidden pt-38">
+      <div class="container overflow-hidden pt-20 pt-sm-38">
         <h3 class="title text-center">
           為什麼選擇
           <span class="shop-name fs-2 text-danger fw-bold px-1">PastaHouse</span>

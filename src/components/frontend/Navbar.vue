@@ -88,7 +88,7 @@
         <div class="collapse navbar-collapse ps-8" id="carouselNavbar" ref="carouselNavbar">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li v-for="link in navLinks" :key="link" class="nav-item">
-              <router-link :to="link.url" class="nav-link active px-xl-5" aria-current="page">
+              <router-link :to="link.url" class="narbar-link nav-link px-xl-5" aria-current="page">
                 {{ link.title }}
               </router-link>
             </li>
@@ -215,6 +215,17 @@ export default {
         this.$refs.carouselNavbar.classList.remove('show');
       },
     },
+    '$store.getters.isLogIn': {
+      handler(status) {
+        this.navLinks.forEach((item, key) => {
+          if (status && item.url === '/login') {
+            this.navLinks[key].title = '管理頁';
+          } else if (!status && item.url === '/login') this.navLinks[key].title = '登入';
+        });
+      },
+      deep: true,
+      immediate: true,
+    },
   },
 };
 </script>
@@ -223,6 +234,26 @@ export default {
 @import '~bootstrap/scss/functions';
 @import '~@/assets/styleSheets/custom/variables';
 @import '~bootstrap/scss/mixins';
+
+.narbar-link {
+  position: relative;
+  &::before {
+    content: '';
+    width: 0;
+    height: 1px;
+    background: $white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: 0.3s;
+  }
+  &:hover {
+    &::before {
+      width: 100%;
+      left: 0;
+    }
+  }
+}
 
 .navbar-brand {
   font-family: 'Nothing You Could Do', cursive;

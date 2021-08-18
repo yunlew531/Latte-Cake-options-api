@@ -173,27 +173,6 @@
                         <span class="text-danger material-icons"> delete </span>
                         <span class="ms-1">移除商品</span>
                       </button>
-                      <button
-                        type="button"
-                        class="
-                          product-remove-btn
-                          border-0
-                          bg-transparent
-                          d-flex
-                          align-items-center
-                          p-0
-                          mt-1 mt-sm-0
-                          ms-md-3
-                        "
-                      >
-                        <span class="material-icons heart-border">
-                          favorite_border
-                        </span>
-                        <span class="material-icons heart-solid">
-                          favorite
-                        </span>
-                        <span class="btn-text ms-1">移動到想要清單</span>
-                      </button>
                     </div>
                     <span class="fs-4">NT$ {{ product.total?.toLocaleString() }} 元</span>
                   </div>

@@ -1,7 +1,10 @@
 <template>
   <section class="bg-product-info">
     <div class="bg-filter">
-      <ul ref="aboutMaterialPanelEl" class="about-material-panel container list-unstyled py-50">
+      <ul
+        ref="aboutMaterialPanelEl"
+        class="about-material-panel container list-unstyled pt-25 py-sm-50"
+      >
         <li
           ref="eggImgEl"
           class="

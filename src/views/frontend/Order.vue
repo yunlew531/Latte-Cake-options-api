@@ -120,8 +120,11 @@ export default {
       this.isLoading = true;
       const { id } = this.$route.params;
       const { data } = await apiGetCustOrder(id);
-      if (data.success) this.order = data.order;
-      else useToast('無法取得訂單!', 'danger');
+      if (data.success && data.order) this.order = data.order;
+      else {
+        useToast('無法取得此筆訂單!', 'danger');
+        this.$router.push('/orders');
+      }
       this.isLoading = false;
     },
   },
@@ -174,7 +177,7 @@ export default {
   width: 150px;
   height: 150px;
   object-fit: cover;
-  margin-left: 32px;
+  margin-right: 32px;
   @include media-breakpoint-down(sm) {
     width: 100%;
     height: 200px;
